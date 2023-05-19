@@ -33,8 +33,7 @@
 
         case "supprimer":
             $id = $_GET['id'];
-            personne::supprimerpersonne($id);
-
+            personne::supprimereleve($id);
             header('Location: index.php?uc=personne&action=liste');
             break;
 

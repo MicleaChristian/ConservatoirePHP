@@ -11,18 +11,7 @@
                 break ;
 
 
-        case "ajouter":
-        
-                // Traitement du formulaire d'ajout de eleve
-                $eleve = new eleve();
-                $eleve->setIDELEVE(eleve::securiser($_POST[""]));
-                $eleve->setNIVEAU(eleve::securiser($_POST['niveau']));
-                $eleve->setBOURSE(eleve::securiser($_POST['bourse']));
-                // Redirection vers la liste des eleves
-                header('Location: index.php?uc=eleve&action=liste');
-                exit;
-        
-            break;
+
 
         case "supprimer":
             $ideleve = $_GET['ideleve'];

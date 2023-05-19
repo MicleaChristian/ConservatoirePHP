@@ -172,9 +172,14 @@ class personne
                 $req->execute();
         }
 
-        public static function supprimerpersonne($id)
+        public static function supprimereleve($id)
         {
-                $req = monPdo::getInstance()->prepare("delete from personne where id = :id");
+                $pdo = MonPdo::getInstance();
+                $req = $pdo->prepare("delete from eleve where IDELEVE = :id");
+                $req->bindParam(':id', $id);
+                $req->execute();
+                
+                $req = $pdo->prepare("delete from personne where ID = :id");
                 $req->bindParam(':id', $id);
                 $req->execute();
         }
