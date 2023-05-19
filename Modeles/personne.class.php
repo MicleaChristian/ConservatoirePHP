@@ -151,7 +151,7 @@ class personne
                 return $lesResultats;
         }
 
-        public static function ajouterpersonne(personne $personne, eleve $eleve)
+        public static function ajoutereleve(personne $personne, eleve $eleve)
         {
 
                 $pdo = MonPdo::getInstance();

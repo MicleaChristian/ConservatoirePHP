@@ -7,7 +7,7 @@
             break;
 
             case "ajout_form" :
-                include "Vues/ajouterpersonnes.php" ;
+                include "Vues/ajoutereleve.php" ;
                 break ;
 
 
@@ -24,7 +24,7 @@
                 $eleve->setNIVEAU(personne::securiser($_POST['niveau']));
                 $eleve->setBOURSE(personne::securiser($_POST['bourse']));
 
-                $ajoutPersonne = personne::ajouterPersonne($personne, $eleve);
+                $ajoutPersonne = personne::ajoutereleve($personne, $eleve);
                 // Redirection vers la liste des personnes
                 header('Location: index.php?uc=personne&action=liste');
                 exit;

@@ -79,7 +79,7 @@ switch ($uc) {
         break;
 
     case "ajouter":
-        include("Vues/ajouterpersonnes.php");
+        include("Vues/ajoutereleve.php");
         break;
 
 

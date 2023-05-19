@@ -33,7 +33,6 @@ require_once 'Modeles/personne.class.php';
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="index.php?uc=personne&action=liste">Afficher les élèves</a></li>
                             <li><a class="dropdown-item" href="index.php?uc=personne&action=ajout_form">Ajouter un élève</a></li>
-                            <li><a class="dropdown-item" href="index.php?uc=personne&action=editer_form">Modifier un élève</a></li>
                         </ul>
                     </div>
                     <div class="dropdown">
