@@ -12,7 +12,7 @@
 
 
         case "ajouter":
-        
+
                 // Traitement du formulaire d'ajout de personne
                 $personne = new personne();
                 $personne->setNOM(personne::securiser($_POST["nom"]));
@@ -28,13 +28,13 @@
                 // Redirection vers la liste des personnes
                 header('Location: index.php?uc=personne&action=liste');
                 exit;
-        
+
             break;
 
         case "supprimer":
             $id = $_GET['id'];
             personne::supprimerpersonne($id);
-        
+
             header('Location: index.php?uc=personne&action=liste');
             break;
 
@@ -46,9 +46,8 @@
                 } else {
                     echo "Person not found.";
                 }
-                include "vues/editerpersonne.php";
                 break;
-            
+
             case "editer":
                 $personne = new personne();
                 $personne->setID($_POST["id"]);
