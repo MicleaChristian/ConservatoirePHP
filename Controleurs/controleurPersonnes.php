@@ -19,7 +19,12 @@
                 $personne->setPRENOM(personne::securiser($_POST['prenom']));
                 $personne->setMAIL(personne::securiser($_POST['mail']));
                 $personne->setTEL(personne::securiser($_POST['tel']));
-                $ajoutPersonne = personne::ajouterPersonne($personne);
+                $personne->setADRESSE(personne::securiser($_POST['adress']));
+                $eleve = new eleve();
+                $eleve->setNIVEAU(personne::securiser($_POST['niveau']));
+                $eleve->setBOURSE(personne::securiser($_POST['bourse']));
+
+                $ajoutPersonne = personne::ajouterPersonne($personne, $eleve);
                 // Redirection vers la liste des personnes
                 header('Location: index.php?uc=personne&action=liste');
                 exit;
@@ -51,6 +56,7 @@
                 $personne->setPRENOM(personne::securiser($_POST['prenom']));
                 $personne->setMAIL(personne::securiser($_POST['mail']));
                 $personne->setTEL(personne::securiser($_POST['tel']));
+                $personne->setADRESSE(personne::securiser($_POST['adress']));
                 $updatePersonne = personne::updatePersonne($personne);
                 header('Location: index.php?uc=personne&action=liste');
                 exit;

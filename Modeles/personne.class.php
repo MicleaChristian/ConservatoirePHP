@@ -1,4 +1,72 @@
 <?php
+
+class eleve
+{
+        private $IDELEVE;
+        private $NIVEAU;
+        private $BOURSE;
+
+
+        /**
+         * Get the value of IDELEVE
+         */ 
+        public function getIDELEVE()
+        {
+                return $this->IDELEVE;
+        }
+
+        /**
+         * Set the value of IDELEVE
+         *
+         * @return  self
+         */ 
+        public function setIDELEVE($IDELEVE)
+        {
+                $this->IDELEVE = $IDELEVE;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of NIVEAU
+         */ 
+        public function getNIVEAU()
+        {
+                return $this->NIVEAU;
+        }
+
+        /**
+         * Set the value of NIVEAU
+         *
+         * @return  self
+         */ 
+        public function setNIVEAU($NIVEAU)
+        {
+                $this->NIVEAU = $NIVEAU;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of BOURSE
+         */ 
+        public function getBOURSE()
+        {
+                return $this->BOURSE;
+        }
+
+        /**
+         * Set the value of BOURSE
+         *
+         * @return  self
+         */ 
+        public function setBOURSE($BOURSE)
+        {
+                $this->BOURSE = $BOURSE;
+
+                return $this;
+        }
+}
 class personne
 {
         private $ID;
@@ -83,14 +151,24 @@ class personne
                 return $lesResultats;
         }
 
-        public static function ajouterpersonne(personne $personne)
+        public static function ajouterpersonne(personne $personne, eleve $eleve)
         {
+
                 $pdo = MonPdo::getInstance();
-                $req = $pdo->prepare("insert into personne (NOM,PRENOM,MAIL,TEL) values (:nom,:prenom,:mail,:tel)");
+                $req = $pdo->prepare("insert into personne (NOM, PRENOM, TEL, MAIL, ADRESSE) values (:nom,:prenom,:tel,:mail,:adress);
+                
+                set @last_id_in_personne = LAST_INSERT_ID();
+                
+                insert into eleve (IDELEVE, NIVEAU, BOURSE)
+                VALUES (@last_id_in_personne, :niveau, :bourse);
+                ");
                 $req->bindValue(':nom', $personne->getNOM(), PDO::PARAM_STR);
                 $req->bindValue(':prenom', $personne->getPRENOM(), PDO::PARAM_STR);
                 $req->bindValue(':mail', $personne->getMAIL(), PDO::PARAM_STR);
                 $req->bindValue(':tel', $personne->getTEL(), PDO::PARAM_STR);
+                $req->bindValue(':adress', $personne->getADRESSE(), PDO::PARAM_STR);
+                $req->bindValue(':niveau', $eleve->getNIVEAU(), PDO::PARAM_STR);
+                $req->bindValue(':bourse', $eleve->getBOURSE(), PDO::PARAM_STR);
                 $req->execute();
         }
 

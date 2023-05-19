@@ -62,20 +62,36 @@
     <form action="index.php?uc=personne&action=ajouter" method="POST">
         <div class="mb-3">
             <label for="nom" class="form-label">Nom :</label>
-            <input type="text" class="form-control" id="nom" name="nom" required>
+            <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom"required>
         </div>
         <div class="mb-3">
             <label for="prenom" class="form-label">Prénom :</label>
-            <input type="text" class="form-control" id="prenom" name="prenom" required>
+            <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom" required>
         </div>
         <div class="mb-3">
             <label for="mail" class="form-label">mail :</label>
-            <input type="mail" class="form-control" id="mail" name="mail" required>
+            <input type="mail" class="form-control" id="mail" name="mail" placeholder="Mail" required>
         </div>
         <div class="mb-3">
             <label for="tel" class="form-label">Téléphone :</label>
-            <input type="text" class="form-control" id="tel" name="tel" required>
+            <input type="text" class="form-control" id="tel" name="tel" placeholder="Tel" required>
         </div>
+
+        <div class="mb-3">
+            <label for="adress" class="form-label">Adresse :</label>
+            <input type="text" class="form-control" id="adress" name="adress" placeholder="Adresse" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="niveau" class="form-label">Niveau :</label>
+            <input type="number" class="form-control" id="niveau" name="niveau" placeholder="Niveau" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="bourse" class="form-label">Bourse :</label>
+            <input type="text" class="form-control" id="bourse" name="bourse" placeholder="Niveau" required>
+        </div>
+
         <input type="submit" class="btn btn-primary" value="Ajouter">
     </form>
 </div>
