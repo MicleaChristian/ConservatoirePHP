@@ -1,6 +1,6 @@
 <?php
-require_once('Modeles/monPdo.php');
 
+ini_set('display_errors', 0);
 class LoginController 
 {
     public function show() 
