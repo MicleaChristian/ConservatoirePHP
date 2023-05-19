@@ -12,7 +12,7 @@
 
 
         case "ajouter":
-        
+
                 // Traitement du formulaire d'ajout de personne
                 $seance = new cours();
                 $seance->setIDPROF(cours::securiser($_POST["idprof"]));
@@ -24,13 +24,13 @@
                 // Redirection vers la liste des personnes
                 header('Location: index.php?uc=cours&action=liste');
                 exit;
-        
+
             break;
 
         case "supprimer":
             $id = $_GET['id'];
             cours::supprimercours($id);
-        
+
             header('Location: index.php?uc=cours&action=liste');
             break;
 
@@ -44,7 +44,7 @@
                 }
                 include "vues/editercours.php";
                 break;
-            
+
             case "editer":
                 $personne = new personne();
                 $personne->setID($_POST["id"]);

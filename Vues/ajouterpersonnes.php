@@ -28,7 +28,6 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="index.php?uc=personne&action=liste">Afficher les élèves</a></li>
                             <li><a class="dropdown-item" href="index.php?uc=personne&action=ajout_form">Ajouter un élève</a></li>
-                            <li><a class="dropdown-item" href="index.php?uc=personne&action=editer_form">Modifier un élève</a></li>
                         </ul>
                     </div>
                     <div class="dropdown">
@@ -40,18 +39,7 @@
                             <li><a class="nav-link" href="index.php?uc=cours&action=ajout_form">Ajouter un cours</a></li>
                         </ul>
                     </div>
-                    <div class="relative">
-                        <form class="position-absolute top-50 start-50 translate-middle" action="index.php" method="POST">
-                            <input type="hidden" name="uc" value="logout">
-                            <input type="hidden" name="action" value="deconnexion">
-                            <ul class="navbar-nav">
-                                <li class="d-flex">
-                                    <p class="me-5"> Bonjour <?php echo $_SESSION['user_id']; ?> </p>
-                                    <button type="submit" class="btn btn-danger">Déconnexion</button>
-                                </li>
-                            </ul>
-                        </form>
-                    </div>
+                    <?php include("header/header.php") ?>
                 </div>
             </div>
         </div>
