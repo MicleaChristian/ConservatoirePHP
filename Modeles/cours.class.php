@@ -153,10 +153,10 @@ class cours
 
     public static function supprimercours($numseance)
     {
-        $req = MonPdo::getInstance()->prepare("DELETE FROM cours WHERE NUMSEANCE = :numseance");
+        $req = monPdo::getInstance()->prepare("delete from personne where NUMSEANCE = :numseance");
         $req->bindParam(':numseance', $numseance);
         $req->execute();
-    }    
+    }
 
     public static function securiser($donnees)
     {

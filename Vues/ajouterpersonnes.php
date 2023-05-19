@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.php?uc=accueil">Conservatoire</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,16 +18,32 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="index.php?uc=accueil">Accueil</a>
-                    <a class="nav-link" href="index.php?uc=personne&action=liste">Nos élèves</a>
-                    <a class="nav-link disabled" href="index.php?uc=personne&action=ajout_form">ajouter des élèves</a>
-                    <a class="nav-link" href="index.php?uc=personne&action=editer_form">Modifier un élève</a>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Eleves
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="index.php?uc=personne&action=liste">Afficher les élèves</a></li>
+                            <li><a class="dropdown-item" href="index.php?uc=personne&action=ajout_form">Ajouter un élève</a></li>
+                            <li><a class="dropdown-item" href="index.php?uc=personne&action=editer_form">Modifier un élève</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Cours
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="nav-link" href="index.php?uc=cours&action=liste">Nos cours</a></li>
+                            <li><a class="nav-link" href="index.php?uc=cours&action=ajout_form">Ajouter un cours</a></li>
+                        </ul>
+                    </div>
                     <div class="relative">
                         <form class="position-absolute top-50 start-50 translate-middle" action="index.php" method="POST">
                             <input type="hidden" name="uc" value="logout">
                             <input type="hidden" name="action" value="deconnexion">
                             <ul class="navbar-nav">
                                 <li class="d-flex">
-                                    <p class="me-5"> Bonjour <?php echo $_SESSION['user_id'];?> </p>
+                                    <p class="me-5"> Bonjour <?php echo $_SESSION['user_id']; ?> </p>
                                     <button type="submit" class="btn btn-danger">Déconnexion</button>
                                 </li>
                             </ul>
@@ -37,7 +53,6 @@
             </div>
         </div>
     </nav>
-
 
 <div class="container-fluid position-relative mt-3">
     <h2 class="position-absolute top-0 start-50 translate-middle">Ajouter une personne</h2>

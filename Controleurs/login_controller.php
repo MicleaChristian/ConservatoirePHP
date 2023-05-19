@@ -16,8 +16,6 @@ class LoginController
         if ($result) {
             session_start();
             $_SESSION['user_id'] = $result['id'];
-            $_SESSION['id'] = $user['id'];
-            $_SESSION['password'] = $user['password'];
             header('Location: index.php?uc=accueil');
             exit;
         } 
@@ -30,10 +28,7 @@ class LoginController
     
     public function logout() 
     {
-        unset($_SESSION['id']);
-        unset($_SESSION['password']);
         session_destroy();
-
         header('Location:index.php?uc=logout');
         exit;
     }

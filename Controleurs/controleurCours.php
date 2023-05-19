@@ -36,25 +36,24 @@
 
             case "editer_form":
                 $id = $_GET["id"];
-                $seance = cours::getBynumseance($id);
-                if ($seance) {
+                $seance = cours::getByNumseance($id);
+                if ($personne) {
                     include "vues/editercours.php";
                 } else {
                     echo "Class not found.";
                 }
+                include "vues/editercours.php";
                 break;
             
             case "editer":
-                $seance = new cours();
-                $seance->setNUMSEANCE($_POST["numseance"]);
-                $seance->setIDPROF(cours::securiser($_POST["idprof"]));
-                $seance->setTRANCHE(cours::securiser($_POST['tranche']));
-                $seance->setJOUR(cours::securiser($_POST['jour']));
-                $seance->setNIVEAU(cours::securiser($_POST['niveau']));
-                $seance->setCAPACITE(cours::securiser($_POST['capacite']));
-                $updateCours = cours::updateCours($seance);
-                header('Location: index.php?uc=cours&action=liste');
+                $personne = new personne();
+                $personne->setID($_POST["id"]);
+                $personne->setNOM(personne::securiser($_POST["nom"]));
+                $personne->setPRENOM(personne::securiser($_POST['prenom']));
+                $personne->setMAIL(personne::securiser($_POST['mail']));
+                $personne->setTEL(personne::securiser($_POST['tel']));
+                $updatePersonne = personne::updatePersonne($personne);
+                header('Location: index.php?uc=personne&action=liste');
                 exit;
                 break;
-            
     }
