@@ -31,6 +31,26 @@
 
             break;
 
+            case "ajouterprof":
+
+                // Traitement du formulaire d'ajout de personne
+                $personne = new personne();
+                $personne->setNOM(personne::securiser($_POST["nom"]));
+                $personne->setPRENOM(personne::securiser($_POST['prenom']));
+                $personne->setMAIL(personne::securiser($_POST['mail']));
+                $personne->setTEL(personne::securiser($_POST['tel']));
+                $personne->setADRESSE(personne::securiser($_POST['adress']));
+                $prof = new prof();
+                $prof->setINSTRUMENT(prof::securiser($_POST['instrument']));
+                $prof->setSALAIRE(prof::securiser($_POST['salaire']));
+
+                $ajoutPersonne = personne::ajouterprof($personne, $prof);
+                // Redirection vers la liste des personnes
+                header('Location: index.php?uc=personne&action=liste');
+                exit;
+
+            break;
+
         case "supprimer":
             $id = $_GET['id'];
             personne::supprimereleve($id);
@@ -49,12 +69,11 @@
 
             case "editer":
                 $personne = new personne();
-                $personne->setID($_POST["id"]);
+                $personne->setID(personne::securiser($_GET["id"]));
                 $personne->setNOM(personne::securiser($_POST["nom"]));
                 $personne->setPRENOM(personne::securiser($_POST['prenom']));
                 $personne->setMAIL(personne::securiser($_POST['mail']));
                 $personne->setTEL(personne::securiser($_POST['tel']));
-                $personne->setADRESSE(personne::securiser($_POST['adress']));
                 $updatePersonne = personne::updatePersonne($personne);
                 header('Location: index.php?uc=personne&action=liste');
                 exit;

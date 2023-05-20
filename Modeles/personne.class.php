@@ -1,5 +1,57 @@
 <?php
 
+class prof
+{
+        private $IDPROF;
+        private $INSTRUMENT;
+        private $SALAIRE;
+
+        /**
+         * Get the value of SALAIRE
+         */
+        public function getSALAIRE() {
+                return $this->SALAIRE;
+        }
+
+        /**
+         * Set the value of SALAIRE
+         */
+        public function setSALAIRE($SALAIRE): self {
+                $this->SALAIRE = $SALAIRE;
+                return $this;
+        }
+
+        /**
+         * Get the value of INSTRUMENT
+         */
+        public function getINSTRUMENT() {
+                return $this->INSTRUMENT;
+        }
+
+        /**
+         * Set the value of INSTRUMENT
+         */
+        public function setINSTRUMENT($INSTRUMENT): self {
+                $this->INSTRUMENT = $INSTRUMENT;
+                return $this;
+        }
+
+        /**
+         * Get the value of IDPROF
+         */
+        public function getIDPROF() {
+                return $this->IDPROF;
+        }
+
+        /**
+         * Set the value of IDPROF
+         */
+        public function setIDPROF($IDPROF): self {
+                $this->IDPROF = $IDPROF;
+                return $this;
+        }
+}
+
 class eleve
 {
         private $IDELEVE;
@@ -203,15 +255,13 @@ class personne
 
         public static function updatePersonne(personne $personne)
         {
-                $pdo = MonPdo::getInstance();
-                $req = $pdo->prepare("UPDATE personne SET NOM=:nom, PRENOM=:prenom, MAIL=:mail, TEL=:tel WHERE ID=:id");
+                $req = MonPdo::getInstance()->prepare("update personne set NOM=:nom, PRENOM=:prenom, MAIL=:mail, TEL=:tel WHERE ID=:id");
                 $req->bindValue(':id', $personne->getID(), PDO::PARAM_INT);
                 $req->bindValue(':nom', $personne->getNOM(), PDO::PARAM_STR);
                 $req->bindValue(':prenom', $personne->getPRENOM(), PDO::PARAM_STR);
                 $req->bindValue(':mail', $personne->getMAIL(), PDO::PARAM_STR);
-                $req->bindValue(':tel', $personne->getTEL(), PDO::PARAM_STR);
+                $req->bindValue(':tel', $personne->getTEL(), PDO::PARAM_INT);                
                 $req->execute();
         }
 }
-
 ?>
