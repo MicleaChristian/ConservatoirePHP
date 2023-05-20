@@ -194,9 +194,9 @@ class personne
                 return $this;
         }
 
-        public static function afficherTous()
+        public static function affichereleve()
         {
-                $req = MonPdo::getInstance()->prepare("select * from personne");
+                $req = MonPdo::getInstance()->prepare("SELECT * FROM personne INNER JOIN eleve ON ID = IDELEVE;");
                 $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'personne');
                 $req->execute();
                 $lesResultats = $req->fetchAll();

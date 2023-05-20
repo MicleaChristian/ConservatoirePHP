@@ -32,6 +32,15 @@
                     </div>
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Profs
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="index.php?uc=personne&action=liste">Afficher les profs</a></li>
+                            <li><a class="dropdown-item" href="index.php?uc=personne&action=ajout_form">Ajouter un prof</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Cours
                         </button>
                         <ul class="dropdown-menu">

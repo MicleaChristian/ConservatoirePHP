@@ -2,7 +2,7 @@
     $action = $_GET["action"];
     switch ($action) {
         case "liste":
-            $lesPersonnes = personne::afficherTous();
+            $lesPersonnes = personne::affichereleve();
             include("vues/afficherpersonnes.php");
             break;
 
