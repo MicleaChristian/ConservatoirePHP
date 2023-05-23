@@ -3,12 +3,12 @@ $action = $_GET["action"];
 switch ($action) {
     case "liste":
         $lesPersonnes = personne::affichereleve();
-        include("vues/afficherpersonnes.php");
+        include("Vues/afficherpersonnes.php");
         break;
 
     case "listeprof":
         $lesPersonnes = personne::afficherprof();
-        include("vues/afficherprof.php");
+        include("Vues/afficherprof.php");
         break;
 
     case "ajout_form":

@@ -58,19 +58,19 @@ switch ($uc) {
         break;
 
     case "personne":
-        include("controleurs/controleurPersonnes.php");
+        include("Controleurs/controleurPersonnes.php");
         break;
 
     case "cours":
-        include("controleurs/controleurCours.php");
+        include("Controleurs/controleurCours.php");
         break;
 
     case "Admin":
-        include "controleurs/controleurAdmin.php";
+        include "Controleurs/controleurAdmin.php";
         break;
 
     case "eleve";
-        include("controleurs/controleurEleve.php");
+        include("Controleurs/controleurEleve.php");
         break;
 
     case "logout":
