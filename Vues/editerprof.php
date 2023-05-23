@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+<?php
+require_once 'Modeles/personne.class.php';
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -54,50 +59,36 @@
         </div>
     </nav>
     <div class="position-relative mt-5 mb-3">
-        <h2 class="d-flex justify-content-center mt-5">Les Professeurs</h2>
+        <h2 class="d-flex justify-content-center mt-5">Modifier les informations de <?php echo $personne->getNOM() . " " . $personne->getPRENOM(); ?></h2>
     </div>
-    <div class="container-fluid position-relative mt-5">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Prénom</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Tel</th>
-                    <th scope="col">Adresse</th>
-                    <th scope="col">Instrument</th>
-                    <th scope="col">Salaire</th>
-                    <th scope="col">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-
-
-                <?php
-                foreach ($lesPersonnes as $personne) {
-                    echo "<tr>";
-                    echo "<td>" . $personne->getNOM() . "</td>";
-                    echo "<td>" . $personne->getPRENOM() . "</td>";
-                    echo "<td>" . $personne->getMAIL() . "</td>";
-                    echo "<td>" . $personne->getTEL() . "</td>";
-                    echo "<td>" . $personne->getADRESSE() . "</td>";
-                    echo "<td>" . $personne->getINSTRUMENT() . "</td>";
-                    echo "<td>" . $personne->getSALAIRE() . "</td>";
-                    echo "<td><a href='index.php?uc=personne&action=supprimerprof&id=". $personne->getID() ."' class='btn btn-danger'>Supprimer</a></td>";
-                    echo "<td><a href='index.php?uc=personne&action=editer_formprof&id=". $personne->getID() ."' class='btn btn-warning'>Modifier</a></td>";
-                    echo "</tr>";
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
-
-    <footer>
-        <p>&copy; <?php echo date("Y"); ?> Miclea Christian</p>
-    </footer>
-
+    <div class="container-fluid position-relative mt-3">
+        <form action="index.php?uc=personne&action=editerprof&id=<?php echo $personne->getID(); ?>" method="POST">
+            <div class="row">
+                <div class="col">
+                    <label for="nom" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="nom" name="nom" value="<?php echo $personne->getNOM(); ?>">
+                </div>
+                <div class="col">
+                    <label for="prenom" class="form-label">Prénom</label>
+                    <input type="text" class="form-control" id="prenom" name="prenom" value="<?php echo $personne->getPRENOM(); ?>">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <label for="mail" class
+                    ="form-label">Mail</label>
+                <input type="email" class="form-control" id="mail" name="mail" value="<?php echo $personne->getMAIL(); ?>">
+            </div>
+            <div class="col">
+                <label for="tel" class="form-label">Téléphone</label>
+                <input type="text" class="form-control" id="tel" name="tel" value="<?php echo $personne->getTEL(); ?>">
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mt-5">
+            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+            <a href="index.php?uc=personne&action=listeprof" class="btn btn-secondary">Retour à la liste des profs</a>
+        </div>
+    </form>
+</div>
 </body>
-
-
-
 </html>

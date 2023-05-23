@@ -342,6 +342,16 @@ class personne
                 $req->execute();
         }
 
+        public static function updateprof(personne $personne)
+        {
+                $req = MonPdo::getInstance()->prepare("update personne set NOM=:nom, PRENOM=:prenom, MAIL=:mail, TEL=:tel WHERE ID=:id");
+                $req->bindValue(':id', $personne->getID(), PDO::PARAM_INT);
+                $req->bindValue(':nom', $personne->getNOM(), PDO::PARAM_STR);
+                $req->bindValue(':prenom', $personne->getPRENOM(), PDO::PARAM_STR);
+                $req->bindValue(':mail', $personne->getMAIL(), PDO::PARAM_STR);
+                $req->bindValue(':tel', $personne->getTEL(), PDO::PARAM_INT);                
+                $req->execute();
+        }
 
 }
 ?>

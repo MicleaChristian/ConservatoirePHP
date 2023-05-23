@@ -59,7 +59,7 @@ require_once 'Modeles/personne.class.php';
         </div>
     </nav>
     <div class="position-relative mt-5 mb-3">
-        <h2 class="position-absolute top-0 start-50 translate-middle">Modifier les informations de <?php echo $personne->getNOM() . " " . $personne->getPRENOM(); ?></h2>
+        <h2 class="d-flex justify-content-center mt-5">Modifier les informations de <?php echo $personne->getNOM() . " " . $personne->getPRENOM(); ?></h2>
     </div>
     <div class="container-fluid position-relative mt-3">
         <form action="index.php?uc=personne&action=editer&id=<?php echo $personne->getID(); ?>" method="POST">
@@ -84,7 +84,7 @@ require_once 'Modeles/personne.class.php';
                 <input type="text" class="form-control" id="tel" name="tel" value="<?php echo $personne->getTEL(); ?>">
             </div>
         </div>
-        <div class="position-absolute bottom-0 end-0 mb-3 me-3">
+        <div class="d-flex justify-content-center mt-5">
             <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
             <a href="index.php?uc=personne&action=liste" class="btn btn-secondary">Retour à la liste des élèves</a>
         </div>
