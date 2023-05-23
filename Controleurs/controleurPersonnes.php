@@ -6,10 +6,18 @@
             include("vues/afficherpersonnes.php");
             break;
 
+            case "listeprof":
+                $lesPersonnes = personne::afficherprof();
+                include("vues/afficherprof.php");
+                break;
+
             case "ajout_form" :
                 include "Vues/ajoutereleve.php" ;
                 break ;
 
+                case "ajoutprof_form" :
+                    include "Vues/ajouterprof.php" ;
+                    break ;
 
         case "ajouter":
 
@@ -41,12 +49,12 @@
                 $personne->setTEL(personne::securiser($_POST['tel']));
                 $personne->setADRESSE(personne::securiser($_POST['adress']));
                 $prof = new prof();
-                $prof->setINSTRUMENT(prof::securiser($_POST['instrument']));
-                $prof->setSALAIRE(prof::securiser($_POST['salaire']));
+                $prof->setINSTRUMENT(personne::securiser($_POST['instrument']));
+                $prof->setSALAIRE(personne::securiser($_POST['salaire']));
 
                 $ajoutPersonne = personne::ajouterprof($personne, $prof);
                 // Redirection vers la liste des personnes
-                header('Location: index.php?uc=personne&action=liste');
+                header('Location: index.php?uc=personne&action=listeprof');
                 exit;
 
             break;

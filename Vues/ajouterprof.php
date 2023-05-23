@@ -71,13 +71,13 @@
         </div>
 
         <div class="mb-3">
-            <label for="niveau" class="form-label">Niveau :</label>
-            <input type="number" class="form-control" id="niveau" name="niveau" placeholder="Niveau" required>
+            <label for="instrument" class="form-label">Instrument :</label>
+            <input type="text" class="form-control" id="instrument" name="instrument" placeholder="Instrument" required>
         </div>
         
         <div class="mb-3">
-            <label for="bourse" class="form-label">Bourse :</label>
-            <input type="text" class="form-control" id="bourse" name="bourse" placeholder="Niveau" required>
+            <label for="salaire" class="form-label">Salaire :</label>
+            <input type="salaire" class="form-control" id="salaire" name="salaire" placeholder="Salaire" required>
         </div>
 
         <input type="submit" class="btn btn-primary" value="Ajouter">

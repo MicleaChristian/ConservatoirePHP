@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2023 at 10:28 AM
+-- Generation Time: May 23, 2023 at 05:16 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -38,9 +38,11 @@ CREATE TABLE `eleve` (
 --
 
 INSERT INTO `eleve` (`IDELEVE`, `NIVEAU`, `BOURSE`) VALUES
-(40, 2, 1),
-(41, 3, 1),
-(42, 3, 1);
+(42, 3, 1),
+(43, 2, 1),
+(44, 3, 1),
+(45, 1, 0),
+(46, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -184,9 +186,12 @@ CREATE TABLE `personne` (
 --
 
 INSERT INTO `personne` (`ID`, `NOM`, `PRENOM`, `TEL`, `MAIL`, `ADRESSE`) VALUES
-(40, 'ntm', 'fils de pute', 669696969, 'ntm@filsdepute.com', 'test'),
-(41, 'fdp', 'filsdepute', 663433569, 'test@test.com', 'Rue Albert Sorel'),
-(42, 'Miclea', 'Christian', 663433569, 'engichris32@gmail.com', 'Rue Albert Sorel');
+(42, 'Miclea', 'Christian', 663433569, 'engichris32@gmail.com', 'Rue Albert Sorel'),
+(43, 'Dupont', 'Didier', 612345678, 'Didier@mail.com', '1 rue des Rosiers'),
+(44, 'Micleaaa', 'Christiannn', 669696969, 'test@gmail.com', 'Rue Albert Sorel'),
+(45, 'Miclea', 'Christian', 663433569, 'test@gmail.com', 'Rue Albert Sorel'),
+(46, 'M', 'C', 663433569, 'MC32@gmail.com', 'Rue Albert Sorel'),
+(47, 'Miclea', 'Christian', 663433569, 'engichris32@gmail.com', 'Rue Albert Sorel');
 
 -- --------------------------------------------------------
 
@@ -345,7 +350,7 @@ ALTER TABLE `trim`
 -- AUTO_INCREMENT for table `personne`
 --
 ALTER TABLE `personne`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- Constraints for dumped tables

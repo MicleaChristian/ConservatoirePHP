@@ -54,7 +54,7 @@
         </div>
     </nav>
     <div class="position-relative mt-5 mb-3">
-        <h2 class="position-absolute top-0 start-50 translate-middle">Nos élèves</h2>
+        <h2 class="position-absolute top-0 start-50 translate-middle">Les Professeurs</h2>
     </div>
     <div class="container-fluid position-relative mt-3">
         <table class="table table-striped">

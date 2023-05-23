@@ -127,6 +127,9 @@ class personne
         private $TEL;
         private $ADRESSE;
         private $MAIL;
+        public $IDELEVE;
+        public $NIVEAU;
+        public $BOURSE;
 
         public function getID()
         {
@@ -203,6 +206,15 @@ class personne
                 return $lesResultats;
         }
 
+        public static function afficherprof()
+        {
+                $req = MonPdo::getInstance()->prepare("SELECT * FROM personne INNER JOIN prof ON ID = IDPROF;");
+                $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'personne');
+                $req->execute();
+                $lesResultats = $req->fetchAll();
+                return $lesResultats;
+        }
+
         public static function ajoutereleve(personne $personne, eleve $eleve)
         {
 
@@ -221,6 +233,28 @@ class personne
                 $req->bindValue(':adress', $personne->getADRESSE(), PDO::PARAM_STR);
                 $req->bindValue(':niveau', $eleve->getNIVEAU(), PDO::PARAM_STR);
                 $req->bindValue(':bourse', $eleve->getBOURSE(), PDO::PARAM_STR);
+                $req->execute();
+        }
+
+        
+        public static function ajouterprof(personne $personne, prof $prof)
+        {
+
+                $pdo = MonPdo::getInstance();
+                $req = $pdo->prepare("insert into personne (NOM, PRENOM, TEL, MAIL, ADRESSE) values (:nom,:prenom,:tel,:mail,:adress);
+                
+                set @last_id_in_personne = LAST_INSERT_ID();
+                
+                insert into prof (IDPROF, INSTRUMENT , SALAIRE)
+                VALUES (@last_id_in_personne, :niveau, :bourse);
+                ");
+                $req->bindValue(':nom', $personne->getNOM(), PDO::PARAM_STR);
+                $req->bindValue(':prenom', $personne->getPRENOM(), PDO::PARAM_STR);
+                $req->bindValue(':mail', $personne->getMAIL(), PDO::PARAM_STR);
+                $req->bindValue(':tel', $personne->getTEL(), PDO::PARAM_STR);
+                $req->bindValue(':adress', $personne->getADRESSE(), PDO::PARAM_STR);
+                $req->bindValue(':instrument', $prof->getINSTRUMENT(), PDO::PARAM_STR);
+                $req->bindValue(':salaire', $prof->getSALAIRE(), PDO::PARAM_STR);
                 $req->execute();
         }
 

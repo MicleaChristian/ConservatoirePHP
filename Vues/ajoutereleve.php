@@ -76,9 +76,13 @@
         </div>
         
         <div class="mb-3">
-            <label for="bourse" class="form-label">Bourse :</label>
-            <input type="text" class="form-control" id="bourse" name="bourse" placeholder="Niveau" required>
-        </div>
+    <label for="bourse" class="form-label">Bourse :</label>
+    <select class="form-control" id="bourse" name="bourse" required>
+        <option value="">Selectionner si payée ou impayée</option>
+        <option value="1">Payée</option>
+        <option value="0">Impayée</option>
+    </select>
+</div>
 
         <input type="submit" class="btn btn-primary" value="Ajouter">
     </form>
