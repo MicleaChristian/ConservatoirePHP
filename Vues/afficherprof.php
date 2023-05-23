@@ -35,8 +35,8 @@
                             Profs
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="index.php?uc=personne&action=liste">Afficher les profs</a></li>
-                            <li><a class="dropdown-item" href="index.php?uc=personne&action=ajout_form">Ajouter un prof</a></li>
+                            <li><a class="dropdown-item" href="index.php?uc=personne&action=listeprof">Afficher les profs</a></li>
+                            <li><a class="dropdown-item" href="index.php?uc=personne&action=ajoutprof_form">Ajouter un prof</a></li>
                         </ul>
                     </div>
                     <div class="dropdown">
@@ -54,9 +54,9 @@
         </div>
     </nav>
     <div class="position-relative mt-5 mb-3">
-        <h2 class="position-absolute top-0 start-50 translate-middle">Les Professeurs</h2>
+        <h2 class="d-flex justify-content-center mt-5">Les Professeurs</h2>
     </div>
-    <div class="container-fluid position-relative mt-3">
+    <div class="container-fluid position-relative mt-5">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -65,6 +65,8 @@
                     <th scope="col">Email</th>
                     <th scope="col">Tel</th>
                     <th scope="col">Adresse</th>
+                    <th scope="col">Instrument</th>
+                    <th scope="col">Salaire</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -79,7 +81,9 @@
                     echo "<td>" . $personne->getMAIL() . "</td>";
                     echo "<td>" . $personne->getTEL() . "</td>";
                     echo "<td>" . $personne->getADRESSE() . "</td>";
-                    echo "<td><a href='index.php?uc=personne&action=supprimer&id=". $personne->getID() ."' class='btn btn-danger'>Supprimer</a></td>";
+                    echo "<td>" . $personne->getINSTRUMENT() . "</td>";
+                    echo "<td>" . $personne->getSALAIRE() . "</td>";
+                    echo "<td><a href='index.php?uc=personne&action=supprimerprof&id=". $personne->getID() ."' class='btn btn-danger'>Supprimer</a></td>";
                     echo "<td><a href='index.php?uc=personne&action=editer_form&id=". $personne->getID() ."' class='btn btn-warning'>Modifier</a></td>";
                     echo "</tr>";
                 }

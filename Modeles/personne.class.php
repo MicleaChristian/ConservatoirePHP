@@ -130,6 +130,9 @@ class personne
         public $IDELEVE;
         public $NIVEAU;
         public $BOURSE;
+        public $IDPROF;
+        public $INSTRUMENT;
+        public $SALAIRE;
 
         public function getID()
         {
@@ -197,6 +200,36 @@ class personne
                 return $this;
         }
 
+                /**
+         * Get the value of INSTRUMENT
+         */
+        public function getINSTRUMENT() {
+                return $this->INSTRUMENT;
+        }
+
+        /**
+         * Set the value of INSTRUMENT
+         */
+        public function setINSTRUMENT($INSTRUMENT): self {
+                $this->INSTRUMENT = $INSTRUMENT;
+                return $this;
+        }
+
+        /**
+         * Get the value of SALAIRE
+         */
+        public function getSALAIRE() {
+                return $this->SALAIRE;
+        }
+
+        /**
+         * Set the value of SALAIRE
+         */
+        public function setSALAIRE($SALAIRE): self {
+                $this->SALAIRE = $SALAIRE;
+                return $this;
+        }
+
         public static function affichereleve()
         {
                 $req = MonPdo::getInstance()->prepare("SELECT * FROM personne INNER JOIN eleve ON ID = IDELEVE;");
@@ -211,7 +244,7 @@ class personne
                 $req = MonPdo::getInstance()->prepare("SELECT * FROM personne INNER JOIN prof ON ID = IDPROF;");
                 $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'personne');
                 $req->execute();
-                $lesResultats = $req->fetchAll();
+                $lesResultats = $req->fetchAll();               
                 return $lesResultats;
         }
 
@@ -246,14 +279,13 @@ class personne
                 set @last_id_in_personne = LAST_INSERT_ID();
                 
                 insert into prof (IDPROF, INSTRUMENT , SALAIRE)
-                VALUES (@last_id_in_personne, :niveau, :bourse);
-                ");
+                VALUES (@last_id_in_personne, :libelle, :salaire);");
                 $req->bindValue(':nom', $personne->getNOM(), PDO::PARAM_STR);
                 $req->bindValue(':prenom', $personne->getPRENOM(), PDO::PARAM_STR);
                 $req->bindValue(':mail', $personne->getMAIL(), PDO::PARAM_STR);
                 $req->bindValue(':tel', $personne->getTEL(), PDO::PARAM_STR);
                 $req->bindValue(':adress', $personne->getADRESSE(), PDO::PARAM_STR);
-                $req->bindValue(':instrument', $prof->getINSTRUMENT(), PDO::PARAM_STR);
+                $req->bindValue(':libelle', $prof->getINSTRUMENT(), PDO::PARAM_STR);
                 $req->bindValue(':salaire', $prof->getSALAIRE(), PDO::PARAM_STR);
                 $req->execute();
         }
@@ -262,6 +294,18 @@ class personne
         {
                 $pdo = MonPdo::getInstance();
                 $req = $pdo->prepare("delete from eleve where IDELEVE = :id");
+                $req->bindParam(':id', $id);
+                $req->execute();
+                
+                $req = $pdo->prepare("delete from personne where ID = :id");
+                $req->bindParam(':id', $id);
+                $req->execute();
+        }
+
+        public static function supprimerprof($id)
+        {
+                $pdo = MonPdo::getInstance();
+                $req = $pdo->prepare("delete from prof where IDPROF = :id");
                 $req->bindParam(':id', $id);
                 $req->execute();
                 
@@ -297,5 +341,7 @@ class personne
                 $req->bindValue(':tel', $personne->getTEL(), PDO::PARAM_INT);                
                 $req->execute();
         }
+
+
 }
 ?>

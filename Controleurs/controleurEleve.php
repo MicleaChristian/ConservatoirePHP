@@ -38,6 +38,5 @@
                 $eleve->setBOURSE(eleve::securiser($_POST['bourse']));
                 $updateeleve = eleve::updateeleve($eleve);
                 header('Location: index.php?uc=eleve&action=liste');
-                exit;
                 break;
     }

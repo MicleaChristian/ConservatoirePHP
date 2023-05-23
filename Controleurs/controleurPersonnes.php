@@ -16,6 +16,8 @@
                 break ;
 
                 case "ajoutprof_form" :
+                    include "Modeles/instrument.class.php";
+                    $instruments = Instrument::getAll();
                     include "Vues/ajouterprof.php" ;
                     break ;
 
@@ -35,7 +37,6 @@
                 $ajoutPersonne = personne::ajoutereleve($personne, $eleve);
                 // Redirection vers la liste des personnes
                 header('Location: index.php?uc=personne&action=liste');
-                exit;
 
             break;
 
@@ -49,13 +50,12 @@
                 $personne->setTEL(personne::securiser($_POST['tel']));
                 $personne->setADRESSE(personne::securiser($_POST['adress']));
                 $prof = new prof();
-                $prof->setINSTRUMENT(personne::securiser($_POST['instrument']));
+                $prof->setINSTRUMENT(personne::securiser($_POST['libelle']));
                 $prof->setSALAIRE(personne::securiser($_POST['salaire']));
 
                 $ajoutPersonne = personne::ajouterprof($personne, $prof);
                 // Redirection vers la liste des personnes
                 header('Location: index.php?uc=personne&action=listeprof');
-                exit;
 
             break;
 
@@ -64,6 +64,12 @@
             personne::supprimereleve($id);
             header('Location: index.php?uc=personne&action=liste');
             break;
+
+            case "supprimerprof":
+                $id = $_GET['id'];
+                personne::supprimerprof($id);
+                header('Location: index.php?uc=personne&action=listeprof');
+                break;
 
             case "editer_form":
                 $id = $_GET["id"];
@@ -84,6 +90,5 @@
                 $personne->setTEL(personne::securiser($_POST['tel']));
                 $updatePersonne = personne::updatePersonne($personne);
                 header('Location: index.php?uc=personne&action=liste');
-                exit;
                 break;
     }
