@@ -18,49 +18,50 @@ MonPdo::checkSessionAndRedirect();
 </head>
 
 <body>
-<?php include("header/header.php") ?>
+    <?php include("header/header.php") ?>
 
-<div class="container-fluid position-relative mt-3">
-    <h2 class="position-absolute top-0 start-50 translate-middle">Ajouter une personne</h2>
-    <form action="index.php?uc=personne&action=ajouter" method="POST">
-        <div class="mb-3">
-            <label for="nom" class="form-label">Nom :</label>
-            <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom"required>
-        </div>
-        <div class="mb-3">
-            <label for="prenom" class="form-label">Prénom :</label>
-            <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom" required>
-        </div>
-        <div class="mb-3">
-            <label for="mail" class="form-label">mail :</label>
-            <input type="mail" class="form-control" id="mail" name="mail" placeholder="Mail" required>
-        </div>
-        <div class="mb-3">
-            <label for="tel" class="form-label">Téléphone :</label>
-            <input type="text" class="form-control" id="tel" name="tel" placeholder="Tel" required>
-        </div>
+    <div class="container-fluid position-relative mt-3">
+        <h2 class="position-absolute top-0 start-50 translate-middle">Ajouter une personne</h2>
+        <form action="index.php?uc=personne&action=ajouter" method="POST">
+            <div class="mb-3">
+                <label for="nom" class="form-label">Nom :</label>
+                <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" required>
+            </div>
+            <div class="mb-3">
+                <label for="prenom" class="form-label">Prénom :</label>
+                <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom" required>
+            </div>
+            <div class="mb-3">
+                <label for="mail" class="form-label">mail :</label>
+                <input type="mail" class="form-control" id="mail" name="mail" placeholder="Mail" required>
+            </div>
+            <div class="mb-3">
+                <label for="tel" class="form-label">Téléphone :</label>
+                <input type="text" class="form-control" id="tel" name="tel" placeholder="Tel" required>
+            </div>
 
-        <div class="mb-3">
-            <label for="adress" class="form-label">Adresse :</label>
-            <input type="text" class="form-control" id="adress" name="adress" placeholder="Adresse" required>
-        </div>
+            <div class="mb-3">
+                <label for="adress" class="form-label">Adresse :</label>
+                <input type="text" class="form-control" id="adress" name="adress" placeholder="Adresse" required>
+            </div>
 
-        <div class="mb-3">
-            <label for="niveau" class="form-label">Niveau :</label>
-            <input type="number" class="form-control" id="niveau" name="niveau" placeholder="Niveau" required>
-        </div>
-        
-        <div class="mb-3">
-    <label for="bourse" class="form-label">Bourse :</label>
-    <select class="form-control" id="bourse" name="bourse" required>
-        <option value="">Selectionner si payée ou impayée</option>
-        <option value="1">Payée</option>
-        <option value="0">Impayée</option>
-    </select>
-</div>
+            <div class="mb-3">
+                <label for="niveau" class="form-label">Niveau :</label>
+                <input type="number" class="form-control" id="niveau" name="niveau" placeholder="Niveau" required>
+            </div>
 
-        <input type="submit" class="btn btn-primary" value="Ajouter">
-    </form>
-</div>
+            <div class="mb-3">
+                <label for="bourse" class="form-label">Bourse :</label>
+                <select class="form-control" id="bourse" name="bourse" required>
+                    <option value="">Selectionner si payée ou impayée</option>
+                    <option value="1">Payée</option>
+                    <option value="0">Impayée</option>
+                </select>
+            </div>
+
+            <input type="submit" class="btn btn-primary" value="Ajouter">
+        </form>
+    </div>
 </body>
+
 </html>

@@ -144,11 +144,11 @@ class Seance
         $pdo = MonPdo::getInstance();
         $req = $pdo->prepare("INSERT INTO seance (IDPROF, TRANCHE, JOUR, NIVEAU, CAPACITE) 
                               VALUES (:idprof, :tranche, :jour, :niveau, :capacite)");
-        $req->bindValue(':idprof', $seance->getIDPROF(), PDO::PARAM_INT);
+        $req->bindValue(':idprof', $seance->getIDPROF(), PDO::PARAM_STR);
         $req->bindValue(':tranche', $seance->getTRANCHE(), PDO::PARAM_STR);
         $req->bindValue(':jour', $seance->getJOUR(), PDO::PARAM_STR);
         $req->bindValue(':niveau', $seance->getNIVEAU(), PDO::PARAM_STR);
-        $req->bindValue(':capacite', $seance->getCAPACITE(), PDO::PARAM_INT);
+        $req->bindValue(':capacite', $seance->getCAPACITE(), PDO::PARAM_STR);
         $req->execute();
     }
 

@@ -25,10 +25,10 @@ MonPdo::checkSessionAndRedirect();
         <form action="index.php?uc=seance&action=ajouter" method="POST">
             <div class="row mt-3">
                 <div class="col">
-                    <label for="nom" class="form-label">Prof</label>
-                    <select class="form-control" id="nom" name="nom">
+                    <label for="idprof" class="form-label">Prof</label>
+                    <select class="form-control" id="idprof" name="idprof">
                         <?php foreach ($profs as $prof): ?>
-                            <option value="<?php echo $prof["nom"]; ?>">
+                            <option value="<?php echo $prof["idprof"]; ?>">
                                 <?php echo $prof["nom"]; ?>
                             </option>
                         <?php endforeach; ?>
@@ -60,20 +60,17 @@ MonPdo::checkSessionAndRedirect();
                 </div>
             </div>
             <div class="mb-3">
-                <label for="heure" class="form-label">Heure :</label>
-                <input type="time" class="form-control" id="heure" name="heure" required>
-            </div>
-            <div class="mb-3">
-                <label for="salle" class="form-label">Salle :</label>
-                <input type="text" class="form-control" id="salle" name="salle" required>
-            </div>
-            <div class="mb-3">
                 <label for="niveau" class="form-label">Niveau :</label>
-                <input type="text" class="form-control" id="niveau" name="niveau" required>
+                <select class="form-control" id="niveau" name="niveau" required>
+                    <option value="">Niveau</option>
+                    <option value="1">Débutant</option>
+                    <option value="2">Moyen</option>
+                    <option value="3">Avancé</option>
+                </select>
             </div>
             <div class="mb-3">
                 <label for="capacite" class="form-label">Capacité :</label>
-                <input type="text" class="form-control" id="capacite" name="capacite" required>
+                <input type="number" class="form-control" id="capacite" name="capacite" required>
             </div>
             <input type="submit" class="btn btn-primary" value="Ajouter">
         </form>

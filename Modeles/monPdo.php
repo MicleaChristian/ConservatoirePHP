@@ -30,7 +30,7 @@ class MonPdo
     public static function checkSessionAndRedirect()
     {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: ../index.php?uc=redirlogin');
+            header('Location: index.php?uc=redirlogin');
             exit();
         }
     }

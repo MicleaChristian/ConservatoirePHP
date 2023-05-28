@@ -11,6 +11,10 @@
                 $profs = prof::getAll();
                 require_once 'Modeles/heure.class.php';
                 $heures = heure::getAll();
+                require_once 'Modeles/jour.class.php';
+                $jours = jour::getAll();
+                require_once 'Modeles/niveau.class.php';
+                $niveaux = niveau::getAll();
                 include "Vues/ajoutercours.php";
                 break;
 
