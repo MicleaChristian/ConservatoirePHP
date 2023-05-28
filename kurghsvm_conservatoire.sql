@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2023 at 12:38 AM
+-- Generation Time: May 28, 2023 at 02:45 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -39,7 +39,8 @@ CREATE TABLE `eleve` (
 
 INSERT INTO `eleve` (`IDELEVE`, `NIVEAU`, `BOURSE`) VALUES
 (42, 3, 1),
-(54, 3, 1);
+(54, 3, 1),
+(56, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -187,7 +188,9 @@ INSERT INTO `personne` (`ID`, `NOM`, `PRENOM`, `TEL`, `MAIL`, `ADRESSE`) VALUES
 (42, 'Miclea', 'Christian', 663433569, 'engichris32@gmail.com', 'Rue Albert Sorel'),
 (52, 'Miclea', 'Christian', 663433569, 'engichris32@gmail.com', 'Rue Albert Sorel'),
 (54, 'Miclea', 'Alexandre', 663433569, 'micleaalex101@icloud.com', 'Rue Albert Sorel'),
-(55, 'Miclea', 'Christian', 663433569, 'engichris32@gmail.com', 'Rue Albert Sorel');
+(55, 'Miclea', 'Christian', 663433569, 'engichris32@gmail.com', 'Rue Albert Sorel'),
+(56, 'Miclea', 'Christian', 663433569, 'fdp@tamere.com', 'Rue Albert Sorel'),
+(57, 'Miclea', 'Christian', 663433569, 'MC32@gmail.com', 'Rue Albert Sorel');
 
 -- --------------------------------------------------------
 
@@ -207,7 +210,8 @@ CREATE TABLE `prof` (
 
 INSERT INTO `prof` (`IDPROF`, `INSTRUMENT`, `SALAIRE`) VALUES
 (52, 'Guitare', 50000),
-(55, 'Piano', 100000);
+(55, 'Piano', 100000),
+(57, 'Saxophone', 100000000000);
 
 -- --------------------------------------------------------
 
@@ -354,7 +358,7 @@ ALTER TABLE `trim`
 -- AUTO_INCREMENT for table `personne`
 --
 ALTER TABLE `personne`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- Constraints for dumped tables

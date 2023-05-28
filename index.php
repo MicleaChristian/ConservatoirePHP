@@ -82,6 +82,9 @@ switch ($uc) {
         include("Vues/ajoutereleve.php");
         break;
 
+    case "redirlogin":
+        include("Vues/login_view.php");
+        break;
 
 
 }

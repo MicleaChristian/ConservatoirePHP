@@ -1,12 +1,58 @@
-<div class="relative">
-                        <form class="position-absolute top-50 start-50 translate-middle" action="index.php" method="POST">
-                            <input type="hidden" name="uc" value="logout">
-                            <input type="hidden" name="action" value="deconnexion">
-                            <ul class="navbar-nav">
-                                <li class="d-flex">
-                                    <p class="me-5"> Bonjour <?php echo $_SESSION['user_id']; ?> </p>
-                                    <button type="submit" class="btn btn-danger">Déconnexion</button>
-                                </li>
-                            </ul>
-                        </form>
-                    </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.php?uc=accueil">Conservatoire</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="index.php?uc=accueil">Accueil</a>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Eleves
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="index.php?uc=personne&action=liste">Afficher les élèves</a>
+                        </li>
+                        <li><a class="dropdown-item" href="index.php?uc=personne&action=ajout_form">Ajouter un élève</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Profs
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="index.php?uc=personne&action=listeprof">Afficher les
+                                profs</a></li>
+                        <li><a class="dropdown-item" href="index.php?uc=personne&action=ajoutprof_form">Ajouter un
+                                prof</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Cours
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="nav-link" href="index.php?uc=cours&action=liste">Nos cours</a></li>
+                        <li><a class="nav-link" href="index.php?uc=cours&action=ajout_form">Ajouter un cours</a></li>
+                    </ul>
+                </div>
+                <form class="position-absolute top-50 start-50 translate-middle" action="index.php?uc=logout" method="POST">
+                    <ul class="navbar-nav">
+                        <li class="d-flex">
+                            <p class="me-5"> Bonjour
+                                <?php echo $_SESSION['user_id']; ?>
+                            </p>
+                            <button type="submit" class="btn btn-danger">Déconnexion</button>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>

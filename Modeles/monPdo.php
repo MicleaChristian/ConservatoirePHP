@@ -27,6 +27,15 @@ class MonPdo
         return self::$unPdo;
     }
 
+    public static function checkSessionAndRedirect()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: ../index.php?uc=redirlogin');
+            exit();
+        }
+    }
+    
+
     public static function login($id, $password) 
     {
         $instance = self::getInstance();
