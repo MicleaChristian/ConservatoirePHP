@@ -2,25 +2,29 @@
     $action = $_GET["action"];
     switch ($action) {
         case "liste":
-            $lesSeances = cours::afficherTous();
+            $lesSeances = Seance::afficherTous();
             include("vues/affichercours.php");
             break;
 
-            case "ajout_form" :
-                include "Vues/ajoutercours.php" ;
-                break ;
+            case "ajout_form":
+                require_once 'Modeles/prof.class.php';
+                $profs = prof::getAll();
+                require_once 'Modeles/heure.class.php';
+                $heures = heure::getAll();
+                include "Vues/ajoutercours.php";
+                break;
 
 
         case "ajouter":
 
                 // Traitement du formulaire d'ajout de personne
-                $seance = new cours();
-                $seance->setIDPROF(cours::securiser($_POST["idprof"]));
-                $seance->setTRANCHE(cours::securiser($_POST['tranche']));
-                $seance->setJOUR(cours::securiser($_POST['jour']));
-                $seance->setNIVEAU(cours::securiser($_POST['niveau']));
-                $seance->setCAPACITE(cours::securiser($_POST['capacite']));
-                $ajoutCours = cours::ajouterCours($seance);
+                $seance = new Seance();
+                $seance->setIDPROF(Seance::securiser($_POST["idprof"]));
+                $seance->setTRANCHE(Seance::securiser($_POST['tranche']));
+                $seance->setJOUR(Seance::securiser($_POST['jour']));
+                $seance->setNIVEAU(Seance::securiser($_POST['niveau']));
+                $seance->setCAPACITE(Seance::securiser($_POST['capacite']));
+                $ajoutCours = Seance::ajouterSeance($seance);
                 // Redirection vers la liste des personnes
                 header('Location: index.php?uc=cours&action=liste');
                 exit;
@@ -29,14 +33,14 @@
 
         case "supprimer":
             $id = $_GET['id'];
-            cours::supprimercours($id);
+            Seance::supprimercours($id);
 
             header('Location: index.php?uc=cours&action=liste');
             break;
 
             case "editer_form":
                 $id = $_GET["id"];
-                $seance = cours::getByNumseance($id);
+                $seance = Seance::getByNumseance($id);
                 if ($personne) {
                     include "vues/editercours.php";
                 } else {

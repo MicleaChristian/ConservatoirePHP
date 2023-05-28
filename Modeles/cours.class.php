@@ -1,6 +1,6 @@
 
 <?php
-class cours
+class Seance
 {
     private $IDPROF;
     private $NUMSEANCE;
@@ -8,6 +8,7 @@ class cours
     private $JOUR;
     private $NIVEAU;
     private $CAPACITE;
+
 
     /**
      * Get the value of IDPROF
@@ -129,11 +130,10 @@ class cours
         return $this;
     }
 
-
     public static function afficherTous()
     {
         $req = MonPdo::getInstance()->prepare("select * from seance");
-        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'cours');
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Seance');
         $req->execute();
         $lesResultats = $req->fetchAll();
         return $lesResultats;
@@ -142,19 +142,15 @@ class cours
     public static function ajouterSeance(Seance $seance)
     {
         $pdo = MonPdo::getInstance();
-        $req = $pdo->prepare("INSERT INTO seance (IDPROF, TRANCHE, JOUR, HEURE, SALLE, NIVEAU, CAPACITE) 
-                              VALUES (:idprof, :tranche, :jour, :heure, :salle, :niveau, :capacite)");
+        $req = $pdo->prepare("INSERT INTO seance (IDPROF, TRANCHE, JOUR, NIVEAU, CAPACITE) 
+                              VALUES (:idprof, :tranche, :jour, :niveau, :capacite)");
         $req->bindValue(':idprof', $seance->getIDPROF(), PDO::PARAM_INT);
         $req->bindValue(':tranche', $seance->getTRANCHE(), PDO::PARAM_STR);
         $req->bindValue(':jour', $seance->getJOUR(), PDO::PARAM_STR);
-        $req->bindValue(':heure', $seance->getHEURE(), PDO::PARAM_STR);
-        $req->bindValue(':salle', $seance->getSALLE(), PDO::PARAM_STR);
         $req->bindValue(':niveau', $seance->getNIVEAU(), PDO::PARAM_STR);
         $req->bindValue(':capacite', $seance->getCAPACITE(), PDO::PARAM_INT);
         $req->execute();
     }
-    
-    
 
     public static function supprimercours($numseance)
     {
@@ -180,7 +176,7 @@ class cours
         return $req->fetch();
     }
 
-    public static function updatePersonne(cours $seance)
+    public static function updatePersonne(Seance $seance)
     {
         $pdo = MonPdo::getInstance();
         $req = $pdo->prepare("UPDATE seance SET IDPROF=:idprof, TRANCHE=:tranche, JOUR=:jour, NIVEAU=:niveau, CAPACITE=:capacite WHERE NUMSEANCE=:numseance");
@@ -191,6 +187,10 @@ class cours
         $req->bindValue(':tel', $seance->getCAPACITE(), PDO::PARAM_STR);
         $req->execute();
     }
+
+
+
+
 }
 
 ?>

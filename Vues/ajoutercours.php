@@ -17,34 +17,67 @@ MonPdo::checkSessionAndRedirect();
 </head>
 
 <body>
-<?php include("header/header.php") ?>
+    <?php include("header/header.php") ?>
 
 
-<div class="container-fluid position-relative mt-3">
-    <h2 class="position-absolute top-0 start-50 translate-middle">Ajouter une personne</h2>
-    <form action="index.php?uc=personne&action=ajouter" method="POST">
-        <div class="mb-3">
-            <label for="idprof" class="form-label">IDPROF :</label>
-            <input type="surname" class="form-control" id="idprof" name="idprof" required>
-        </div>
-        <div class="mb-3">
-            <label for="tranche" class="form-label">Tranche :</label>
-            <input type="name" class="form-control" id="tranche" name="tranche" required>
-        </div>
-        <div class="mb-3">
-            <label for="jour" class="form-label">Jour :</label>
-            <input type="date" class="form-control" id="jour" name="jour" required>
-        </div>
-        <div class="mb-3">
-            <label for="niveau" class="form-label">Niveau :</label>
-            <input type="text" class="form-control" id="niveau" name="niveau" required>
-        </div>
-        <div class="mb-3">
-            <label for="capacite" class="form-label">Capacité :</label>
-            <input type="text" class="form-control" id="capacite" name="capacite" required>
-        </div>
-        <input type="submit" class="btn btn-primary" value="Ajouter">
-    </form>
-</div>
+    <div class="container-fluid position-relative mt-3">
+        <h2 class="position-absolute top-0 start-50 translate-middle">Ajouter une Seance</h2>
+        <form action="index.php?uc=seance&action=ajouter" method="POST">
+            <div class="row mt-3">
+                <div class="col">
+                    <label for="nom" class="form-label">Prof</label>
+                    <select class="form-control" id="nom" name="nom">
+                        <?php foreach ($profs as $prof): ?>
+                            <option value="<?php echo $prof["nom"]; ?>">
+                                <?php echo $prof["nom"]; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <label for="tranche" class="form-label">Horaire</label>
+                    <select class="form-control" id="tranche" name="tranche">
+                        <?php foreach ($heures as $heure): ?>
+                            <option value="<?php echo $heure["tranche"]; ?>">
+                                <?php echo $heure["tranche"]; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <label for="jour" class="form-label">Jour</label>
+                    <select class="form-control" id="jour" name="jour">
+                        <?php foreach ($jours as $jour): ?>
+                            <option value="<?php echo $jour["jour"]; ?>">
+                                <?php echo $jour["jour"]; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="heure" class="form-label">Heure :</label>
+                <input type="time" class="form-control" id="heure" name="heure" required>
+            </div>
+            <div class="mb-3">
+                <label for="salle" class="form-label">Salle :</label>
+                <input type="text" class="form-control" id="salle" name="salle" required>
+            </div>
+            <div class="mb-3">
+                <label for="niveau" class="form-label">Niveau :</label>
+                <input type="text" class="form-control" id="niveau" name="niveau" required>
+            </div>
+            <div class="mb-3">
+                <label for="capacite" class="form-label">Capacité :</label>
+                <input type="text" class="form-control" id="capacite" name="capacite" required>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Ajouter">
+        </form>
+    </div>
 </body>
+
 </html>

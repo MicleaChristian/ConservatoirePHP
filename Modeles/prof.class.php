@@ -60,4 +60,13 @@ class prof
                 return $lesResultats;
         }
 
+        public static function getAll()
+        {
+            $pdo = MonPdo::getInstance();
+            $query = "SELECT idprof, nom FROM prof JOIN personne ON prof.idprof = personne.id";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
 }
