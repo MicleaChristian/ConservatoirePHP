@@ -1,5 +1,6 @@
 <?php
-require_once 'Modeles/MonPdo.php'; // replace with the path to your MonPdo.php file
+require_once 'Modeles/monPdo.php'; // replace with the path to your MonPdo.php file
+
 
 MonPdo::checkSessionAndRedirect();
 ?>

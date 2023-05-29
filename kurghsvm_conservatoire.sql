@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2023 at 02:45 PM
+-- Generation Time: May 29, 2023 at 05:59 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -186,11 +186,11 @@ CREATE TABLE `personne` (
 
 INSERT INTO `personne` (`ID`, `NOM`, `PRENOM`, `TEL`, `MAIL`, `ADRESSE`) VALUES
 (42, 'Miclea', 'Christian', 663433569, 'engichris32@gmail.com', 'Rue Albert Sorel'),
-(52, 'Miclea', 'Christian', 663433569, 'engichris32@gmail.com', 'Rue Albert Sorel'),
+(52, 'Miclea1', 'Christian', 663433569, 'engichris32@gmail.com', 'Rue Albert Sorel'),
 (54, 'Miclea', 'Alexandre', 663433569, 'micleaalex101@icloud.com', 'Rue Albert Sorel'),
-(55, 'Miclea', 'Christian', 663433569, 'engichris32@gmail.com', 'Rue Albert Sorel'),
+(55, 'Miclea2', 'Christian', 663433569, 'engichris32@gmail.com', 'Rue Albert Sorel'),
 (56, 'Miclea', 'Christian', 663433569, 'fdp@tamere.com', 'Rue Albert Sorel'),
-(57, 'Miclea', 'Christian', 663433569, 'MC32@gmail.com', 'Rue Albert Sorel');
+(57, 'Miclea3', 'Christian', 663433569, 'MC32@gmail.com', 'Rue Albert Sorel');
 
 -- --------------------------------------------------------
 
@@ -227,6 +227,13 @@ CREATE TABLE `seance` (
   `NIVEAU` int(11) NOT NULL,
   `CAPACITE` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `seance`
+--
+
+INSERT INTO `seance` (`IDPROF`, `NUMSEANCE`, `TRANCHE`, `JOUR`, `NIVEAU`, `CAPACITE`) VALUES
+(57, 0, '14:00-15:00', 'Lundi', 3, 15);
 
 -- --------------------------------------------------------
 
@@ -358,7 +365,7 @@ ALTER TABLE `trim`
 -- AUTO_INCREMENT for table `personne`
 --
 ALTER TABLE `personne`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- Constraints for dumped tables

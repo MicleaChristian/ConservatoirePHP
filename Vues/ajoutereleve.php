@@ -1,5 +1,5 @@
 <?php
-require_once 'Modeles/MonPdo.php'; // replace with the path to your MonPdo.php file
+require_once 'Modeles/monPdo.php'; // replace with the path to your MonPdo.php file
 
 
 MonPdo::checkSessionAndRedirect();
@@ -47,7 +47,12 @@ MonPdo::checkSessionAndRedirect();
 
             <div class="mb-3">
                 <label for="niveau" class="form-label">Niveau :</label>
-                <input type="number" class="form-control" id="niveau" name="niveau" placeholder="Niveau" required>
+                <select class="form-control" id="niveau" name="niveau" required>
+                    <option value="">Niveau</option>
+                    <option value="1">Débutant</option>
+                    <option value="2">Moyen</option>
+                    <option value="3">Avancé</option>
+                </select>
             </div>
 
             <div class="mb-3">

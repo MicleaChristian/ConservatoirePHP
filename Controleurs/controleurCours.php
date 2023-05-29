@@ -3,7 +3,7 @@
     switch ($action) {
         case "liste":
             $lesSeances = Seance::afficherTous();
-            include("vues/affichercours.php");
+            include("Vues/affichercours.php");
             break;
 
             case "ajout_form":

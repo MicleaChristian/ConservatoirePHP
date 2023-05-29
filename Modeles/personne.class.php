@@ -152,6 +152,66 @@ class personne
         }
 
                 /**
+         * Get the value of IDELEVE
+         */ 
+        public function getIDELEVE()
+        {
+                return $this->IDELEVE;
+        }
+
+        /**
+         * Set the value of IDELEVE
+         *
+         * @return  self
+         */ 
+        public function setIDELEVE($IDELEVE)
+        {
+                $this->IDELEVE = $IDELEVE;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of NIVEAU
+         */ 
+        public function getNIVEAU()
+        {
+                return $this->NIVEAU;
+        }
+
+        /**
+         * Set the value of NIVEAU
+         *
+         * @return  self
+         */ 
+        public function setNIVEAU($NIVEAU)
+        {
+                $this->NIVEAU = $NIVEAU;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of BOURSE
+         */ 
+        public function getBOURSE()
+        {
+                return $this->BOURSE;
+        }
+
+        /**
+         * Set the value of BOURSE
+         *
+         * @return  self
+         */ 
+        public function setBOURSE($BOURSE)
+        {
+                $this->BOURSE = $BOURSE;
+
+                return $this;
+        }
+
+                /**
          * Get the value of INSTRUMENT
          */
         public function getINSTRUMENT() {

@@ -2,7 +2,7 @@
 $action = $_GET["action"]; // Récupère la valeur de la variable GET "action" et l'assigne à la variable $action
 switch ($action) { // Commence la structure de contrôle switch en utilisant la valeur de $action
     case "liste":
-        $lesEleves = eleve::afficherTous(); // Appelle la méthode statique "afficherTous" de la classe eleve et assigne le résultat à la variable $lesEleves
+        $lesEleves = personne::affichereleve(); // Appelle la méthode statique "afficherTous" de la classe eleve et assigne le résultat à la variable $lesEleves
         include("vues/affichereleves.php"); // Inclut le fichier de vue "affichereleves.php"
         break;
 

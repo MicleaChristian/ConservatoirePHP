@@ -1,5 +1,5 @@
 <?php
-require_once 'Modeles/MonPdo.php'; // replace with the path to your MonPdo.php file
+require_once 'Modeles/monPdo.php'; // replace with the path to your MonPdo.php file
 
 MonPdo::checkSessionAndRedirect();
 ?>
@@ -29,6 +29,8 @@ MonPdo::checkSessionAndRedirect();
                     <th scope="col">Prénom</th>
                     <th scope="col">Email</th>
                     <th scope="col">Tel</th>
+                    <th scope="col">Niveau</th>
+                    <th scope="col">Bourse</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -42,6 +44,8 @@ MonPdo::checkSessionAndRedirect();
                     echo "<td>" . $personne->getPRENOM() . "</td>";
                     echo "<td>" . $personne->getMAIL() . "</td>";
                     echo "<td>" . $personne->getTEL() . "</td>";
+                    echo "<td>" . $personne->getNIVEAU() . "</td>";
+                    echo "<td>" . $personne->getBOURSE() . "</td>";
                     echo "<td><a href='index.php?uc=personne&action=supprimer&id=". $personne->getID() ."' class='btn btn-danger'>Supprimer</a></td>";
                     echo "<td><a href='index.php?uc=personne&action=editer_form&id=". $personne->getID() ."' class='btn btn-warning'>Modifier</a></td>";
                     echo "</tr>";
