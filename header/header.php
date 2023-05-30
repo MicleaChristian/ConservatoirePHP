@@ -42,12 +42,13 @@
                         <li><a class="nav-link" href="index.php?uc=cours&action=ajout_form">Ajouter un cours</a></li>
                     </ul>
                 </div>
+
+            <!-- Planning vers la page planning.php -->
+            <a class="nav-link" href="index.php?uc=planning">Planning</a>
                 <form class="position-absolute top-50 start-50 translate-middle" action="index.php?uc=logout" method="POST">
                     <ul class="navbar-nav">
                         <li class="d-flex">
-                            <p class="me-5"> Bonjour
-                                <?php echo $_SESSION['user_id']; ?>
-                            </p>
+                            <p class="me-5"> Bonjour <?php echo $_SESSION['user_id']; ?></p>
                             <button type="submit" class="btn btn-danger">Déconnexion</button>
                         </li>
                     </ul>
