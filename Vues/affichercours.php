@@ -17,7 +17,8 @@ MonPdo::checkSessionAndRedirect();
 </head>
 
 <body>
-<?php include("header/header.php") ?>
+<?php include("header/header.php");
+?>
 
     <div class="position-relative mt-5 mb-3">
         <h2 class="d-flex justify-content-center mt-5">Nos cours</h2>
@@ -37,6 +38,7 @@ MonPdo::checkSessionAndRedirect();
 
 
                 <?php
+
                 foreach ($lesSeances as $seance) {
                     echo "<tr>";
                     echo "<td>" . $seance->getIDPROF() . "</td>";
@@ -44,7 +46,8 @@ MonPdo::checkSessionAndRedirect();
                     echo "<td>" . $seance->getJOUR() . "</td>";
                     echo "<td>" . $seance->getNIVEAU() . "</td>";
                     echo "<td>" . $seance->getCAPACITE() . "</td>";
-                    echo "<td><a href='index.php?uc=personne&action=supprimer&id=". $seance->getNUMSEANCE() ."' class='btn btn-danger'>Supprimer</a></td>";
+                    echo "<td><a href='index.php?uc=cours&action=supprimer&idseance=" . $seance -> getNUMSEANCE() . "'><button type='button' class='btn btn-danger'>Supprimer</button></a></td>";
+                    echo "<td><a href='index.php?uc=cours&action=editer_form&idseance=" . $seance -> getNUMSEANCE() . "'><button type='button' class='btn btn-warning'>Modifier</button></a></td>";
                     echo "</tr>";
                 }
                 ?>

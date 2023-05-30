@@ -22,7 +22,7 @@ MonPdo::checkSessionAndRedirect();
 
     <div class="container-fluid position-relative mt-3">
         <h2 class="position-absolute top-0 start-50 translate-middle">Ajouter une Seance</h2>
-        <form action="index.php?uc=seance&action=ajouter" method="POST">
+        <form action="index.php?uc=cours&action=ajouter" method="post">
             <div class="row mt-3">
                 <div class="col">
                     <label for="idprof" class="form-label">Prof</label>

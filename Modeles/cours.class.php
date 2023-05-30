@@ -8,6 +8,7 @@ class Seance
     private $JOUR;
     private $NIVEAU;
     private $CAPACITE;
+    private $IDSEANCE;
 
 
     /**
@@ -130,8 +131,30 @@ class Seance
         return $this;
     }
 
+    /**
+     * Set the value of IDSEANCE
+     * @return  self
+     */
+    public function setIDSEANCE($IDSEANCE)
+    {
+        $this->IDSEANCE = $IDSEANCE;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of IDSEANCE
+     */
+
+    public function getIDSEANCE()
+{
+    return $this->IDSEANCE;
+}
+
+
     public static function afficherTous()
     {
+
         $req = MonPdo::getInstance()->prepare("select * from seance");
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Seance');
         $req->execute();
@@ -141,22 +164,26 @@ class Seance
 
     public static function ajouterSeance(Seance $seance)
     {
+        // initialise le numéro de séance à 1
+        $seance->setNUMSEANCE($seance->getNUMSEANCE() + 1);
         $pdo = MonPdo::getInstance();
-        $req = $pdo->prepare("INSERT INTO seance (IDPROF, TRANCHE, JOUR, NIVEAU, CAPACITE) 
-                              VALUES (:idprof, :tranche, :jour, :niveau, :capacite)");
-        $req->bindValue(':idprof', $seance->getIDPROF(), PDO::PARAM_STR);
-        $req->bindValue(':tranche', $seance->getTRANCHE(), PDO::PARAM_STR);
-        $req->bindValue(':jour', $seance->getJOUR(), PDO::PARAM_STR);
-        $req->bindValue(':niveau', $seance->getNIVEAU(), PDO::PARAM_STR);
-        $req->bindValue(':capacite', $seance->getCAPACITE(), PDO::PARAM_STR);
-        $req->execute();
+        $req = "INSERT INTO seance (NUMSEANCE, IDPROF, TRANCHE, JOUR, NIVEAU, CAPACITE) VALUES (:numseance, :idprof, :tranche, :jour, :niveau, :capacite)";
+        $stmt = $pdo->prepare($req);
+        $stmt->bindValue(':numseance', $seance->getNUMSEANCE(), PDO::PARAM_INT);
+        $stmt->bindValue(':idprof', $seance->getIDPROF(), PDO::PARAM_INT);
+        $stmt->bindValue(':tranche', $seance->getTRANCHE(), PDO::PARAM_STR);
+        $stmt->bindValue(':jour', $seance->getJOUR(), PDO::PARAM_STR);
+        $stmt->bindValue(':niveau', $seance->getNIVEAU(), PDO::PARAM_STR);
+        $stmt->bindValue(':capacite', $seance->getCAPACITE(), PDO::PARAM_INT);
+        $stmt->execute();
     }
 
     public static function supprimercours($numseance)
     {
-        $req = monPdo::getInstance()->prepare("delete from personne where NUMSEANCE = :numseance");
-        $req->bindParam(':numseance', $numseance);
-        $req->execute();
+        $pdo = MonPdo::getInstance();
+        $stmt = $pdo->prepare("DELETE FROM seance WHERE NUMSEANCE = :numseance");
+        $stmt->bindParam(':numseance', $numseance, PDO::PARAM_INT);
+        $stmt->execute();
     }
 
     public static function securiser($donnees)
