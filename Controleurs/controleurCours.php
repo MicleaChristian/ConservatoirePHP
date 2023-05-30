@@ -39,7 +39,7 @@ switch ($action) {
         break;
 
     case "editer_form":
-        $id = $_GET["id"];
+        $id = $_GET["idseance"];
         $seance = Seance::getByNumseance($id);
         if ($seance) {
             include "vues/editercours.php";
