@@ -42,9 +42,16 @@
                         <li><a class="nav-link" href="index.php?uc=cours&action=ajout_form">Ajouter un cours</a></li>
                     </ul>
                 </div>
-
-            <!-- Planning vers la page planning.php -->
-            <a class="nav-link" href="index.php?uc=planning">Planning</a>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Planning
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="nav-link" href="index.php?uc=planning&action=liste">Afficher le planning</a></li>
+                        <li><a class="nav-link" href="index.php?uc=planning&action=ajout_form">Ajuster planning</a></li>
+                    </ul>
+                </div>
                 <form class="position-absolute top-50 start-50 translate-middle" action="index.php?uc=logout" method="POST">
                     <ul class="navbar-nav">
                         <li class="d-flex">
