@@ -203,18 +203,36 @@ class Seance
         return $req->fetch();
     }
 
-    public static function updatePersonne(Seance $seance)
+    public static function updatePersonne($personne)
     {
         $pdo = MonPdo::getInstance();
-        $req = $pdo->prepare("UPDATE seance SET IDPROF=:idprof, TRANCHE=:tranche, JOUR=:jour, NIVEAU=:niveau, CAPACITE=:capacite WHERE NUMSEANCE=:numseance");
-        $req->bindValue(':id', $seance->getIDPROF(), PDO::PARAM_INT);
-        $req->bindValue(':nom', $seance->getTRANCHE(), PDO::PARAM_STR);
-        $req->bindValue(':prenom', $seance->getJOUR(), PDO::PARAM_STR);
-        $req->bindValue(':mail', $seance->getNIVEAU(), PDO::PARAM_STR);
-        $req->bindValue(':tel', $seance->getCAPACITE(), PDO::PARAM_STR);
-        $req->execute();
+        $req = "UPDATE personne SET NOM = :nom, PRENOM = :prenom, EMAIL = :email, TELEPHONE = :telephone, ADRESSE = :adresse, CODEPOSTAL = :codepostal, VILLE = :ville, MOTDEPASSE = :motdepasse WHERE IDPERSONNE = :idpersonne";
+        $stmt = $pdo->prepare($req);
+        $stmt->bindValue(':idpersonne', $personne->getIDPERSONNE(), PDO::PARAM_INT);
+        $stmt->bindValue(':nom', $personne->getNOM(), PDO::PARAM_STR);
+        $stmt->bindValue(':prenom', $personne->getPRENOM(), PDO::PARAM_STR);
+        $stmt->bindValue(':email', $personne->getEMAIL(), PDO::PARAM_STR);
+        $stmt->bindValue(':telephone', $personne->getTELEPHONE(), PDO::PARAM_STR);
+        $stmt->bindValue(':adresse', $personne->getADRESSE(), PDO::PARAM_STR);
+        $stmt->bindValue(':codepostal', $personne->getCODEPOSTAL(), PDO::PARAM_STR);
+        $stmt->bindValue(':ville', $personne->getVILLE(), PDO::PARAM_STR);
+        $stmt->bindValue(':motdepasse', $personne->getMOTDEPASSE(), PDO::PARAM_STR);
+        $stmt->execute();
     }
 
+    public static function updateSeance(Seance $seance)
+    {
+        $pdo = MonPdo::getInstance();
+        $req = "UPDATE seance SET IDPROF = :idprof, TRANCHE = :tranche, JOUR = :jour, NIVEAU = :niveau, CAPACITE = :capacite WHERE NUMSEANCE = :numseance";
+        $stmt = $pdo->prepare($req);
+        $stmt->bindValue(':numseance', $seance->getNUMSEANCE(), PDO::PARAM_INT);
+        $stmt->bindValue(':idprof', $seance->getIDPROF(), PDO::PARAM_INT);
+        $stmt->bindValue(':tranche', $seance->getTRANCHE(), PDO::PARAM_STR);
+        $stmt->bindValue(':jour', $seance->getJOUR(), PDO::PARAM_STR);
+        $stmt->bindValue(':niveau', $seance->getNIVEAU(), PDO::PARAM_STR);
+        $stmt->bindValue(':capacite', $seance->getCAPACITE(), PDO::PARAM_INT);
+        $stmt->execute();
+    }
 
 
 

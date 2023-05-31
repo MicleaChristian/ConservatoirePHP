@@ -48,14 +48,14 @@ switch ($action) {
         }
         break;
 
+
     case "editer":
         $seance = new Seance();
-        $seance->setIDSEANCE($_POST["idseance"]);
-        $seance->setIDPROF($_POST["idprof"]);
-        $seance->setTRANCHE($_POST["tranche"]);
-        $seance->setJOUR($_POST["jour"]);
-        $seance->setNIVEAU($_POST["niveau"]);
-        $seance->setCAPACITE($_POST["capacite"]);
+        $seance->setIDPROF(Seance::securiser($_POST["idprof"]));
+        $seance->setTRANCHE(Seance::securiser($_POST['tranche']));
+        $seance->setJOUR(Seance::securiser($_POST['jour']));
+        $seance->setNIVEAU(Seance::securiser($_POST['niveau']));
+        $seance->setCAPACITE(Seance::securiser($_POST['capacite']));
         Seance::updateSeance($seance);
         header('Location: index.php?uc=cours&action=liste');
         exit;
