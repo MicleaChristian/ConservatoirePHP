@@ -212,6 +212,8 @@ class Seance
         return $req->fetch();
     }
 
+
+
     public static function updatePersonne($personne)
     {
         $pdo = MonPdo::getInstance();
