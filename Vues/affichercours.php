@@ -1,8 +1,9 @@
 <?php
-require_once 'Modeles/monPdo.php'; // replace with the path to your MonPdo.php file
+require_once 'Modeles/monPdo.php'; // remplacez par le chemin vers votre fichier MonPdo.php
 
 MonPdo::checkSessionAndRedirect();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,8 +18,7 @@ MonPdo::checkSessionAndRedirect();
 </head>
 
 <body>
-<?php include("header/header.php");
-?>
+    <?php include("header/header.php"); ?>
 
     <div class="position-relative mt-5 mb-3">
         <h2 class="d-flex justify-content-center mt-5">Nos cours</h2>
@@ -35,9 +35,8 @@ MonPdo::checkSessionAndRedirect();
                 </tr>
             </thead>
             <tbody>
-
-
                 <?php
+
 
                 foreach ($lesSeances as $seance) {
                     echo "<tr>";
@@ -46,21 +45,16 @@ MonPdo::checkSessionAndRedirect();
                     echo "<td>" . $seance->getJOUR() . "</td>";
                     echo "<td>" . $seance->getNIVEAU() . "</td>";
                     echo "<td>" . $seance->getCAPACITE() . "</td>";
-                    echo "<td><a href='index.php?uc=cours&action=supprimer&idseance=" . $seance -> getNUMSEANCE() . "'><button type='button' class='btn btn-danger'>Supprimer</button></a></td>";
-                    echo "<td><a href='index.php?uc=cours&action=editer_form&idseance=" . $seance -> getNUMSEANCE() . "'><button type='button' class='btn btn-warning'>Modifier</button></a></td>";
+                    echo "<td><a href='index.php?uc=cours&action=supprimer&idseance=" . $seance->getNUMSEANCE() . "'><button type='button' class='btn btn-danger'>Supprimer</button></a></td>";
+                    echo "<td><a href='index.php?uc=cours&action=editer_form&idseance=" . $seance->getNUMSEANCE() . "'><button type='button' class='btn btn-warning'>Modifier</button></a></td>";
                     echo "</tr>";
                 }
                 ?>
             </tbody>
         </table>
     </div>
-
-    <footer>
-        <p>&copy; <?php echo date("Y"); ?> Miclea Christian</p>
-    </footer>
+    <?php include("footer/footer.php") ?>
 
 </body>
-
-
 
 </html>

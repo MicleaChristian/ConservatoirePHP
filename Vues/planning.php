@@ -1,8 +1,16 @@
 <?php
 require_once 'Modeles/monPdo.php';
+require_once 'Modeles/cours.class.php';
+require_once 'Modeles/prof.class.php';
+require_once 'Modeles/heure.class.php';
+require_once 'Modeles/jour.class.php';
+require_once 'Modeles/niveau.class.php';
+require_once 'Modeles/planningModel.php';
+require_once 'Modeles/instrument.class.php';
 
 MonPdo::checkSessionAndRedirect();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,55 +25,86 @@ MonPdo::checkSessionAndRedirect();
 </head>
 
 <body>
-<?php include("header/header.php");
-?>
-<!-- fait le calendrier avec toutes les données qui correspondent -->
-<div class="container-fluid position-relative mt-3">
-    <h2 class="position-absolute top-0 start-50 translate-middle">Planning</h2>
-    <div class="row mt-3">
-        <div class="col">
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th scope="col">Heure</th>
-                    <th scope="col">Lundi</th>
-                    <th scope="col">Mardi</th>
-                    <th scope="col">Mercredi</th>
-                    <th scope="col">Jeudi</th>
-                    <th scope="col">Vendredi</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($heures as $heure): ?>
-                    <tr>
-                        <th scope="row"><?php echo $heure["tranche"]; ?></th>
-                        <?php foreach ($jours as $jour): ?>
-                            <td>
-                                <?php
-                                $cours = MonPdo::getInstance()->prepare("SELECT * FROM cours WHERE idjour = :idjour AND idheure = :idheure");
-                                $cours->execute(array(
-                                    "idjour" => $jour["idjour"],
-                                    "idheure" => $heure["idheure"]
-                                ));
-                                $cours = $cours->fetch();
-                                if ($cours) {
-                                    $prof = MonPdo::getInstance()->prepare("SELECT * FROM prof WHERE idprof = :idprof");
-                                    $prof->execute(array(
-                                        "idprof" => $cours["idprof"]
-                                    ));
-                                    $prof = $prof->fetch();
-                                    echo $prof["nom"];
+    <?php
+    // Tableau associatif pour mapper les jours de la semaine avec leur libellé, utilise getNom pour le prof au milieu du cadre avec le nom de l'instrument
+    $jours = array(
+        1 => array("nom" => "Lundi", "id" => "lundi"),
+        2 => array("nom" => "Mardi", "id" => "mardi"),
+        3 => array("nom" => "Mercredi", "id" => "mercredi"),
+        4 => array("nom" => "Jeudi", "id" => "jeudi"),
+         5 => array("nom" => "Vendredi", "id" => "vendredi"),
+        6 => array("nom" => "Samedi", "id" => "samedi"),
+        7 => array("nom" => "Dimanche", "id" => "dimanche")
+    );
+    ?>
+    <?php include("header/header.php") ?>
+
+    <div class="position-relative mt-5 mb-3">
+        <h2 class="d-flex justify-content-center mt-5">Planning</h2>
+    </div>
+    <div class="container-fluid position-relative mt-3">
+        <div class="row">
+            <div class="col">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Heure</th>
+                            <?php
+                            foreach ($jours as $jour) {
+                                echo "<th scope='col'>" . $jour['nom'] . "</th>";
+                            }
+                            ?>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $heures = Heure::getAll();
+                        foreach ($heures as $heure) {
+                            echo "<tr>";
+                            echo "<th scope='row'>" . $heure['tranche'] . "</th>";
+                            foreach ($jours as $jour) {
+                                $seance = Seance::getByJourAndTranche($jour['id'], $heure['tranche']);
+                                echo "<td>";
+                                if ($seance) {
+                                    echo "<a href='index.php?uc=cours&action=editer&idseance=" . $seance->getNUMSEANCE() . "' class='btn btn-primary'>" . $seance->getNomProf() . "</a>";
                                 }
-                                ?>
-                            </td>
-                        <?php endforeach; ?>
-                    </tr>
-                <?php endforeach; ?>
-                </tbody>
-            </table>
+                                echo "</td>";
+                            }
+                            echo "</tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
+
+    <footer class="footer bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Informations de contact</h5>
+                    <ul class="list-unstyled">
+                        <li>Adresse : 123 rue des exemples, Ville, Pays</li>
+                        <li>Téléphone : +1234567890</li>
+                        <li>Email : info@example.com</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5>Liens utiles</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Accueil</a></li>
+                        <li><a href="#">À propos</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="text-center py-3">
+            <p class="mb-0">&copy; 2023 Mon Entreprise. Tous droits réservés.</p>
+        </div>
+    </footer>
 </body>
 
 </html>

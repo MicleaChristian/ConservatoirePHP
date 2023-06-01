@@ -55,9 +55,7 @@ MonPdo::checkSessionAndRedirect();
         </table>
     </div>
 
-    <footer>
-        <p>&copy; <?php echo date("Y"); ?> Miclea Christian</p>
-    </footer>
+    <?php include("footer/footer.php") ?>
 
 </body>
 

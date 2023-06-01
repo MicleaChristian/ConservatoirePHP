@@ -1,10 +1,12 @@
 <?php
 $action = $_GET["action"];
+
 switch ($action) {
-    // redirection vers le planning
-    case "planning":
-        include("Vues/planning.php");
+
+    case "liste":
+        // affiche les cours au bon emplacement sur le calendrier
+        include "vues/planning.php";
         break;
-    // redirection vers la liste des cours
-    }
+
+}
 ?>

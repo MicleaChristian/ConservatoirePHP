@@ -3,13 +3,6 @@ require_once 'Modeles/monPdo.php';
 
 class PlanningModel
 {
-    public static function getPlanning()
-    {
-        $req = monPdo::getInstance()->prepare("SELECT * FROM planning");
-        $req->execute();
-        $planning = $req->fetch();
-        return $planning;
-    }
 
     public static function updatePlanning($planning)
     {
