@@ -12,7 +12,7 @@ class eleve
 
         /**
          * Get the value of IDELEVE
-         */ 
+         */
         public function getIDELEVE()
         {
                 return $this->IDELEVE;
@@ -22,7 +22,7 @@ class eleve
          * Set the value of IDELEVE
          *
          * @return  self
-         */ 
+         */
         public function setIDELEVE($IDELEVE)
         {
                 $this->IDELEVE = $IDELEVE;
@@ -32,7 +32,7 @@ class eleve
 
         /**
          * Get the value of NIVEAU
-         */ 
+         */
         public function getNIVEAU()
         {
                 return $this->NIVEAU;
@@ -42,7 +42,7 @@ class eleve
          * Set the value of NIVEAU
          *
          * @return  self
-         */ 
+         */
         public function setNIVEAU($NIVEAU)
         {
                 $this->NIVEAU = $NIVEAU;
@@ -52,7 +52,7 @@ class eleve
 
         /**
          * Get the value of BOURSE
-         */ 
+         */
         public function getBOURSE()
         {
                 return $this->BOURSE;
@@ -62,7 +62,7 @@ class eleve
          * Set the value of BOURSE
          *
          * @return  self
-         */ 
+         */
         public function setBOURSE($BOURSE)
         {
                 $this->BOURSE = $BOURSE;
@@ -153,7 +153,7 @@ class personne
 
                 /**
          * Get the value of IDELEVE
-         */ 
+         */
         public function getIDELEVE()
         {
                 return $this->IDELEVE;
@@ -163,7 +163,7 @@ class personne
          * Set the value of IDELEVE
          *
          * @return  self
-         */ 
+         */
         public function setIDELEVE($IDELEVE)
         {
                 $this->IDELEVE = $IDELEVE;
@@ -173,7 +173,7 @@ class personne
 
         /**
          * Get the value of NIVEAU
-         */ 
+         */
         public function getNIVEAU()
         {
                 return $this->NIVEAU;
@@ -183,7 +183,7 @@ class personne
          * Set the value of NIVEAU
          *
          * @return  self
-         */ 
+         */
         public function setNIVEAU($NIVEAU)
         {
                 $this->NIVEAU = $NIVEAU;
@@ -193,7 +193,7 @@ class personne
 
         /**
          * Get the value of BOURSE
-         */ 
+         */
         public function getBOURSE()
         {
                 return $this->BOURSE;
@@ -203,7 +203,7 @@ class personne
          * Set the value of BOURSE
          *
          * @return  self
-         */ 
+         */
         public function setBOURSE($BOURSE)
         {
                 $this->BOURSE = $BOURSE;
@@ -255,7 +255,7 @@ class personne
                 $req = MonPdo::getInstance()->prepare("SELECT * FROM personne INNER JOIN prof ON ID = IDPROF;");
                 $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'personne');
                 $req->execute();
-                $lesResultats = $req->fetchAll();               
+                $lesResultats = $req->fetchAll();
                 return $lesResultats;
         }
 
@@ -264,9 +264,9 @@ class personne
 
                 $pdo = MonPdo::getInstance();
                 $req = $pdo->prepare("insert into personne (NOM, PRENOM, TEL, MAIL, ADRESSE) values (:nom,:prenom,:tel,:mail,:adress);
-                
+
                 set @last_id_in_personne = LAST_INSERT_ID();
-                
+
                 insert into eleve (IDELEVE, NIVEAU, BOURSE)
                 VALUES (@last_id_in_personne, :niveau, :bourse);
                 ");
@@ -280,15 +280,15 @@ class personne
                 $req->execute();
         }
 
-        
+
         public static function ajouterprof(personne $personne, prof $prof)
         {
 
                 $pdo = MonPdo::getInstance();
                 $req = $pdo->prepare("insert into personne (NOM, PRENOM, TEL, MAIL, ADRESSE) values (:nom,:prenom,:tel,:mail,:adress);
-                
+
                 set @last_id_in_personne = LAST_INSERT_ID();
-                
+
                 insert into prof (IDPROF, INSTRUMENT , SALAIRE)
                 VALUES (@last_id_in_personne, :libelle, :salaire);");
                 $req->bindValue(':nom', $personne->getNOM(), PDO::PARAM_STR);
@@ -307,7 +307,7 @@ class personne
                 $req = $pdo->prepare("delete from eleve where IDELEVE = :id");
                 $req->bindParam(':id', $id);
                 $req->execute();
-                
+
                 $req = $pdo->prepare("delete from personne where ID = :id");
                 $req->bindParam(':id', $id);
                 $req->execute();
@@ -319,7 +319,7 @@ class personne
                 $req = $pdo->prepare("delete from prof where IDPROF = :id");
                 $req->bindParam(':id', $id);
                 $req->execute();
-                
+
                 $req = $pdo->prepare("delete from personne where ID = :id");
                 $req->bindParam(':id', $id);
                 $req->execute();
@@ -344,12 +344,14 @@ class personne
 
         public static function updatePersonne(personne $personne)
         {
-                $req = MonPdo::getInstance()->prepare("update personne set NOM=:nom, PRENOM=:prenom, MAIL=:mail, TEL=:tel WHERE ID=:id");
+               $pdo = MonPdo::getInstance();
+                 $req = $pdo->prepare("update personne set NOM=:nom, PRENOM=:prenom, MAIL=:mail, TEL=:tel, ADRESSE=:adress WHERE ID=:id");
                 $req->bindValue(':id', $personne->getID(), PDO::PARAM_INT);
                 $req->bindValue(':nom', $personne->getNOM(), PDO::PARAM_STR);
                 $req->bindValue(':prenom', $personne->getPRENOM(), PDO::PARAM_STR);
                 $req->bindValue(':mail', $personne->getMAIL(), PDO::PARAM_STR);
-                $req->bindValue(':tel', $personne->getTEL(), PDO::PARAM_INT);                
+                $req->bindValue(':tel', $personne->getTEL(), PDO::PARAM_INT);
+                $req->bindValue(':adress', $personne->getADRESSE(), PDO::PARAM_STR);
                 $req->execute();
         }
 
@@ -360,7 +362,7 @@ class personne
                 $req->bindValue(':nom', $personne->getNOM(), PDO::PARAM_STR);
                 $req->bindValue(':prenom', $personne->getPRENOM(), PDO::PARAM_STR);
                 $req->bindValue(':mail', $personne->getMAIL(), PDO::PARAM_STR);
-                $req->bindValue(':tel', $personne->getTEL(), PDO::PARAM_INT);                
+                $req->bindValue(':tel', $personne->getTEL(), PDO::PARAM_INT);
                 $req->execute();
         }
 

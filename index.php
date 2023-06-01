@@ -8,6 +8,7 @@ include "Modeles/monPdo.php";
 include "Modeles/personne.class.php" ;
 include "Controleurs/login_controller.php" ;
 include "Modeles/cours.class.php" ;
+include "Modeles/planningModel.php" ;
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
