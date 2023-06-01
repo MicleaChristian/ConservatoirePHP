@@ -203,16 +203,6 @@ class Seance
         return $req->fetch();
     }
 
-    // getNomProf
-    public static function getNomProf($idprof = null)
-    {
-        $req = MonPdo::getInstance()->prepare("SELECT NOM FROM personne WHERE ID = :idprof");
-        $req->bindValue(':idprof', $idprof, PDO::PARAM_INT);
-        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'seance');
-        $req->execute();
-        return $req->fetch();
-    }
-
     public static function getByJourAndTranche($jour, $tranche)
     {
         $req = MonPdo::getInstance()->prepare("SELECT * FROM seance WHERE JOUR = :jour AND TRANCHE = :tranche");

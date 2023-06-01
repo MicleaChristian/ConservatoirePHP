@@ -5,8 +5,9 @@ require_once 'Modeles/prof.class.php';
 require_once 'Modeles/heure.class.php';
 require_once 'Modeles/jour.class.php';
 require_once 'Modeles/niveau.class.php';
-require_once 'Modeles/planningModel.php';
 require_once 'Modeles/instrument.class.php';
+require_once 'Modeles/personne.class.php';
+
 
 MonPdo::checkSessionAndRedirect();
 ?>
@@ -43,40 +44,43 @@ MonPdo::checkSessionAndRedirect();
         <h2 class="d-flex justify-content-center mt-5">Planning</h2>
     </div>
     <div class="container-fluid position-relative mt-3">
-        <div class="row">
-            <div class="col">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">Heure</th>
-                            <?php
-                            foreach ($jours as $jour) {
-                                echo "<th scope='col'>" . $jour['nom'] . "</th>";
-                            }
-                            ?>
-                        </tr>
-                    </thead>
-                    <tbody>
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Heure</th>
                         <?php
-                        $heures = Heure::getAll();
-                        foreach ($heures as $heure) {
-                            echo "<tr>";
-                            echo "<th scope='row'>" . $heure['tranche'] . "</th>";
-                            foreach ($jours as $jour) {
-                                $seance = Seance::getByJourAndTranche($jour['id'], $heure['tranche']);
-                                echo "<td>";
-                                if ($seance) {
-                                    echo "<a href='index.php?uc=cours&action=editer&idseance=" . $seance->getNUMSEANCE() . "' class='btn btn-primary'>" . $seance->getNomProf() . "</a>";
-                                }
-                                echo "</td>";
-                            }
-                            echo "</tr>";
+                        foreach ($jours as $jour) {
+                            echo "<th scope='col'>" . $jour['nom'] . "</th>";
                         }
                         ?>
-                    </tbody>
-                </table>
-            </div>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $heures = Heure::getAll();
+                    foreach ($heures as $heure) {
+                        echo "<tr>";
+                        echo "<th scope='row'>" . $heure['tranche'] . "</th>";
+                        foreach ($jours as $jour) {
+                            $seance = Seance::getByJourAndTranche($jour['id'], $heure['tranche']);
+                            echo "<td";
+                            if ($seance) {
+                                echo " class='table-primary'";
+                            // a remplir
+                            } else {
+                                echo "></td>";
+                            }
+                            echo "</td>";
+                        }
+                        echo "</tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
         </div>
+    </div>
     </div>
     <?php include("footer/footer.php") ?>
 </body>
