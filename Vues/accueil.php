@@ -29,22 +29,19 @@ MonPdo::checkSessionAndRedirect();
             <div class="carousel-item active">
                 <img src="images/conservatoire.jpg" class="d-block w-100" alt="Slide 1">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Titre de la première image</h5>
-                    <p>Description de la première image</p>
+                    <h5>Afficher les élèves</h5>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="images/conservatoire.jpg" class="d-block w-100" alt="Slide 2">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Titre de la deuxième image</h5>
-                    <p>Description de la deuxième image</p>
+                    <h5>Afficher les professeurs</h5>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="images/conservatoire.jpg" class="d-block w-100" alt="Slide 3">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Titre de la troisième image</h5>
-                    <p>Description de la troisième image</p>
+                    <h5>Afficher les cours</h5>
                 </div>
             </div>
         </div>
@@ -64,8 +61,7 @@ MonPdo::checkSessionAndRedirect();
                 <div class="card">
                     <img src="images/conservatoire.jpg" class="card-img-top" alt="Image 1">
                     <div class="card-body">
-                        <h5 class="card-title">Titre de la carte 1</h5>
-                        <p class="card-text">Description de la carte 1</p>
+                        <h5 class="card-title">Afficher les élève</h5>
                     </div>
                 </div>
             </div>
@@ -73,8 +69,7 @@ MonPdo::checkSessionAndRedirect();
                 <div class="card">
                     <img src="images/conservatoire.jpg" class="card-img-top" alt="Image 2">
                     <div class="card-body">
-                        <h5 class="card-title">Titre de la carte 2</h5>
-                        <p class="card-text">Description de la carte 2</p>
+                        <h5 class="card-title">Afficher les professeurs</h5>
                     </div>
                 </div>
             </div>
@@ -82,8 +77,7 @@ MonPdo::checkSessionAndRedirect();
                 <div class="card">
                     <img src="images/conservatoire.jpg" class="card-img-top" alt="Image 3">
                     <div class="card-body">
-                        <h5 class="card-title">Titre de la carte 3</h5>
-                        <p class="card-text">Description de la carte 3</p>
+                        <h5 class="card-title">Afficher les cours</h5>
                     </div>
                 </div>
             </div>

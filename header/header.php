@@ -55,7 +55,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.php?uc=accueil">Conservatoire</a>
+            <a class="navbar-brand" href="index.php?uc=accueil">Conservatoire pour tous</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -78,13 +78,13 @@
                     <div class="dropdown">
                         <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Profs
+                            Professeurs
                         </button>
                         <ul class="dropdown-menu animated fadeIn">
                             <li><a class="dropdown-item" href="index.php?uc=personne&action=listeprof">Afficher les
-                                    profs</a></li>
+                                    professeurs</a></li>
                             <li><a class="dropdown-item" href="index.php?uc=personne&action=ajoutprof_form">Ajouter un
-                                    prof</a></li>
+                                    professeur</a></li>
                         </ul>
                     </div>
                     <div class="dropdown">

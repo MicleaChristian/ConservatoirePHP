@@ -35,7 +35,6 @@ MonPdo::checkSessionAndRedirect();
         4 => array("nom" => "Jeudi", "id" => "jeudi"),
          5 => array("nom" => "Vendredi", "id" => "vendredi"),
         6 => array("nom" => "Samedi", "id" => "samedi"),
-        7 => array("nom" => "Dimanche", "id" => "dimanche")
     );
     ?>
     <?php include("header/header.php") ?>
