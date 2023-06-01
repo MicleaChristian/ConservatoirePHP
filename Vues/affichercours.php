@@ -37,7 +37,6 @@ MonPdo::checkSessionAndRedirect();
             <tbody>
                 <?php
 
-
                 foreach ($lesSeances as $seance) {
                     echo "<tr>";
                     echo "<td>" . $seance->getIDPROF() . "</td>";
