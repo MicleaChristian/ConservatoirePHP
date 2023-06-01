@@ -5,7 +5,7 @@ switch ($action) {
 
     case "liste":
         // affiche les cours au bon emplacement sur le calendrier
-        include "vues/planning.php";
+        include("Vues/planning.php");
         break;
 
 }

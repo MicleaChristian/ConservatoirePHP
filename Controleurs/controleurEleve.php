@@ -20,11 +20,11 @@ switch ($action) { // Commence la structure de contrôle switch en utilisant la 
         $ideleve = $_GET["ideleve"]; // Récupère la valeur de la variable GET "ideleve" et l'assigne à la variable $ideleve
         $eleve = eleve::getById($ideleve); // Appelle la méthode statique "getById" de la classe eleve en utilisant la valeur de $ideleve et assigne le résultat à la variable $eleve
         if ($eleve) {
-            include "vues/editereleve.php"; // Inclut le fichier de vue "editereleve.php"
+            include "Vues/editereleve.php"; // Inclut le fichier de vue "editereleve.php"
         } else {
             echo "Eleve not found."; // Affiche un message si l'élève n'est pas trouvé
         }
-        include "vues/editereleve.php"; // Inclut le fichier de vue "editereleve.php"
+        include "Vues/editereleve.php"; // Inclut le fichier de vue "editereleve.php"
         break;
 
     case "editer":

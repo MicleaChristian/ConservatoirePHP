@@ -50,7 +50,7 @@ switch ($action) {
                 $jours = jour::getAll();
                 require_once 'Modeles/niveau.class.php';
                 $niveaux = niveau::getAll();
-                include "vues/editercours.php";
+                include "Vues/editercours.php";
             } else {
                 echo "Cours non trouvé.";
             }

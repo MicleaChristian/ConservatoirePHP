@@ -75,7 +75,7 @@ switch ($action) {
         $id = $_GET["id"];
         $personne = personne::getById($id);
         if ($personne) {
-            include "vues/editerpersonne.php";
+            include "Vues/editerpersonne.php";
         } else {
             echo "Person not found.";
         }
@@ -85,7 +85,7 @@ switch ($action) {
         $id = $_GET["id"];
         $personne = personne::getById($id);
         if ($personne) {
-            include "vues/editerprof.php";
+            include "Vues/editerprof.php";
         } else {
             echo "Person not found.";
         }

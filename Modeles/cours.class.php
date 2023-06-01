@@ -165,7 +165,6 @@ class Seance
     public static function ajouterSeance(Seance $seance)
     {
         // initialise le numéro de séance à 1
-        $seance->setNUMSEANCE($seance->getNUMSEANCE() + 1);
         $pdo = MonPdo::getInstance();
         $req = "INSERT INTO seance (NUMSEANCE, IDPROF, TRANCHE, JOUR, NIVEAU, CAPACITE) VALUES (:numseance, :idprof, :tranche, :jour, :niveau, :capacite)";
         $stmt = $pdo->prepare($req);
