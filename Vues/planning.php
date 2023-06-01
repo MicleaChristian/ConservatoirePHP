@@ -21,7 +21,6 @@ MonPdo::checkSessionAndRedirect();
     <title>Conservatoire</title>
     <script defer src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js'></script>
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css'>
-    <link href="style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -34,7 +33,6 @@ MonPdo::checkSessionAndRedirect();
         4 => array("nom" => "Jeudi", "id" => "jeudi"),
          5 => array("nom" => "Vendredi", "id" => "vendredi"),
         6 => array("nom" => "Samedi", "id" => "samedi"),
-        7 => array("nom" => "Dimanche", "id" => "dimanche")
     );
     ?>
     <?php include("header/header.php") ?>
@@ -67,7 +65,7 @@ MonPdo::checkSessionAndRedirect();
                             echo "<td";
                             if ($seance) {
                                 echo " class='table-primary'>";
-                                echo "" . $seance->getIDPROF() . "<br>" .$seance->getIDPROF();
+                                // echo "" . $seance->getIDPROF() . "<br>" .$seance->getIDPROF();
                             } else {
                                 echo "></td>";
                             }
