@@ -8,7 +8,6 @@ require_once 'Modeles/niveau.class.php';
 require_once 'Modeles/instrument.class.php';
 require_once 'Modeles/personne.class.php';
 
-
 MonPdo::checkSessionAndRedirect();
 ?>
 
@@ -35,6 +34,7 @@ MonPdo::checkSessionAndRedirect();
         4 => array("nom" => "Jeudi", "id" => "jeudi"),
          5 => array("nom" => "Vendredi", "id" => "vendredi"),
         6 => array("nom" => "Samedi", "id" => "samedi"),
+        7 => array("nom" => "Dimanche", "id" => "dimanche")
     );
     ?>
     <?php include("header/header.php") ?>
@@ -66,8 +66,8 @@ MonPdo::checkSessionAndRedirect();
                             $seance = Seance::getByJourAndTranche($jour['id'], $heure['tranche']);
                             echo "<td";
                             if ($seance) {
-                                echo " class='table-primary'";
-                            // a remplir
+                                echo " class='table-primary'>";
+                                echo "" . $seance->getIDPROF() . "<br>" .$seance->getIDPROF();
                             } else {
                                 echo "></td>";
                             }
