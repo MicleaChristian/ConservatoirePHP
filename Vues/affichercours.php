@@ -1,5 +1,6 @@
 <?php
 require_once 'Modeles/monPdo.php'; // remplacez par le chemin vers votre fichier MonPdo.php
+require_once 'Modeles/personne.class.php'; // Ajoutez cette ligne pour inclure la classe Personne
 
 MonPdo::checkSessionAndRedirect();
 ?>
@@ -27,7 +28,7 @@ MonPdo::checkSessionAndRedirect();
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Idprof</th>
+                    <th scope="col">Professeur</th>
                     <th scope="col">Tranche</th>
                     <th scope="col">Jour</th>
                     <th scope="col">Niveau</th>
@@ -36,10 +37,10 @@ MonPdo::checkSessionAndRedirect();
             </thead>
             <tbody>
                 <?php
-
                 foreach ($lesSeances as $seance) {
                     echo "<tr>";
-                    echo "<td>" . $seance->getIDPROF() . "</td>";
+                    $professeur = Personne::getById($seance->getIDPROF());
+                    echo "<td>" . $professeur->getNOM() . "</td>";
                     echo "<td>" . $seance->getTRANCHE() . "</td>";
                     echo "<td>" . $seance->getJOUR() . "</td>";
                     echo "<td>" . $seance->getNIVEAU() . "</td>";
@@ -57,3 +58,5 @@ MonPdo::checkSessionAndRedirect();
 </body>
 
 </html>
+
+

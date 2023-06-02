@@ -60,6 +60,8 @@ class prof
                 return $lesResultats;
         }
 
+
+
         public static function getAll()
         {
             $pdo = MonPdo::getInstance();
@@ -68,5 +70,7 @@ class prof
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
+
+
 
 }

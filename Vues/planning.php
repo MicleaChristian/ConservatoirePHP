@@ -25,13 +25,12 @@ MonPdo::checkSessionAndRedirect();
 
 <body>
     <?php
-    // Tableau associatif pour mapper les jours de la semaine avec leur libellé, utilise getNom pour le prof au milieu du cadre avec le nom de l'instrument
     $jours = array(
         1 => array("nom" => "Lundi", "id" => "lundi"),
         2 => array("nom" => "Mardi", "id" => "mardi"),
         3 => array("nom" => "Mercredi", "id" => "mercredi"),
         4 => array("nom" => "Jeudi", "id" => "jeudi"),
-         5 => array("nom" => "Vendredi", "id" => "vendredi"),
+        5 => array("nom" => "Vendredi", "id" => "vendredi"),
         6 => array("nom" => "Samedi", "id" => "samedi"),
     );
     ?>
@@ -41,43 +40,49 @@ MonPdo::checkSessionAndRedirect();
         <h2 class="d-flex justify-content-center mt-5">Planning</h2>
     </div>
     <div class="container-fluid position-relative mt-3">
-    <div class="row">
-        <div class="col">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col">Heure</th>
+        <div class="row">
+            <div class="col">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Heure</th>
+                            <?php
+                            foreach ($jours as $jour) {
+                                echo "<th scope='col'>" . $jour['nom'] . "</th>";
+                            }
+                            ?>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <?php
-                        foreach ($jours as $jour) {
-                            echo "<th scope='col'>" . $jour['nom'] . "</th>";
+                        $heures = Heure::getAll();
+                        foreach ($heures as $heure) {
+                            echo "<tr>";
+                            echo "<th scope='row'>" . $heure['tranche'] . "</th>";
+                            foreach ($jours as $jour) {
+                                $seance = Seance::getByJourAndTranche($jour['id'], $heure['tranche']);
+                                echo "<td";
+                                if ($seance) {
+                                    echo " class='table-primary'>";
+// ...
+                                    if ($seance) {
+                                        $prof = personne::getById($seance->getIDPROF());
+                                        echo "<div class='d-flex justify-content-center'><strong>" . substr($prof->getPRENOM(), 0, 1) . ". " . $prof->getNOM() . "</strong></div>";
+
+                                    }
+                                    echo "<div class='d-flex justify-content-center'>" . $seance->getCAPACITE() . "</div>";
+                                } else {
+                                    echo "></td>";
+                                }
+                                echo "</td>";
+                            }
+                            echo "</tr>";
                         }
                         ?>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $heures = Heure::getAll();
-                    foreach ($heures as $heure) {
-                        echo "<tr>";
-                        echo "<th scope='row'>" . $heure['tranche'] . "</th>";
-                        foreach ($jours as $jour) {
-                            $seance = Seance::getByJourAndTranche($jour['id'], $heure['tranche']);
-                            echo "<td";
-                            if ($seance) {
-                                echo " class='table-primary'>";
-                                // echo "" . $seance->getIDPROF() . "<br>" .$seance->getIDPROF();
-                            } else {
-                                echo "></td>";
-                            }
-                            echo "</td>";
-                        }
-                        echo "</tr>";
-                    }
-                    ?>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
     </div>
     <?php include("footer/footer.php") ?>
 </body>
