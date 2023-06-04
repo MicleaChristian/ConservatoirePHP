@@ -74,7 +74,6 @@ class prof
                 $personne->setINSTRUMENT($row['INSTRUMENT']);
             }
 
-
             return $personne;
         }
 

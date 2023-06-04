@@ -12,6 +12,6 @@
             </div>
         </div>
         <div class="text-center py-3">
-            <p class="mb-0">&copy; 2023 Conservatoire pour tous. Tous droits réservés.</p>
+            <p class="mb-0"> 2023 Conservatoire pour tous.</p>
         </div>
     </footer>
