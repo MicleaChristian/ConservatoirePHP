@@ -60,7 +60,23 @@ class prof
                 return $lesResultats;
         }
 
+        public static function getById($id)
+        {
+            $req = MonPdo::getInstance()->prepare("SELECT p.*, pr.INSTRUMENT FROM personne p LEFT JOIN prof pr ON p.ID = pr.IDPROF WHERE p.ID = :id");
+            $req->bindValue(':id', $id, PDO::PARAM_INT);
+            $req->execute();
+            $result = $req->fetchAll(PDO::FETCH_ASSOC);
 
+            $personne = null;
+            if ($result) {
+                $row = $result[0];
+                $personne = new personne($row['ID'], $row['NOM'], $row['PRENOM'], $row['ADRESSE']);
+                $personne->setINSTRUMENT($row['INSTRUMENT']);
+            }
+
+
+            return $personne;
+        }
 
         public static function getAll()
         {

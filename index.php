@@ -77,6 +77,10 @@ switch ($uc) {
         include("Controleurs/controleurPlanning.php");
         break;
 
+    case "inscription":
+        include("Controleurs/controleurInscription.php");
+        break;
+
     case "logout":
         $loginController->logout();
         include("Vues/login_view.php");

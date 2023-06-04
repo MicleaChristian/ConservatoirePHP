@@ -49,6 +49,18 @@
             background-color: #007bff;
             color: #fff;
         }
+
+        /* Styles pour le centre du header */
+        .navbar-center {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-center .greeting {
+            flex-grow: 1;
+            text-align: center;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -107,11 +119,21 @@
                             <li><a class="dropdown-item" href="index.php?uc=cours&action=ajout_form">Ajouter cours</a></li>
                         </ul>
                     </div>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Inscription
+                        </button>
+                        <ul class="dropdown-menu animated fadeIn">
+                            <li><a class="dropdown-item" href="index.php?uc=inscription&action=ajout_form">Afficher Inscription</a></li>
+                            <li><a class="dropdown-item" href="index.php?uc=inscription&action=liste">Inscription eleve</a></li>
+                        </ul>
+                    </div>
+                    <div class="navbar-center">
+                    <span class="nav-link">Bonjour <?php echo $_SESSION['user_id']; ?></span>
+                    </div>
                     <form class="form-inline" action="index.php?uc=logout" method="POST">
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <span class="nav-link">Bonjour <?php echo $_SESSION['user_id']; ?></span>
-                            </li>
                             <li class="nav-item">
                                 <button type="submit" class="btn btn-danger">Déconnexion</button>
                             </li>

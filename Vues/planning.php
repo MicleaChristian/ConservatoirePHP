@@ -54,7 +54,7 @@ MonPdo::checkSessionAndRedirect();
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
+                    <?php
                         $heures = Heure::getAll();
                         foreach ($heures as $heure) {
                             echo "<tr>";
@@ -64,13 +64,12 @@ MonPdo::checkSessionAndRedirect();
                                 echo "<td";
                                 if ($seance) {
                                     echo " class='table-primary'>";
-// ...
                                     if ($seance) {
-                                        $prof = personne::getById($seance->getIDPROF());
-                                        echo "<div class='d-flex justify-content-center'><strong>" . substr($prof->getPRENOM(), 0, 1) . ". " . $prof->getNOM() . "</strong></div>";
-
-                                    }
-                                    echo "<div class='d-flex justify-content-center'>" . $seance->getCAPACITE() . "</div>";
+                                        $prof = prof::getById($seance->getIDPROF());
+                                        $personne = personne::getById($seance->getIDPROF());
+                                        echo "<div class='d-flex justify-content-center'><strong>" . $prof->getINSTRUMENT() . " niv: " . $seance->getNIVEAU() . "</strong></div>";
+                                        echo "<div class='d-flex justify-content-center'><strong>" . substr($personne->getPRENOM(), 0, 1) . ". " . $personne->getNOM() . "</strong></div>";
+                                        echo "<div class='d-flex justify-content-center'>" . "/" . $seance->getCAPACITE() . "</div>";                                    }
                                 } else {
                                     echo "></td>";
                                 }
@@ -78,7 +77,9 @@ MonPdo::checkSessionAndRedirect();
                             }
                             echo "</tr>";
                         }
-                        ?>
+                    ?>
+
+
                     </tbody>
                 </table>
             </div>
