@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Jun 08, 2023 at 12:06 AM
--- Server version: 10.5.20-MariaDB
--- PHP Version: 7.4.33
+-- Host: 127.0.0.1
+-- Generation Time: May 16, 2024 at 09:58 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `kurghsvm_conservatoire`
 --
-CREATE DATABASE IF NOT EXISTS `kurghsvm_conservatoire` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `kurghsvm_conservatoire`;
 
 -- --------------------------------------------------------
 
@@ -40,7 +38,8 @@ CREATE TABLE `eleve` (
 --
 
 INSERT INTO `eleve` (`IDELEVE`, `NIVEAU`, `BOURSE`) VALUES
-(56, 3, 1);
+(63, 3, 1),
+(64, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -185,10 +184,11 @@ CREATE TABLE `personne` (
 --
 
 INSERT INTO `personne` (`ID`, `NOM`, `PRENOM`, `TEL`, `MAIL`, `ADRESSE`) VALUES
-(56, 'Miclea', 'Christian', 663433569, 'gentil-monsieur@saperlipopette.c', NULL),
 (60, 'Miclea', 'Christian', 663433569, 'MC32@gmail.com', 'Rue Albert Sorel'),
 (61, 'Pirandello', 'Eric', 606060606, 'EricP@gmail.com', 'Rue Albert Sorel'),
-(62, 'Mirhat', 'Ahmed', 607080910, 'MAhmed@outlook.com', 'Rue Albert Sorel');
+(62, 'Mirhat', 'Ahmed', 607080910, 'MAhmed@outlook.com', 'Rue Albert Sorel'),
+(63, 'Miclea', 'Alexandre', 663433569, 'engichris32@gmail.com', NULL),
+(64, 'Miclea', 'Christian', 663433569, 'test@gmail.com', 'Rue Albert Sorel');
 
 -- --------------------------------------------------------
 
@@ -232,7 +232,6 @@ CREATE TABLE `seance` (
 
 INSERT INTO `seance` (`IDPROF`, `NUMSEANCE`, `TRANCHE`, `JOUR`, `NIVEAU`, `CAPACITE`) VALUES
 (60, 1, '12:00-13:00', 'Lundi', 3, 15),
-(61, 2, '12:00-13:00', 'Jeudi', 2, 15),
 (61, 4, '12:00-13:00', 'Mardi', 3, 16),
 (61, 5, '11:00-12:00', 'Mardi', 3, 15),
 (61, 6, '13:00-14:00', 'Samedi', 3, 15),
@@ -276,16 +275,19 @@ INSERT INTO `trim` (`LIBELLE`, `DATEFIN`) VALUES
 
 CREATE TABLE `users` (
   `id` text NOT NULL,
-  `password` text NOT NULL
+  `password` text NOT NULL,
+  `role` enum('admin','pupil','parent') NOT NULL DEFAULT 'pupil'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `password`) VALUES
-('test', 'pass'),
-('christian', 'azer');
+INSERT INTO `users` (`id`, `password`, `role`) VALUES
+('test', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'pupil'),
+('christian', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'pupil'),
+('Christian', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'pupil'),
+('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -380,7 +382,7 @@ ALTER TABLE `trim`
 -- AUTO_INCREMENT for table `personne`
 --
 ALTER TABLE `personne`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- Constraints for dumped tables
@@ -425,11 +427,6 @@ ALTER TABLE `seance`
   ADD CONSTRAINT `fk_prof` FOREIGN KEY (`IDPROF`) REFERENCES `prof` (`IDPROF`),
   ADD CONSTRAINT `fk_tranche` FOREIGN KEY (`TRANCHE`) REFERENCES `heure` (`TRANCHE`),
   ADD CONSTRAINT `seance_ibfk_1` FOREIGN KEY (`NIVEAU`) REFERENCES `niveau` (`NIVEAU`);
---
--- Database: `kurghsvm_conservatoireld`
---
-CREATE DATABASE IF NOT EXISTS `kurghsvm_conservatoireld` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `kurghsvm_conservatoireld`;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
