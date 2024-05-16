@@ -7,8 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conservatoire</title>
     <style>
+        body{
+            background-color: #F8F6F4;
+            min-height: 100vh;
+        }
+        @font-face {
+            font-family: Tit;
+            src: url(http://localhost/ConservatoirePHP/fonts/TitilliumWeb-Regular.ttf);
+        }
+
+        @font-face {
+            font-family: Logo;
+            src: url(http://localhost/ConservatoirePHP/fonts/MajorMonoDisplay-Regular.ttf);
+        }
+
         /* Espacement entre les catégories */
-        .navbar-nav .dropdown,
+        .navbar-nav .dropdown{
+            margin-right: 10px;
+        }
         .navbar-nav .border {
             margin-right: 10px;
         }
@@ -35,19 +51,70 @@
 
         /* Style des sous-menus */
         .dropdown-menu {
-            background-color: #fff;
-            border: 1px solid #007bff;
+            background-color: rgba(248, 246, 244, 0.5);
             border-radius: 4px;
-            padding: 10px;
         }
 
         .dropdown-menu .dropdown-item {
             color: #000;
+            Transition:1s;
         }
 
         .dropdown-menu .dropdown-item:hover {
-            background-color: #007bff;
+            background-color: rgba(0,0,0, 0.5);
             color: #fff;
+            Transition: 1s;
+        }
+
+        .bouton {
+            transition: color 0.3s;
+            font-family: Tit;
+            background: none;
+            color: black;
+            border: none;
+            margin: 0;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .bouton:hover {
+            color: rgb(196, 223, 223);
+        }
+
+        .boutondeco {
+            transition: color 0.3s;
+            font-family: Tit;
+            background: none;
+            color: black;
+            border: none;
+            margin: 0;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .deco:hover {
+            background-color: red;
+            Transition: 0.3s;
+        }
+
+        .deco {
+            padding: 5px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .navbar-nav {
+            align-items: center;
+            display: flex;
+            
+        }
+
+        .navbar-nav .nav-item {
+            display: flex;
+            align-items: center;
         }
     </style>
 </head>
@@ -55,7 +122,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.php?uc=accueil">Conservatoire</a>
+            <a class="navbar-brand" style="font-family: Logo;" href="index.php?uc=accueil">ConservatoirE</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -64,32 +131,25 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <div class="dropdown">
-                        <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <button class="bouton" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Élèves
                         </button>
                         <ul class="dropdown-menu animated fadeIn">
-                            <li><a class="dropdown-item" href="index.php?uc=personne&action=liste">Afficher les élèves</a>
-                            </li>
-                            <li><a class="dropdown-item" href="index.php?uc=personne&action=ajout_form">Ajouter un élève</a>
-                            </li>
+                            <li><a class="dropdown-item" href="index.php?uc=personne&action=liste">Afficher les élèves</a></li>
+                            <li><a class="dropdown-item" href="index.php?uc=personne&action=ajout_form">Ajouter un élève</a></li>
                         </ul>
                     </div>
                     <div class="dropdown">
-                        <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <button class="bouton" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Profs
                         </button>
                         <ul class="dropdown-menu animated fadeIn">
-                            <li><a class="dropdown-item" href="index.php?uc=personne&action=listeprof">Afficher les
-                                    profs</a></li>
-                            <li><a class="dropdown-item" href="index.php?uc=personne&action=ajoutprof_form">Ajouter un
-                                    prof</a></li>
+                            <li><a class="dropdown-item" href="index.php?uc=personne&action=listeprof">Afficher les profs</a></li>
+                            <li><a class="dropdown-item" href="index.php?uc=personne&action=ajoutprof_form">Ajouter un prof</a></li>
                         </ul>
                     </div>
                     <div class="dropdown">
-                        <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <button class="bouton" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Cours
                         </button>
                         <ul class="dropdown-menu animated fadeIn">
@@ -98,8 +158,7 @@
                         </ul>
                     </div>
                     <div class="dropdown">
-                        <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <button class="bouton" type="button" data-bs-toggle="dropdown">
                             Planning
                         </button>
                         <ul class="dropdown-menu animated fadeIn">
@@ -107,14 +166,13 @@
                             <li><a class="dropdown-item" href="index.php?uc=cours&action=ajout_form">Ajouter cours</a></li>
                         </ul>
                     </div>
-                        <a class="btn btn-outline-primary" href="https://buy.stripe.com/cN2g1Kg6mdXaaFacMM">Me faire un DON</a>
                     <form class="form-inline" action="index.php?uc=logout" method="POST">
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <span class="nav-link">Bonjour <?php echo $_SESSION['user_id']; ?></span>
+                            <li class="nav-item" style="margin-right: 20px; font-family: Tit;">
+
                             </li>
-                            <li class="nav-item">
-                                <button type="submit" class="btn btn-danger">Déconnexion</button>
+                            <li class="nav-item deco">
+                                <button type="submit" class="boutondeco">Déconnexion</button>
                             </li>
                         </ul>
                     </form>

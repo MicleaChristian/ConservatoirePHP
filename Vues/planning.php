@@ -24,6 +24,9 @@ MonPdo::checkSessionAndRedirect();
 </head>
 
 <body>
+<?php include("header/header.php") ?>
+    <div style="display: flex; width: 100vw; justify-content: center;"> 
+    <div style="width: 80vw; ">
     <?php
     $jours = array(
         1 => array("nom" => "Lundi", "id" => "lundi"),
@@ -34,7 +37,7 @@ MonPdo::checkSessionAndRedirect();
         6 => array("nom" => "Samedi", "id" => "samedi"),
     );
     ?>
-    <?php include("header/header.php") ?>
+
 
     <div class="position-relative mt-5 mb-3">
         <h2 class="d-flex justify-content-center mt-5">Planning</h2>
@@ -83,6 +86,9 @@ MonPdo::checkSessionAndRedirect();
             </div>
         </div>
     </div>
+    </div>
+    </div>
+   
 </body>
 
 </html>

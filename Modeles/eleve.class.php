@@ -70,7 +70,7 @@ class eleve
 
     public static function afficherTous()
     {
-            $req = MonPdo::getInstance()->prepare("select * from eleve");
+            $req = MonPdo::getInstance()->prepare("SELECT * FROM eleve");
             $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'eleve');
             $req->execute();
             $lesResultats = $req->fetchAll();
@@ -80,7 +80,7 @@ class eleve
     public static function ajoutereleve(eleve $eleve)
     {
             $pdo = MonPdo::getInstance();
-            $req = $pdo->prepare("insert into eleve (IDELEVE,NIVEAU,BOURSE) values (:ideleve,:niveau,:bourse)");
+            $req = $pdo->prepare("INSERT INTO eleve (IDELEVE,NIVEAU,BOURSE) VALUES (:ideleve,:niveau,:bourse)");
             $req->bindValue(':ideleve', $eleve->getIDELEVE(), PDO::PARAM_STR);
             $req->bindValue(':niveau', $eleve->getNIVEAU(), PDO::PARAM_STR);
             $req->bindValue(':bourse', $eleve->getBOURSE(), PDO::PARAM_STR);
@@ -89,7 +89,7 @@ class eleve
 
     public static function supprimereleve($id)
     {
-            $req = monPdo::getInstance()->prepare("delete from eleve where ideleve = :ideleve");
+            $req = monPdo::getInstance()->prepare("DELETE FROM eleve WHERE ideleve = :ideleve");
             $req->bindParam(':ideleve', $ideleve);
             $req->execute();
     }

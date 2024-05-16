@@ -20,7 +20,7 @@ MonPdo::checkSessionAndRedirect();
 <body>
     <?php include("header/header.php"); ?>
 
-    <div class="position-relative mt-5 mb-3">
+    <div class="position-relative width:80vw;">
         <h2 class="d-flex justify-content-center mt-5">Nos cours</h2>
     </div>
     <div class="container-fluid position-relative mt-3">

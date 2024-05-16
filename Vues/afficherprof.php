@@ -21,7 +21,7 @@ MonPdo::checkSessionAndRedirect();
     <div class="position-relative mt-5 mb-3">
         <h2 class="d-flex justify-content-center mt-5">Les Professeurs</h2>
     </div>
-    <div class="container-fluid position-relative mt-5">
+    <div class="container-fluid position-relative mt-5" style="width:80vw;">
         <table class="table table-striped">
             <thead>
                 <tr>

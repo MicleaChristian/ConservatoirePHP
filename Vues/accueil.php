@@ -17,14 +17,15 @@ MonPdo::checkSessionAndRedirect();
 
 <body>
     <?php include("header/header.php") ?>
-
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <p>Bonjour <?php echo $_SESSION['user_id']; ?>. Que voulez vous faire aujourd'hui?</p>
+<div class="caroussel container" style="display: flex; justify-content: center;">
+    <div id="carouselExampleIndicators" class="carousel slide" style="height: 500px;" data-bs-ride="carousel">
         <ol class="carousel-indicators">
             <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
             <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
             <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
         </ol>
-        <div class="carousel-inner">
+        <div class="carousel-inner" style="height: 500px;">
             <div class="carousel-item active">
                 <img src="images/conservatoire.jpg" class="d-block w-100" alt="Slide 1">
                 <div class="carousel-caption d-none d-md-block">
@@ -56,6 +57,8 @@ MonPdo::checkSessionAndRedirect();
             <span class="visually-hidden">Suivant</span>
         </a>
     </div>
+</div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"></script>
 </body>
