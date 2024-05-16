@@ -35,7 +35,7 @@ switch ($uc) {
     case "accueil_login" :
         $uc = $_POST['uc'] ?? 'default';
         $action = $_POST['action'] ?? 'default';
-    
+
         if ($uc === 'login' && $action === 'submit') {
             $loginController = new LoginController();
             $loginController->login();
@@ -73,6 +73,14 @@ switch ($uc) {
         include("Controleurs/controleurEleve.php");
         break;
 
+    case "planning":
+        include("Controleurs/controleurPlanning.php");
+        break;
+
+    case "inscription":
+        include("Controleurs/controleurInscription.php");
+        break;
+
     case "logout":
         $loginController->logout();
         include("Vues/login_view.php");
@@ -82,6 +90,13 @@ switch ($uc) {
         include("Vues/ajoutereleve.php");
         break;
 
+    case "redirlogin":
+        include("Vues/login_view.php");
+        break;
+
+    case "passchange":
+        include("Controleurs/passchange.php");
+        break;
 
 
 }

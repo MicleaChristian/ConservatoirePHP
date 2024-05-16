@@ -1,9 +1,8 @@
 <?php
 
-ini_set('display_errors', 0);
-class LoginController 
+class LoginController
 {
-    public function show() 
+    public function show()
     {
         require_once('Vues/login_view.php');
     }
@@ -11,25 +10,23 @@ class LoginController
     public function login()
     {
         $username = $_POST['id'];
-        $password = $_POST['password'];
+        $password = sha1($_POST['password']);
         $result = MonPdo::login($username, $password);
         if ($result) {
             session_start();
             $_SESSION['user_id'] = $result['id'];
-            header('Location: index.php?uc=accueil');
+            header('Location:index.php?uc=accueil');
             exit;
-        } 
-        else
-        {
+        } else {
             $error_message = "Invalid username or password.";
             require_once('Vues/login_view.php');
         }
     }
-    
-    public function logout() 
+
+    public function logout()
     {
+        session_unset();
         session_destroy();
-        header('Location:index.php?uc=logout');
-        exit;
+
     }
 }

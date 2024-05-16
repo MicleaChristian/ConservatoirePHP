@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 24, 2023 at 12:38 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jun 08, 2023 at 12:06 AM
+-- Server version: 10.5.20-MariaDB
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `kurghsvm_conservatoire`
 --
+CREATE DATABASE IF NOT EXISTS `kurghsvm_conservatoire` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `kurghsvm_conservatoire`;
 
 -- --------------------------------------------------------
 
@@ -38,8 +40,7 @@ CREATE TABLE `eleve` (
 --
 
 INSERT INTO `eleve` (`IDELEVE`, `NIVEAU`, `BOURSE`) VALUES
-(42, 3, 1),
-(54, 3, 1);
+(56, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -56,6 +57,8 @@ CREATE TABLE `heure` (
 --
 
 INSERT INTO `heure` (`TRANCHE`) VALUES
+('08:00-09:00'),
+('09:00-10:00'),
 ('10:00-11:00'),
 ('11:00-12:00'),
 ('12:00-13:00'),
@@ -63,9 +66,7 @@ INSERT INTO `heure` (`TRANCHE`) VALUES
 ('14:00-15:00'),
 ('15:00-16:00'),
 ('16:00-17:00'),
-('17:00-18:00'),
-('8:00-9:00'),
-('9:00-10:00');
+('17:00-18:00');
 
 -- --------------------------------------------------------
 
@@ -184,10 +185,10 @@ CREATE TABLE `personne` (
 --
 
 INSERT INTO `personne` (`ID`, `NOM`, `PRENOM`, `TEL`, `MAIL`, `ADRESSE`) VALUES
-(42, 'Miclea', 'Christian', 663433569, 'engichris32@gmail.com', 'Rue Albert Sorel'),
-(52, 'Miclea', 'Christian', 663433569, 'engichris32@gmail.com', 'Rue Albert Sorel'),
-(54, 'Miclea', 'Alexandre', 663433569, 'micleaalex101@icloud.com', 'Rue Albert Sorel'),
-(55, 'Miclea', 'Christian', 663433569, 'engichris32@gmail.com', 'Rue Albert Sorel');
+(56, 'Miclea', 'Christian', 663433569, 'gentil-monsieur@saperlipopette.c', NULL),
+(60, 'Miclea', 'Christian', 663433569, 'MC32@gmail.com', 'Rue Albert Sorel'),
+(61, 'Pirandello', 'Eric', 606060606, 'EricP@gmail.com', 'Rue Albert Sorel'),
+(62, 'Mirhat', 'Ahmed', 607080910, 'MAhmed@outlook.com', 'Rue Albert Sorel');
 
 -- --------------------------------------------------------
 
@@ -206,8 +207,9 @@ CREATE TABLE `prof` (
 --
 
 INSERT INTO `prof` (`IDPROF`, `INSTRUMENT`, `SALAIRE`) VALUES
-(52, 'Guitare', 50000),
-(55, 'Piano', 100000);
+(60, 'Flûte traversière', 25000),
+(61, 'Piano', 25000),
+(62, 'Trompette', 25000);
 
 -- --------------------------------------------------------
 
@@ -223,6 +225,30 @@ CREATE TABLE `seance` (
   `NIVEAU` int(11) NOT NULL,
   `CAPACITE` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `seance`
+--
+
+INSERT INTO `seance` (`IDPROF`, `NUMSEANCE`, `TRANCHE`, `JOUR`, `NIVEAU`, `CAPACITE`) VALUES
+(60, 1, '12:00-13:00', 'Lundi', 3, 15),
+(61, 2, '12:00-13:00', 'Jeudi', 2, 15),
+(61, 4, '12:00-13:00', 'Mardi', 3, 16),
+(61, 5, '11:00-12:00', 'Mardi', 3, 15),
+(61, 6, '13:00-14:00', 'Samedi', 3, 15),
+(62, 3, '10:00-11:00', 'Lundi', 2, 15);
+
+--
+-- Triggers `seance`
+--
+DELIMITER $$
+CREATE TRIGGER `increment_numseance` BEFORE INSERT ON `seance` FOR EACH ROW BEGIN
+  DECLARE next_numseance INT;
+  SET next_numseance = (SELECT IFNULL(MAX(NUMSEANCE), 0) + 1 FROM seance WHERE IDPROF = NEW.IDPROF);
+  SET NEW.NUMSEANCE = next_numseance;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -354,7 +380,7 @@ ALTER TABLE `trim`
 -- AUTO_INCREMENT for table `personne`
 --
 ALTER TABLE `personne`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- Constraints for dumped tables
@@ -399,6 +425,11 @@ ALTER TABLE `seance`
   ADD CONSTRAINT `fk_prof` FOREIGN KEY (`IDPROF`) REFERENCES `prof` (`IDPROF`),
   ADD CONSTRAINT `fk_tranche` FOREIGN KEY (`TRANCHE`) REFERENCES `heure` (`TRANCHE`),
   ADD CONSTRAINT `seance_ibfk_1` FOREIGN KEY (`NIVEAU`) REFERENCES `niveau` (`NIVEAU`);
+--
+-- Database: `kurghsvm_conservatoireld`
+--
+CREATE DATABASE IF NOT EXISTS `kurghsvm_conservatoireld` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `kurghsvm_conservatoireld`;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

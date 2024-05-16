@@ -3,8 +3,8 @@ class MonPdo
 {
     private static $serveur='mysql:host=localhost';
     private static $bdd='dbname=kurghsvm_conservatoire'; 
-    private static $user='root' ; 
-    private static $mdp='' ;
+    private static $user='root'; 
+    private static $mdp='';
     private static $monPdo;
     private static $unPdo = null;
     
@@ -26,6 +26,15 @@ class MonPdo
         }
         return self::$unPdo;
     }
+
+    public static function checkSessionAndRedirect()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: index.php?uc=redirlogin');
+            exit();
+        }
+    }
+    
 
     public static function login($id, $password) 
     {

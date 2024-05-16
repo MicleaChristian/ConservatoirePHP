@@ -1,28 +1,67 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link href="style.css" rel="stylesheet">
+    <title>Page de Connexion</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+
+      .login-container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 40px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 100px;
+      }
+
+      .login-container h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .login-container .error-message {
+        color: red;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+    </style>
   </head>
   <body>
-  <div class="position-absolute top-50 start-50 translate-middle">
-    <h1>Login Page</h1>
-    <?php if (isset($error_message)): ?>
-      <p style="color: red;"><?php echo $error_message; ?></p>
-    <?php endif; ?>
-    <form action="index.php?uc=login" method="POST">
-  <input type="hidden" name="uc" value="login">
-  <input type="hidden" name="action" value="submit">
-  <label for="id">Username:</label>
-  <input type="text" name="id" id="id" required><br><br>
-  <label for="password">Password:</label>
-  <input type="password" name="password" id="password" required><br><br>
-  <input type="submit" value="Login">
-</form>
-  </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="login-container">
+            <h1>Page de Connexion</h1>
+            <?php if (isset($error_message)): ?>
+              <p class="error-message"><?php echo $error_message; ?></p>
+            <?php endif; ?>
+            <form action="index.php?uc=login" method="POST">
+              <input type="hidden" name="uc" value="login">
+              <input type="hidden" name="action" value="submit">
+              <div class="mb-3">
+                <label for="id" class="form-label">Utilisateur:</label>
+                <input type="text" name="id" id="id" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Mot de passe:</label>
+                <input type="password" name="password" id="password" class="form-control" required>
+              </div>
+              <div class="text-center">
+                <input type="submit" value="Connexion" class="btn btn-primary">
+              </div>
+            </form>
+            <div class="text-center">
+              <a class="btn btn-outline-secondary" href="index.php?uc=passchange&action=upform" role="button">Changer de mot de passe</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
