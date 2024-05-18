@@ -63,15 +63,15 @@ MonPdo::checkSessionAndRedirect();
     </div>
 
     <div class="admin-buttons">
-            <div class="button-row"><a class="link" href="index.php?uc=personne&action=liste">Gérer les élèves</a></div>
-            <div class="button-row"><a class="link" href="index.php?uc=personne&action=listeprof">Gérer les profs</a></div>
-            <div class="button-row"><a class="link" href="index.php?uc=cours&action=liste">Gérer les cours</a></div>
+            <a class="button-row" href="index.php?uc=personne&action=liste"><p class="link">Gérer les élèves</p></a>
+            <a class="button-row" href="index.php?uc=personne&action=listeprof"><p class="link">Gérer les profs</p></a>
+            <a class="button-row" href="index.php?uc=cours&action=liste"><p class="link">Gérer les cours</p></a>
     </div>
 
     <div class="admin-buttons">
-            <div class="button-row"><a class="link" href="index.php?uc=personne&action=ajout_form">Ajouter un élève</a></div>
-            <div class="button-row"><a class="link" href="index.php?uc=personne&action=ajoutprof_form">Ajouter un prof</a></div>
-            <div class="button-row"><a class="link" href="index.php?uc=cours&action=ajout_form">Ajouter un cours</a></div>
+            <a class="button-row" href="index.php?uc=personne&action=ajout_form"><p class="link">Ajouter un élève</p></a>
+            <a class="button-row" href="index.php?uc=personne&action=ajoutprof_form"><p class="link">Ajouter un prof</p></a>
+            <a class="button-row" href="index.php?uc=cours&action=ajout_form"><p class="link">Ajouter un cours</p></a>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>

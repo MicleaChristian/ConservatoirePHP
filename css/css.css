@@ -23,14 +23,15 @@
 }
 
 .button-row{
+    padding-top: 15px;
     margin-left: 10px;
     margin-right: 10px;
     transition:1s;
     width: 30vh;
-    padding: 20px;
     border-radius: 10px;
     text-align: center;
     background-color: #D9D9D980;
+    text-decoration: none;
 }
 
 .button-row:hover{
@@ -49,4 +50,12 @@
 .link:hover{
     text-decoration: none;
     color: black;
+}
+
+#tit_h{
+    font-family: Logo;
+}
+
+.table_h{
+    font-family: Tit;
 }
