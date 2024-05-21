@@ -36,11 +36,11 @@ class MonPdo
     }
     
 
-    public static function login($id, $password) 
+    public static function login($username, $password) 
     {
         $instance = self::getInstance();
-        $stmt = $instance->prepare("SELECT * FROM users WHERE id=:id AND password=:password");
-        $stmt->bindParam(':id', $id);
+        $stmt = $instance->prepare("SELECT * FROM users WHERE username=:username AND password=:password");
+        $stmt->bindParam(':username', $username);
         $stmt->bindParam(':password', $password);
         $stmt->execute();
         
@@ -49,5 +49,3 @@ class MonPdo
     }
     
 }
-
-?>

@@ -13,14 +13,13 @@ MonPdo::checkSessionAndRedirect();
     <title>Conservatoire</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/css.css">
-    <style>
-
-    </style>
 </head>
 
 <body>
     <?php include("header/header_accueil.php") ?>
-    <p style="display: flex; justify-content: center; font-family: Tit; font-size: 2vw;">Bonjour <?php echo $_SESSION['user_id']; ?>. Que voulez vous faire aujourd'hui?</p>
+    <p style="display: flex; justify-content: center; font-family: Tit; font-size: 2vw; color:#CCC;">
+        Bonjour <?php echo $_SESSION['user_name']; ?>. Que voulez vous faire aujourd'hui?
+    </p>
     <div class="caroussel container" style="display: flex; justify-content: center;">
         <div id="carouselExampleIndicators" class="carousel slide" style="height: 50vh; width: 100vw;" data-bs-ride="carousel">
             <ol class="carousel-indicators">
@@ -68,11 +67,19 @@ MonPdo::checkSessionAndRedirect();
             <a class="button-row" href="index.php?uc=cours&action=liste"><p class="link">Gérer les cours</p></a>
     </div>
 
-    <div class="admin-buttons">
+    <?php if ($_SESSION['user_role'] == 'admin') : ?>
+        <div class="admin-buttons">
+            <a class="button-row" href="index.php?uc=personne&action=liste"><p class="link">Gérer les élèves</p></a>
+            <a class="button-row" href="index.php?uc=personne&action=listeprof"><p class="link">Gérer les profs</p></a>
+            <a class="button-row" href="index.php?uc=cours&action=liste"><p class="link">Gérer les cours</p></a>
+        </div>
+
+        <div class="admin-buttons">
             <a class="button-row" href="index.php?uc=personne&action=ajout_form"><p class="link">Ajouter un élève</p></a>
             <a class="button-row" href="index.php?uc=personne&action=ajoutprof_form"><p class="link">Ajouter un prof</p></a>
             <a class="button-row" href="index.php?uc=cours&action=ajout_form"><p class="link">Ajouter un cours</p></a>
-    </div>
+        </div>
+    <?php endif; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2024 at 09:58 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: May 22, 2024 at 01:50 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,16 +30,17 @@ SET time_zone = "+00:00";
 CREATE TABLE `eleve` (
   `IDELEVE` int(11) NOT NULL,
   `NIVEAU` int(11) NOT NULL,
-  `BOURSE` int(11) DEFAULT NULL
+  `BOURSE` int(11) DEFAULT NULL,
+  `PARENT_ID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `eleve`
 --
 
-INSERT INTO `eleve` (`IDELEVE`, `NIVEAU`, `BOURSE`) VALUES
-(63, 3, 1),
-(64, 3, 1);
+INSERT INTO `eleve` (`IDELEVE`, `NIVEAU`, `BOURSE`, `PARENT_ID`) VALUES
+(63, 3, 1, NULL),
+(64, 3, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -274,7 +275,8 @@ INSERT INTO `trim` (`LIBELLE`, `DATEFIN`) VALUES
 --
 
 CREATE TABLE `users` (
-  `id` text NOT NULL,
+  `id` int(11) NOT NULL,
+  `username` text NOT NULL,
   `password` text NOT NULL,
   `role` enum('admin','pupil','parent') NOT NULL DEFAULT 'pupil'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -283,11 +285,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `password`, `role`) VALUES
-('test', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'pupil'),
-('christian', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'pupil'),
-('Christian', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'pupil'),
-('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'admin');
+INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
+(1, 'test', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'pupil'),
+(2, 'christian', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'pupil'),
+(3, 'Christian', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'pupil'),
+(4, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -375,6 +377,12 @@ ALTER TABLE `trim`
   ADD PRIMARY KEY (`LIBELLE`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -383,6 +391,12 @@ ALTER TABLE `trim`
 --
 ALTER TABLE `personne`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

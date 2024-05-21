@@ -1,3 +1,10 @@
+body {
+    background: url(http://localhost/ConservatoirePHP/img/backdark.webp) no-repeat center center fixed;
+    background-size: cover;
+    backdrop-filter: blur(2px);
+
+}
+
 .carousel-item img {
     object-fit: cover;
     height: 50vh; /* Ensure the height is consistent with the carousel container */
