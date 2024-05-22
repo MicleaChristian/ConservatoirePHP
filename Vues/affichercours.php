@@ -24,36 +24,39 @@ MonPdo::checkSessionAndRedirect();
         <h2 class="d-flex justify-content-center mt-5">Nos cours</h2>
     </div>
     <div class="container-fluid position-relative mt-3">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Professeur</th>
-                    <th scope="col">Tranche</th>
-                    <th scope="col">Jour</th>
-                    <th scope="col">Niveau</th>
-                    <th scope="col">Capacité</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                foreach ($lesSeances as $seance) {
-                    echo "<tr>";
-                    $professeur = Personne::getById($seance->getIDPROF());
-                    echo "<td>" . $professeur->getNOM() . "</td>";
-                    echo "<td>" . $seance->getTRANCHE() . "</td>";
-                    echo "<td>" . $seance->getJOUR() . "</td>";
-                    echo "<td>" . $seance->getNIVEAU() . "</td>";
-                    echo "<td>" . $seance->getCAPACITE() . "</td>";
-                    echo "<td><a href='index.php?uc=cours&action=supprimer&idseance=" . $seance->getNUMSEANCE() . "'><button type='button' class='btn btn-danger'>Supprimer</button></a></td>";
-                    echo "<td><a href='index.php?uc=cours&action=editer_form&idseance=" . $seance->getNUMSEANCE() . "'><button type='button' class='btn btn-warning'>Modifier</button></a></td>";
-                    echo "</tr>";
-                }
-                ?>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Professeur</th>
+                        <th scope="col" class="d-none d-md-table-cell">Tranche</th>
+                        <th scope="col" class="d-none d-sm-table-cell">Jour</th>
+                        <th scope="col" class="d-none d-lg-table-cell">Niveau</th>
+                        <th scope="col" class="d-none d-xl-table-cell">Capacité</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($lesSeances as $seance) {
+                        echo "<tr>";
+                        $professeur = Personne::getById($seance->getIDPROF());
+                        echo "<td>" . $professeur->getNOM() . "</td>";
+                        echo "<td class='d-none d-md-table-cell'>" . $seance->getTRANCHE() . "</td>";
+                        echo "<td class='d-none d-sm-table-cell'>" . $seance->getJOUR() . "</td>";
+                        echo "<td class='d-none d-lg-table-cell'>" . $seance->getNIVEAU() . "</td>";
+                        echo "<td class='d-none d-xl-table-cell'>" . $seance->getCAPACITE() . "</td>";
+                        echo "<td>";
+                        echo "<a href='index.php?uc=cours&action=supprimer&idseance=" . $seance->getNUMSEANCE() . "'><button type='button' class='btn btn-danger btn-sm me-1'>Supprimer</button></a>";
+                        echo "<a href='index.php?uc=cours&action=editer_form&idseance=" . $seance->getNUMSEANCE() . "'><button type='button' class='btn btn-warning btn-sm'>Modifier</button></a>";
+                        echo "</td>";
+                        echo "</tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 
 </html>
-
-
