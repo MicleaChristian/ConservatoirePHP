@@ -60,12 +60,13 @@ MonPdo::checkSessionAndRedirect();
             </a>
         </div>
     </div>
-
-    <div class="admin-buttons">
-            <a class="button-row" href="index.php?uc=personne&action=liste"><p class="link">Gérer les élèves</p></a>
-            <a class="button-row" href="index.php?uc=personne&action=listeprof"><p class="link">Gérer les profs</p></a>
-            <a class="button-row" href="index.php?uc=cours&action=liste"><p class="link">Gérer les cours</p></a>
-    </div>
+    <?php if($_SESSION['user_role'] == 'parent') :?>
+        <div class="admin-buttons">
+                <a class="button-row" href="index.php?uc=personne&action=liste"><p class="link">Gérer les élèves</p></a>
+                <a class="button-row" href="index.php?uc=personne&action=listeprof"><p class="link">Gérer les profs</p></a>
+                <a class="button-row" href="index.php?uc=cours&action=liste"><p class="link">Gérer les cours</p></a>
+        </div>
+    <?php endif; ?>
 
     <?php if ($_SESSION['user_role'] == 'admin') : ?>
         <div class="admin-buttons">
