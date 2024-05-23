@@ -14,6 +14,7 @@ class MonPdo
         MonPdo::$unPdo->query("SET CHARACTER SET utf8");
         MonPdo::$unPdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
+
     public function __destruct()
     { 
         MonPdo::$unPdo = null;
@@ -34,7 +35,15 @@ class MonPdo
             exit();
         }
     }
-    
+
+    public static function getUserRole($userId)
+    {
+        $instance = self::getInstance();
+        $stmt = $instance->prepare("SELECT role FROM users WHERE id = :userId");
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
 
     public static function login($username, $password) 
     {
@@ -47,5 +56,5 @@ class MonPdo
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
-    
 }
+?>
