@@ -68,7 +68,9 @@ MonPdo::checkSessionAndRedirect();
                         <th scope="col" class="d-none d-sm-table-cell">Jour</th>
                         <th scope="col" class="d-none d-lg-table-cell">Niveau</th>
                         <th scope="col" class="d-none d-xl-table-cell">Capacité</th>
+                        <?php if ($_SESSION['user_role'] == 'admin') : ?>
                         <th scope="col">Actions</th>
+                        <?php endif ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,10 +83,12 @@ MonPdo::checkSessionAndRedirect();
                         echo "<td class='d-none d-sm-table-cell'>" . $seance->getJOUR() . "</td>";
                         echo "<td class='d-none d-lg-table-cell'>" . $seance->getNIVEAU() . "</td>";
                         echo "<td class='d-none d-xl-table-cell'>" . $seance->getCAPACITE() . "</td>";
+                        if ($_SESSION['user_role'] == 'admin') :
                         echo "<td class='adminbutt'>";
                         echo "<a href='index.php?uc=cours&action=supprimer&idseance=" . $seance->getNUMSEANCE() . "'><button type='button' class='btn btn-danger btn-sm'>Supprimer</button></a>";
                         echo "<a href='index.php?uc=cours&action=editer_form&idseance=" . $seance->getNUMSEANCE() . "'><button type='button' class='btn btn-warning btn-sm'>Modifier</button></a>";
                         echo "</td>";
+                        endif;
                         echo "</tr>";
                     }
                     ?>

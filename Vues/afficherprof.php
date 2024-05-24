@@ -68,7 +68,9 @@ MonPdo::checkSessionAndRedirect();
                         <th scope="col" class="d-none d-xl-table-cell">Adresse</th>
                         <th scope="col" class="d-none d-xl-table-cell">Instrument</th>
                         <th scope="col" class="d-none d-xl-table-cell">Salaire</th>
+                        <?php if ($_SESSION['user_role'] == 'admin') : ?>
                         <th scope="col">Actions</th>
+                        <?php endif ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -82,10 +84,12 @@ MonPdo::checkSessionAndRedirect();
                         echo "<td class='d-none d-xl-table-cell'>" . $personne->getADRESSE() . "</td>";
                         echo "<td class='d-none d-xl-table-cell'>" . $personne->getINSTRUMENT() . "</td>";
                         echo "<td class='d-none d-xl-table-cell'>" . $personne->getSALAIRE() . "</td>";
+                        if ($_SESSION['user_role'] == 'admin') :
                         echo "<td class='adminbutt'>";
                         echo "<a href='index.php?uc=personne&action=supprimerprof&id=". $personne->getID() ."' class='btn btn-danger btn-sm'>Supprimer</a>";
                         echo "<a href='index.php?uc=personne&action=editer_formprof&id=". $personne->getID() ."' class='btn btn-warning btn-sm'>Modifier</a>";
                         echo "</td>";
+                        endif;
                         echo "</tr>";
                     }
                     ?>

@@ -32,5 +32,6 @@ switch ($action) { // Commence la structure de contrôle switch en utilisant la 
         $eleve->setIDELEVE($_POST["ideleve"]); // Définit la propriété "IDELEVE" de $eleve avec la valeur de $_POST["ideleve"]
         $eleve->setNIVEAU(eleve::securiser($_POST["niveau"])); // Appelle la méthode statique "securiser" de la classe eleve pour sécuriser la valeur de $_POST["niveau"] et l'assigne à la propriété "NIVEAU" de $eleve
         $eleve->setBOURSE(eleve::securiser($_POST['bourse'])); // Appelle la méthode statique "securiser" de la classe eleve pour sécuriser la valeur de $_POST["bourse"] et l'assigne à la propriété "BOURSE" de $eleve
+        $eleve->setPARENTID(eleve::securiser($_POST['parentId']));
         $updateeleve = eleve::updateeleve($eleve); // Appelle la méthode statique "updateeleve" de la classe eleve en utilis
     }

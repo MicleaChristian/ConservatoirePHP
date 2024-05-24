@@ -1,8 +1,9 @@
 <?php
 require_once 'Modeles/monPdo.php';
 
-
 MonPdo::checkSessionAndRedirect();
+$userId = $_SESSION['user_id'];
+var_dump($userId);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +32,7 @@ MonPdo::checkSessionAndRedirect();
                 <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom" required>
             </div>
             <div class="mb-3">
-                <label for="mail" class="form-label">mail :</label>
+                <label for="mail" class="form-label">Mail :</label>
                 <input type="mail" class="form-control" id="mail" name="mail" placeholder="Mail" required>
             </div>
             <div class="mb-3">
@@ -57,11 +58,14 @@ MonPdo::checkSessionAndRedirect();
             <div class="mb-3">
                 <label for="bourse" class="form-label">Bourse :</label>
                 <select class="form-control" id="bourse" name="bourse" required>
-                    <option value="">Selectionner si payée ou impayée</option>
+                    <option value="">Sélectionner si payée ou impayée</option>
                     <option value="1">Payée</option>
                     <option value="0">Impayée</option>
                 </select>
             </div>
+
+            <!-- Hidden field for parentId -->
+            <input type="hidden" name="parentId" id="parentId" value="<?php echo $_SESSION['user_id']; ?>">
 
             <input type="submit" class="btn btn-primary" value="Ajouter">
         </form>

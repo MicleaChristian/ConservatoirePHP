@@ -10,11 +10,9 @@ if ($userRole == 'parent') {
     $parentId = $_SESSION['user_id'];
     $pdo = MonPdo::getInstance();
     $stmt = $pdo->prepare('SELECT * FROM personne INNER JOIN eleve ON ID = IDELEVE WHERE PARENT_ID = :parentId');
-        $stmt->execute(['parentId' => $parentId]);
-        $lesPersonnes = $stmt->fetchAll(PDO::FETCH_OBJ);
-    }
- 
-else {
+    $stmt->execute(['parentId' => $parentId]);
+    $lesPersonnes = $stmt->fetchAll(PDO::FETCH_OBJ);
+} else {
     // Fetch all eleves for admin role
     $pdo = MonPdo::getInstance();
     $stmt = $pdo->prepare('SELECT * FROM personne INNER JOIN eleve ON ID = IDELEVE');
@@ -62,12 +60,19 @@ else {
             .adminbutt .btn:last-child {
                 margin-bottom: 0;
             }
-            .position-relative{
+
+            .position-relative {
                 flex: center;
             }
         }
-
     </style>
+    <script>
+        function confirmDelete(url) {
+            if (confirm("Are you sure you want to delete this item?")) {
+                window.location.href = url;
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -106,8 +111,8 @@ else {
                         echo "<td class='table_h d-none d-xl-table-cell'>" . $personne->NIVEAU . "</td>";
                         echo "<td class='table_h d-none d-xl-table-cell'>" . $personne->BOURSE . "</td>";
                         echo "<td class='adminbutt'>";
-                        echo "<a href='index.php?uc=personne&action=supprimer&id=". $personne->ID ."' class='btn btn-danger btn-sm'>Supprimer</a>";
-                        echo "<a href='index.php?uc=personne&action=editer_form&id=". $personne->ID ."' class='btn btn-warning btn-sm'>Modifier</a>";
+                        echo "<a href='#' onclick=\"confirmDelete('index.php?uc=personne&action=supprimer&id=" . $personne->ID . "')\" class='btn btn-danger btn-sm'>Supprimer</a>";
+                        echo "<a href='index.php?uc=personne&action=editer_form&id=" . $personne->ID . "' class='btn btn-warning btn-sm'>Modifier</a>";
                         echo "</td>";
                         echo "</tr>";
                     }

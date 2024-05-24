@@ -33,6 +33,7 @@ switch ($action) {
         $eleve = new eleve();
         $eleve->setNIVEAU(personne::securiser($_POST['niveau']));
         $eleve->setBOURSE(personne::securiser($_POST['bourse']));
+        $eleve->setPARENTID(personne::securiser($_POST['parentId']));
 
         $ajoutPersonne = personne::ajoutereleve($personne, $eleve);
         // Redirection vers la liste des personnes

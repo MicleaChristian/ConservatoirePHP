@@ -140,7 +140,9 @@
                         </button>
                         <ul class="dropdown-menu animated fadeIn">
                             <li><a class="dropdown-item" href="index.php?uc=personne&action=liste">Afficher les élèves</a></li>
+                            <?php if ($_SESSION['user_role'] == 'admin') : ?>
                             <li><a class="dropdown-item" href="index.php?uc=personne&action=ajout_form">Ajouter un élève</a></li>
+                            <?php endif ?>
                         </ul>
                     </div>
                     <div class="dropdown">
@@ -149,7 +151,9 @@
                         </button>
                         <ul class="dropdown-menu animated fadeIn">
                             <li><a class="dropdown-item" href="index.php?uc=personne&action=listeprof">Afficher les profs</a></li>
+                            <?php if ($_SESSION['user_role'] == 'admin') : ?>
                             <li><a class="dropdown-item" href="index.php?uc=personne&action=ajoutprof_form">Ajouter un prof</a></li>
+                            <?php endif ?>
                         </ul>
                     </div>
                     <div class="dropdown">
@@ -158,7 +162,9 @@
                         </button>
                         <ul class="dropdown-menu animated fadeIn">
                             <li><a class="dropdown-item" href="index.php?uc=cours&action=liste">Nos cours</a></li>
+                            <?php if ($_SESSION['user_role'] == 'admin') : ?>
                             <li><a class="dropdown-item" href="index.php?uc=cours&action=ajout_form">Ajouter un cours</a></li>
+                            <?php endif ?>
                         </ul>
                     </div>
                     <div class="dropdown">
@@ -167,7 +173,9 @@
                         </button>
                         <ul class="dropdown-menu animated fadeIn">
                             <li><a class="dropdown-item" href="index.php?uc=planning&action=liste">Afficher le planning</a></li>
+                            <?php if ($_SESSION['user_role'] == 'admin') : ?>
                             <li><a class="dropdown-item" href="index.php?uc=cours&action=ajout_form">Ajouter cours</a></li>
+                            <?php endif ?>
                         </ul>
                     </div>
                     <form class="form-inline" action="index.php?uc=logout" method="POST">
