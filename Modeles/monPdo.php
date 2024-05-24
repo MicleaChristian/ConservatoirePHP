@@ -57,4 +57,3 @@ class MonPdo
         return $result;
     }
 }
-?>
