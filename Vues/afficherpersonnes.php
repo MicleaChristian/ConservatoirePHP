@@ -32,6 +32,42 @@ else {
     <title>Conservatoire</title>
     <script defer src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js'></script>
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css'>
+    <style>
+        .table-responsive {
+            margin: 0;
+        }
+
+        .adminbutt {
+            white-space: nowrap;
+            width: 1%;
+        }
+
+        .adminbutt .btn {
+            margin-right: 0.25rem;
+        }
+
+        @media (max-width: 767.98px) {
+            .adminbutt {
+                display: flex;
+                flex-direction: column;
+                width: auto;
+            }
+
+            .adminbutt .btn {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 0.25rem;
+            }
+
+            .adminbutt .btn:last-child {
+                margin-bottom: 0;
+            }
+            .position-relative{
+                flex: center;
+            }
+        }
+
+    </style>
 </head>
 
 <body>
@@ -46,40 +82,44 @@ else {
     </div>
 <?php endif ?>
     <div class="container-fluid position-relative mt-3">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th class="table_h" scope="col">Nom</th>
-                    <th class="table_h" scope="col">Prénom</th>
-                    <th class="table_h" scope="col">Email</th>
-                    <th class="table_h" scope="col">Tel</th>
-                    <th class="table_h" scope="col">Niveau</th>
-                    <th class="table_h" scope="col">Bourse</th>
-                    <th class="table_h" scope="col">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                foreach ($lesPersonnes as $personne) {
-                    echo "<tr>";
-                    echo "<td class='table_h'>" . $personne->NOM . "</td>";
-                    echo "<td class='table_h'>" . $personne->PRENOM . "</td>";
-                    echo "<td class='table_h'>" . $personne->MAIL . "</td>";
-                    echo "<td class='table_h'>" . $personne->TEL . "</td>";
-                    echo "<td class='table_h'>" . $personne->NIVEAU . "</td>";
-                    echo "<td class='table_h'>" . $personne->BOURSE . "</td>";
-                        echo "<td class='table_h'><a href='index.php?uc=personne&action=supprimer&id=". $personne->ID ."' class='btn btn-danger'>Supprimer</a></td>";
-                        echo "<td class='table_h'><a href='index.php?uc=personne&action=editer_form&id=". $personne->ID ."' class='btn btn-warning'>Modifier</a></td>";
-                    echo "</tr>";
-                }
-                ?>
-                <tr>
-                    <td colspan="8" class="table_h">
-                        <a href='index.php?uc=personne&action=ajout_form' class='btn btn-primary'>Ajouter un élève</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="table_h" scope="col">Nom</th>
+                        <th class="table_h d-none d-md-table-cell" scope="col">Prénom</th>
+                        <th class="table_h d-none d-sm-table-cell" scope="col">Email</th>
+                        <th class="table_h d-none d-lg-table-cell" scope="col">Tel</th>
+                        <th class="table_h d-none d-xl-table-cell" scope="col">Niveau</th>
+                        <th class="table_h d-none d-xl-table-cell" scope="col">Bourse</th>
+                        <th class="table_h" scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($lesPersonnes as $personne) {
+                        echo "<tr>";
+                        echo "<td class='table_h'>" . $personne->NOM . "</td>";
+                        echo "<td class='table_h d-none d-md-table-cell'>" . $personne->PRENOM . "</td>";
+                        echo "<td class='table_h d-none d-sm-table-cell'>" . $personne->MAIL . "</td>";
+                        echo "<td class='table_h d-none d-lg-table-cell'>" . $personne->TEL . "</td>";
+                        echo "<td class='table_h d-none d-xl-table-cell'>" . $personne->NIVEAU . "</td>";
+                        echo "<td class='table_h d-none d-xl-table-cell'>" . $personne->BOURSE . "</td>";
+                        echo "<td class='adminbutt'>";
+                        echo "<a href='index.php?uc=personne&action=supprimer&id=". $personne->ID ."' class='btn btn-danger btn-sm'>Supprimer</a>";
+                        echo "<a href='index.php?uc=personne&action=editer_form&id=". $personne->ID ."' class='btn btn-warning btn-sm'>Modifier</a>";
+                        echo "</td>";
+                        echo "</tr>";
+                    }
+                    ?>
+                    <tr>
+                        <td colspan="7" class="adminbutt">
+                            <a href='index.php?uc=personne&action=ajout_form' class='btn btn-primary btn-sm'>Ajouter un élève</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 
