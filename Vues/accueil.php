@@ -13,40 +13,82 @@ MonPdo::checkSessionAndRedirect();
     <title>Conservatoire</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/css.css">
+    <style>
+        .carousel-inner img {
+            height: 50vh;
+            object-fit: cover;
+        }
+        .carousel-caption h5, .carousel-caption p {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+        }
+        .welcome-message {
+            display: flex;
+            justify-content: center;
+            font-family: Tit;
+            font-size: 2vw;
+            color: #333;
+            margin-top: 2rem;
+        }
+        .admin-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        .admin-buttons .button-row {
+            margin: 1rem;
+            padding: 1rem 2rem;
+            background-color: rgba(255, 255, 255, 0.3);
+            color: white;
+            text-align: center;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            transition: background-color 0.3s ease;
+        }
+        .admin-buttons .button-row:hover {
+            background-color: rgba(255, 255, 255, 0.6);
+            color: black;
+        }
+    </style>
 </head>
 
 <body>
     <?php include("header/header_accueil.php") ?>
-    <p style="display: flex; justify-content: center; font-family: Tit; font-size: 2vw; color:#CCC;">
-        Bonjour <?php echo $_SESSION['user_name']; ?>. Que voulez vous faire aujourd'hui?
+
+    <p class="welcome-message">
+        Bonjour <?php echo $_SESSION['user_name']; ?>. Que voulez-vous faire aujourd'hui?
     </p>
-    <div class="caroussel container" style="display: flex; justify-content: center;">
-        <div id="carouselExampleIndicators" class="carousel slide" style="height: 50vh; width: 100vw;" data-bs-ride="carousel">
+
+    <div class="container">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
                 <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
                 <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
             </ol>
-            <div class="carousel-inner" style="height: 50vh; width: 100vw;">
+            <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img src="images/conservatoire.jpg" class="d-block w-100" alt="Slide 1">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>Conservatoire pour tous</h5>
-                        <p>Bienvenue sur l'interface Administrateur</p>
+                        <p><?php echo $_SESSION['user_role'] == 'admin' ? 'Bienvenue sur l\'interface Administrateur' : 'Bienvenue sur l\'interface Parent'; ?></p>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <img src="images/cons1.jpg" class="d-block w-100" alt="Slide 2">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>Conservatoire pour tous</h5>
-                        <p>Bienvenue sur l'interface Administrateur</p>
+                        <p><?php echo $_SESSION['user_role'] == 'admin' ? 'Bienvenue sur l\'interface Administrateur' : 'Bienvenue sur l\'interface Parent'; ?></p>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <img src="images/cons2.jpg" class="d-block w-100" alt="Slide 3">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>Conservatoire pour tous</h5>
-                        <p>Bienvenue sur l'interface Administrateur</p>
+                        <p><?php echo $_SESSION['user_role'] == 'admin' ? 'Bienvenue sur l\'interface Administrateur' : 'Bienvenue sur l\'interface Parent'; ?></p>
                     </div>
                 </div>
             </div>
@@ -60,25 +102,26 @@ MonPdo::checkSessionAndRedirect();
             </a>
         </div>
     </div>
-    <?php if($_SESSION['user_role'] == 'parent') :?>
+
+    <?php if ($_SESSION['user_role'] == 'parent') : ?>
         <div class="admin-buttons">
-                <a class="button-row" href="index.php?uc=personne&action=liste"><p class="link">Gérer mes enfant</p></a>
-                <a class="button-row" href="index.php?uc=personne&action=listeprof"><p class="link">Afficher les profs</p></a>
-                <a class="button-row" href="index.php?uc=cours&action=liste"><p class="link">Afficher les cours</p></a>
+            <a class="button-row" href="index.php?uc=personne&action=liste">Gérer mes enfants</a>
+            <a class="button-row" href="index.php?uc=personne&action=listeprof">Afficher les profs</a>
+            <a class="button-row" href="index.php?uc=cours&action=liste">Afficher les cours</a>
         </div>
     <?php endif; ?>
 
     <?php if ($_SESSION['user_role'] == 'admin') : ?>
         <div class="admin-buttons">
-            <a class="button-row" href="index.php?uc=personne&action=liste"><p class="link">Gérer les élèves</p></a>
-            <a class="button-row" href="index.php?uc=personne&action=listeprof"><p class="link">Gérer les profs</p></a>
-            <a class="button-row" href="index.php?uc=cours&action=liste"><p class="link">Gérer les cours</p></a>
+            <a class="button-row" href="index.php?uc=personne&action=liste">Gérer les élèves</a>
+            <a class="button-row" href="index.php?uc=personne&action=listeprof">Gérer les profs</a>
+            <a class="button-row" href="index.php?uc=cours&action=liste">Gérer les cours</a>
         </div>
 
         <div class="admin-buttons">
-            <a class="button-row" href="index.php?uc=personne&action=ajout_form"><p class="link">Ajouter un élève</p></a>
-            <a class="button-row" href="index.php?uc=personne&action=ajoutprof_form"><p class="link">Ajouter un prof</p></a>
-            <a class="button-row" href="index.php?uc=cours&action=ajout_form"><p class="link">Ajouter un cours</p></a>
+            <a class="button-row" href="index.php?uc=personne&action=ajout_form">Ajouter un élève</a>
+            <a class="button-row" href="index.php?uc=personne&action=ajoutprof_form">Ajouter un prof</a>
+            <a class="button-row" href="index.php?uc=cours&action=ajout_form">Ajouter un cours</a>
         </div>
     <?php endif; ?>
 
