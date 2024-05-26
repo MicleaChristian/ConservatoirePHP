@@ -12,7 +12,7 @@ if ($userRole == 'parent') {
     $stmt = $pdo->prepare('SELECT * FROM personne INNER JOIN eleve ON ID = IDELEVE WHERE PARENT_ID = :parentId');
     $stmt->execute(['parentId' => $parentId]);
     $lesPersonnes = $stmt->fetchAll(PDO::FETCH_OBJ);
-} else {
+} elseif ($userRole == 'admin') {
     // Fetch all eleves for admin role
     $pdo = MonPdo::getInstance();
     $stmt = $pdo->prepare('SELECT * FROM personne INNER JOIN eleve ON ID = IDELEVE');

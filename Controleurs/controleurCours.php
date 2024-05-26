@@ -19,17 +19,35 @@ switch ($action) {
         break;
 
     case "ajouter":
-        // Traitement du formulaire d'ajout de personne
-        $seance = new Seance();
-        $seance->setIDPROF(Seance::securiser($_POST["idprof"]));
-        $seance->setTRANCHE(Seance::securiser($_POST['tranche']));
-        $seance->setJOUR(Seance::securiser($_POST['jour']));
-        $seance->setNIVEAU(Seance::securiser($_POST['niveau']));
-        $seance->setCAPACITE(Seance::securiser($_POST['capacite']));
-        $ajoutCours = Seance::ajouterSeance($seance);
-        // Redirection vers la liste des personnes
-        header('Location: index.php?uc=cours&action=liste');
-        exit;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $idprofs = $_POST['idprof'];
+            $numseances = $_POST['numseance'];
+            $ideleve = $_POST['ideleve'];
+            $dateInscription = date('Y-m-d'); // Current date for DATEINSCRIPTION
+        
+            try {
+                $pdo = MonPdo::getInstance();
+                $pdo->beginTransaction();
+        
+                for ($i = 0; $i < count($idprofs); $i++) {
+                    $idprof = $idprofs[$i];
+                    $numseance = $numseances[$i];
+        
+                    $stmt = $pdo->prepare("INSERT INTO inscription (IDPROF, IDELEVE, NUMSEANCE, DATEINSCRIPTION) VALUES (:idprof, :ideleve, :numseance, :dateinscription)");
+                    $stmt->bindParam(':idprof', $idprof);
+                    $stmt->bindParam(':ideleve', $ideleve);
+                    $stmt->bindParam(':numseance', $numseance);
+                    $stmt->bindParam(':dateinscription', $dateInscription);
+                    $stmt->execute();
+                }
+        
+                $pdo->commit();
+                echo "Inscription added successfully.";
+            } catch (Exception $e) {
+                $pdo->rollBack();
+                echo "Failed to add inscription: " . $e->getMessage();
+            }
+        }
         break;
 
     case "supprimer":

@@ -3,7 +3,6 @@ require_once 'Modeles/monPdo.php';
 
 MonPdo::checkSessionAndRedirect();
 $userId = $_SESSION['user_id'];
-var_dump($userId);
 ?>
 <!DOCTYPE html>
 <html lang="en">
