@@ -11,12 +11,11 @@
         body {
             background-color: #F8F6F4;
             min-height: 100vh;
-            transition: background-color 1s;
         }
 
         .navbar {
-            background-color: #D9D9D9;
-            transition: background-color 1s, transform 1s;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
         }
 
         @font-face {
@@ -29,27 +28,28 @@
             src: url(http://localhost/ConservatoirePHP/fonts/MajorMonoDisplay-Regular.ttf);
         }
 
+        @font-face {
+            font-family: perpetua;
+            src: url(http://localhost/ConservatoirePHP/fonts/PERTIBD.TTF);
+        }
+
         .navbar-nav .dropdown {
             margin-right: 10px;
-            transition: margin-right 1s;
         }
 
         .navbar-nav .border {
             margin-right: 10px;
-            transition: margin-right 1s, border 1s, padding 1s;
         }
 
         .border {
             border: 2px solid #007bff;
             border-radius: 4px;
             padding: 10px;
-            transition: border 1s, border-radius 1s, padding 1s;
         }
 
         .navbar-nav .nav-link {
-            color: #000;
+            color: #CCC;
             font-weight: bold;
-            transition: color 1s, background-color 1s;
         }
 
         .navbar-nav .nav-link:hover,
@@ -61,93 +61,73 @@
         .dropdown-menu {
             background-color: rgba(248, 246, 244, 0.5);
             border-radius: 4px;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 1s, visibility 1s;
-        }
-
-        .dropdown-menu.show {
-            opacity: 1;
-            visibility: visible;
         }
 
         .dropdown-menu .dropdown-item {
             color: #000;
-            transition: background-color 1s, color 1s, transform 1s;
+            transition: 1s;
         }
 
         .dropdown-menu .dropdown-item:hover {
             background-color: rgba(0, 0, 0, 0.5);
             color: #fff;
+            transition: 1s;
         }
 
         .bouton {
-            transition: color 1s, transform 1s;
+            transition: color 0.3s;
             font-family: Tit;
             background: none;
-            color: black;
+            color: white;
             border: none;
             margin: 0;
-            padding: 10px 15px;
+            padding: 0;
             display: inline-flex;
             align-items: center;
-            font-size: 16px;
-            transition: 1s;
         }
 
         .bouton:hover {
             color: gray;
-            transform: translateX(10px);
-            transition: 1s;
         }
 
         .boutondeco {
-            transition: color 1s, transform 1s;
+            transition: color 0.3s;
             font-family: Tit;
             background: none;
-            color: black;
+            color: white;
             border: none;
             margin: 0;
-            padding: 10px 15px;
+            padding: 0;
             display: inline-flex;
             align-items: center;
-            font-size: 16px;
+            padding-left: 10px;
+            padding-right: 10px;
         }
 
         .deco:hover {
             background-color: red;
+            transition: 0.3s;
         }
 
         .deco {
             padding: 5px;
             border-radius: 10px;
-            transition: padding 1s, border-radius 1s, background-color 1s;
+            transition: 0.3s;
         }
 
         .navbar-nav {
             align-items: center;
             display: flex;
-            transition: align-items 1s;
         }
 
         .navbar-nav .nav-item {
             display: flex;
             align-items: center;
-            transition: margin-right 1s, align-items 1s;
         }
 
-        @media (max-width: 768px) {
-            .navbar-nav .nav-link,
-            .navbar-nav .bouton,
-            .navbar-nav .boutondeco {
-                font-size: 14px;
-                padding: 10px;
-                transition: font-size 1s, padding 1s;
-            }
-            .navbar-nav .nav-item {
-                margin-right: 5px;
-                transition: margin-right 1s;
-            }
+        #logo:hover {
+            transform: scale(1.1);
+            transition: 1s;
         }
     </style>
 </head>
@@ -155,7 +135,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-            <a class="navbar-brand" style="font-family: Logo;" href="index.php?uc=accueil">ConservatoirE</a>
+            <a class="navbar-brand" id="logo" style="font-family: perpetua; transition: 1s; color:#FFF;" href="index.php?uc=accueil">EDEN CONSERVATORY</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

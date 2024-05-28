@@ -37,19 +37,18 @@ MonPdo::checkSessionAndRedirect();
         }
         @media (max-width: 768px) {
             .table-responsive {
-                display: none;
+                display: none !important;
             }
             .list-view {
-                display: block;
-            }
-            .day-separator {
-                border-bottom: 2px solid #dee2e6;
-                margin-bottom: 1rem;
+                display: block !important;
             }
         }
         @media (min-width: 769px) {
+            .table-responsive {
+                display: block !important;
+            }
             .list-view {
-                display: none;
+                display: none !important;
             }
         }
     </style>

@@ -18,11 +18,14 @@ MonPdo::checkSessionAndRedirect();
             height: 50vh;
             object-fit: cover;
         }
-        .carousel-caption h5, .carousel-caption p {
+
+        .carousel-caption h5,
+        .carousel-caption p {
             background-color: rgba(0, 0, 0, 0.5);
             padding: 0.5rem;
             border-radius: 0.5rem;
         }
+
         .welcome-message {
             display: flex;
             justify-content: center;
@@ -31,15 +34,28 @@ MonPdo::checkSessionAndRedirect();
             color: #333;
             margin-top: 2rem;
         }
+
         .admin-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
             margin-top: 2rem;
         }
-        .admin-buttons .button-row {
-            margin: 1rem;
-            padding: 1rem 2rem;
+
+        .card {
+            margin-bottom: 1rem;
+            background-color: #343a40;
+            color: white;
+            border: none;
+        }
+
+        .card-title {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-body a {
+            display: block;
+            margin: 0.5rem 0;
+            padding: 0.75rem;
             background-color: rgba(255, 255, 255, 0.3);
             color: white;
             text-align: center;
@@ -48,9 +64,39 @@ MonPdo::checkSessionAndRedirect();
             backdrop-filter: blur(10px);
             transition: background-color 0.3s ease;
         }
-        .admin-buttons .button-row:hover {
+
+        .card-body a:hover {
             background-color: rgba(255, 255, 255, 0.6);
             color: black;
+        }
+
+        .card-header {
+            background-color: #495057;
+            border-bottom: none;
+            text-align: center;
+        }
+
+        .card-footer {
+            background-color: #495057;
+            border-top: none;
+            text-align: center;
+        }
+
+        .btn-planning {
+            display: block;
+            margin: 2rem auto;
+            padding: 1rem 2rem;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-planning:hover {
+            background-color: #0056b3;
+            color: white;
         }
     </style>
 </head>
@@ -103,25 +149,72 @@ MonPdo::checkSessionAndRedirect();
         </div>
     </div>
 
+    <a class="btn-planning" href="index.php?uc=planning&action=liste">Afficher le planning</a>
+
     <?php if ($_SESSION['user_role'] == 'parent') : ?>
-        <div class="admin-buttons">
-            <a class="button-row" href="index.php?uc=personne&action=liste">Gérer mes enfants</a>
-            <a class="button-row" href="index.php?uc=personne&action=listeprof">Afficher les profs</a>
-            <a class="button-row" href="index.php?uc=cours&action=liste">Afficher les cours</a>
+        <div class="container admin-buttons">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Gestion des Enfants</h5>
+                </div>
+                <div class="card-body">
+                    <a href="index.php?uc=personne&action=liste">Gérer mes enfants</a>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Afficher les Profs</h5>
+                </div>
+                <div class="card-body">
+                    <a href="index.php?uc=personne&action=listeprof">Afficher les profs</a>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Afficher les Cours</h5>
+                </div>
+                <div class="card-body">
+                    <a href="index.php?uc=cours&action=liste">Afficher les cours</a>
+                </div>
+                <div class="card-footer"></div>
+            </div>
         </div>
     <?php endif; ?>
 
     <?php if ($_SESSION['user_role'] == 'admin') : ?>
-        <div class="admin-buttons">
-            <a class="button-row" href="index.php?uc=personne&action=liste">Gérer les élèves</a>
-            <a class="button-row" href="index.php?uc=personne&action=listeprof">Gérer les profs</a>
-            <a class="button-row" href="index.php?uc=cours&action=liste">Gérer les cours</a>
-        </div>
-
-        <div class="admin-buttons">
-            <a class="button-row" href="index.php?uc=personne&action=ajout_form">Ajouter un élève</a>
-            <a class="button-row" href="index.php?uc=personne&action=ajoutprof_form">Ajouter un prof</a>
-            <a class="button-row" href="index.php?uc=cours&action=ajout_form">Ajouter un cours</a>
+        <div class="container admin-buttons">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Gestion des Élèves</h5>
+                </div>
+                <div class="card-body">
+                    <a href="index.php?uc=personne&action=liste">Gérer les élèves</a>
+                    <a href="index.php?uc=personne&action=ajout_form">Ajouter un élève</a>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Gestion des Profs</h5>
+                </div>
+                <div class="card-body">
+                    <a href="index.php?uc=personne&action=listeprof">Gérer les profs</a>
+                    <a href="index.php?uc=personne&action=ajoutprof_form">Ajouter un prof</a>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Gestion des Cours</h5>
+                </div>
+                <div class="card-body">
+                    <a href="index.php?uc=cours&action=liste">Gérer les cours</a>
+                    <a href="index.php?uc=cours&action=ajout_form">Ajouter un cours</a>
+                </div>
+                <div class="card-footer"></div>
+            </div>
         </div>
     <?php endif; ?>
 
