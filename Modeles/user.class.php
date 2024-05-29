@@ -92,5 +92,22 @@ class users
         return $req->fetch();
     }
 
+    public static function ajouterUser(users $user)
+    {
+        $pdo = MonPdo::getInstance();
+        $req = $pdo->prepare("INSERT INTO users (username, password, role) VALUES (:username, SHA1(:password), :role)");
+        $req->bindValue(':username', $user->getUSERNAME(), PDO::PARAM_STR);
+        $req->bindValue(':password', $user->getPASS(), PDO::PARAM_STR);
+        $req->bindValue(':role', $user->getROLE(), PDO::PARAM_STR);
+        $req->execute();
+    }
+
+    public static function securiser($donnees)
+    {
+        $donnees = trim($donnees);
+        $donnees = stripslashes($donnees);
+        $donnees = htmlspecialchars($donnees);
+        return $donnees;
+    }
 
 }

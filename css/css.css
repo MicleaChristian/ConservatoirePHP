@@ -1,7 +1,7 @@
 body {
-    background: url(http://localhost/ConservatoirePHP/img/backdark.webp) no-repeat center center fixed;
     background-size: cover;
     backdrop-filter: blur(2px);
+    background-color:#D9D9D9
 
 }
 
