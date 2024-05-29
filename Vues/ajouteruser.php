@@ -1,7 +1,5 @@
 <?php
 require_once 'Modeles/monPdo.php';
-
-MonPdo::checkSessionAndRedirect();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,11 +23,11 @@ MonPdo::checkSessionAndRedirect();
 </head>
 
 <body>
-    <?php include("header/header.php") ?>
+    <?php include("header/header_accueil.php") ?>
 
     <div class="container mt-5 form-container">
         <h2>Create Account</h2>
-        <form action="index.php?uc=user&action=ajouter" method="POST">
+        <form action="index.php?uc=newuser&action=ajouter" method="POST">
             <div class="mb-3">
                 <label for="username" class="form-label">Username:</label>
                 <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
@@ -38,14 +36,7 @@ MonPdo::checkSessionAndRedirect();
                 <label for="password" class="form-label">Password:</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
             </div>
-            <div class="mb-3">
-                <label for="role" class="form-label">Role:</label>
-                <select class="form-select" id="role" name="role" required>
-                    <option value="">Select Role</option>
-                    <option value="admin">Admin</option>
-                    <option value="user">User</option>
-                </select>
-            </div>
+            <input type="hidden" id="role" name="role" value="parent">
             <div class="d-grid">
                 <button type="submit" class="btn btn-primary">Create Account</button>
             </div>

@@ -12,6 +12,10 @@
         src: url(http://localhost/ConservatoirePHP/fonts/PERTIBD.TTF);
     }
 
+    body, input, button {
+        font-family: perpetua; /* Apply the font to body, input, and button elements */
+    }
+
     body {
         background: url(http://localhost/ConservatoirePHP/img/backlogin.jpg) no-repeat center center fixed;
         background-size: cover;
@@ -53,12 +57,10 @@
         flex-direction: column;
         justify-content: center;
         margin-left: 50px;
-        font-family: perpetua;
     }
     .login-container h1 {
         text-align: center;
         margin-bottom: 30px;
-        font-family: perpetua;
         color: #FFD700;
     }
     .login-container .error-message {
@@ -95,15 +97,16 @@
         padding: 10px;
         margin-top: 10px;
         border-radius: 5px;
-        transition: background-color 0.3s ease, transform 0.3s ease;
+        transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+        color: #FFF;
     }
     .login-container .btn-outline-secondary:hover {
         background-color: #f8f9fa;
+        color: #000; /* Change text color to black on hover */
         transform: translateY(-2px);
     }
     .form-label {
         color: #FFD700;
-        font-family: perpetua;
     }
     .image-container {
         flex: 1;
@@ -116,6 +119,30 @@
     .image-container img {
         max-width: 80%;
         height: auto;
+    }
+    .signup-link {
+        color: #FFD700;
+        text-align: center;
+        display: block;
+        margin-top: 20px;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    .signup-link:hover {
+        color: #80bdff;
+    }
+    .password-toggle-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    .password-toggle-btn {
+        position: absolute;
+        right: 10px;
+        background: none;
+        border: none;
+        color: #000;
+        cursor: pointer;
     }
 </style>
 
@@ -137,7 +164,10 @@
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Mot de passe:</label>
-                    <input type="password" name="password" id="password" class="form-control" required>
+                    <div class="password-toggle-container">
+                        <input type="password" name="password" id="password" class="form-control" required>
+                        <button type="button" class="password-toggle-btn" onclick="togglePassword()">👁️</button>
+                    </div>
                 </div>
                 <div class="text-center">
                     <input type="submit" value="Connexion" class="btn btn-primary">
@@ -146,10 +176,26 @@
             <div class="text-center">
                 <a class="btn btn-outline-secondary" href="index.php?uc=passchange&action=upform" role="button">Changer de mot de passe</a>
             </div>
+            <div class="text-center">
+                <a href="index.php?uc=newuserform" class="signup-link">No account? Sign up</a>
+            </div>
         </div>
         <div class="image-container">
             <img src="http://localhost/ConservatoirePHP/img/logo.png" alt="Centered Image">
         </div>
     </div>
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById("password");
+            var toggleBtn = document.querySelector(".password-toggle-btn");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleBtn.textContent = "🙈";
+            } else {
+                passwordField.type = "password";
+                toggleBtn.textContent = "👁️";
+            }
+        }
+    </script>
 </body>
 </html>

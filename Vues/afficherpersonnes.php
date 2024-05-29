@@ -67,8 +67,8 @@ if ($userRole == 'parent') {
         }
     </style>
     <script>
-        function confirmDelete(url) {
-            if (confirm("Are you sure you want to delete this item?")) {
+        function confirmDelete(url, name, firstname) {
+            if (confirm(`Etes vous sur de vouloir supprimer ${name} ${firstname}?`)) {
                 window.location.href = url;
             }
         }
@@ -103,15 +103,29 @@ if ($userRole == 'parent') {
                 <tbody>
                     <?php
                     foreach ($lesPersonnes as $personne) {
+                        $bourseStatus = $personne->BOURSE == 1 ? 'payée' : 'impayée';
+                        $niveauStatus = '';
+                        switch ($personne->NIVEAU) {
+                            case 1:
+                                $niveauStatus = 'Débutant';
+                                break;
+                            case 2:
+                                $niveauStatus = 'Moyen';
+                                break;
+                            case 3:
+                                $niveauStatus = 'Avancé';
+                                break;
+                        }
+
                         echo "<tr>";
                         echo "<td class='table_h'>" . $personne->NOM . "</td>";
                         echo "<td class='table_h d-none d-md-table-cell'>" . $personne->PRENOM . "</td>";
                         echo "<td class='table_h d-none d-sm-table-cell'>" . $personne->MAIL . "</td>";
                         echo "<td class='table_h d-none d-lg-table-cell'>" . $personne->TEL . "</td>";
-                        echo "<td class='table_h d-none d-xl-table-cell'>" . $personne->NIVEAU . "</td>";
-                        echo "<td class='table_h d-none d-xl-table-cell'>" . $personne->BOURSE . "</td>";
+                        echo "<td class='table_h d-none d-xl-table-cell'>" . $niveauStatus . "</td>";
+                        echo "<td class='table_h d-none d-xl-table-cell'>" . $bourseStatus . "</td>";
                         echo "<td class='adminbutt'>";
-                        echo "<a href='#' onclick=\"confirmDelete('index.php?uc=personne&action=supprimer&id=" . $personne->ID . "')\" class='btn btn-danger btn-sm'>Supprimer</a>";
+                        echo "<a href='#' onclick=\"confirmDelete('index.php?uc=personne&action=supprimer&id=" . $personne->ID . "', '" . $personne->NOM . "', '" . $personne->PRENOM . "')\" class='btn btn-danger btn-sm'>Supprimer</a>";
                         echo "<a href='index.php?uc=personne&action=editer_form&id=" . $personne->ID . "' class='btn btn-warning btn-sm'>Modifier</a>";
                         echo "</td>";
                         echo "</tr>";

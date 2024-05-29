@@ -140,6 +140,7 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
+                    <?php if (isset($_SESSION['user_id'])): ?>
                     <form class="form-inline" action="index.php?uc=logout" method="POST">
                         <ul class="navbar-nav">
                             <li class="nav-item" style="margin-right: 20px; font-family: Tit;">
@@ -149,6 +150,7 @@
                             </li>
                         </ul>
                     </form>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
