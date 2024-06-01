@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account - Conservatoire</title>
     <script defer src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js'></script>
@@ -162,11 +161,16 @@
                         <span id="uppercase" class="invalid">Au moins une lettre majuscule</span>
                         <span id="number" class="invalid">Au moins un chiffre</span>
                         <span id="special" class="invalid">Au moins un caractère spécial</span>
+                        <span id="match" class="invalid">Les mots de passe doivent correspondre</span>
                     </div>
+                </div>
+                <div class="mb-3">
+                    <label for="confirm-password" class="form-label">Confirmer le mot de passe:</label>
+                        <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
                 </div>
                 <input type="hidden" id="role" name="role" value="parent">
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-primary">Créer compte</button>
+                    <button type="submit" class="btn btn-primary" id="submit-btn" disabled>Créer compte</button>
                 </div>
             </form>
         </div>
@@ -187,8 +191,12 @@
             }
         }
 
-        document.getElementById('password').addEventListener('input', function() {
-            var password = this.value;
+        document.getElementById('password').addEventListener('input', validatePasswords);
+        document.getElementById('confirm-password').addEventListener('input', validatePasswords);
+
+        function validatePasswords() {
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirm-password').value;
 
             // Check password length
             handleValidation(document.getElementById('length'), password.length >= 16);
@@ -204,7 +212,14 @@
 
             // Check for special character
             handleValidation(document.getElementById('special'), /[^\w]/.test(password));
-        });
+
+            // Check if passwords match
+            var passwordsMatch = password === confirmPassword;
+            handleValidation(document.getElementById('match'), passwordsMatch);
+
+            // Enable or disable the submit button
+            document.getElementById('submit-btn').disabled = !passwordsMatch || !password.length >= 16 || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[^\w]/.test(password);
+        }
 
         function togglePassword() {
             var passwordField = document.getElementById("password");

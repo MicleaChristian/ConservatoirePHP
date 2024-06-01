@@ -173,11 +173,17 @@
                         <span id="uppercase" class="invalid">Au moins une lettre majuscule</span>
                         <span id="number" class="invalid">Au moins un chiffre</span>
                         <span id="special" class="invalid">Au moins un caractère spécial</span>
+                        <span id="match" class="invalid">Les mots de passe doivent correspondre</span>
                     </div>
+                </div>
+                <div class="mb-3">
+                    <label for="confirm-password" class="form-label">Confirmer le mot de passe:</label>
+                        <input type="password" name="confirm-password" id="confirm-password" class="form-control" required>
+
                 </div>
                 <input type="hidden" name="id" value="<?php echo htmlspecialchars($user->getID()); ?>">
                 <div class="text-center">
-                    <input type="submit" value="Changer le mot de passe" class="btn btn-primary">
+                    <input type="submit" value="Changer le mot de passe" class="btn btn-primary" id="submit-btn" disabled>
                 </div>
             </form>
         </div>
@@ -198,8 +204,12 @@
             }
         }
 
-        document.getElementById('password').addEventListener('input', function() {
-            var password = this.value;
+        document.getElementById('password').addEventListener('input', validatePasswords);
+        document.getElementById('confirm-password').addEventListener('input', validatePasswords);
+
+        function validatePasswords() {
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirm-password').value;
 
             // Check password length
             handleValidation(document.getElementById('length'), password.length >= 16);
@@ -215,7 +225,14 @@
 
             // Check for special character
             handleValidation(document.getElementById('special'), /[^\w]/.test(password));
-        });
+
+            // Check if passwords match
+            var passwordsMatch = password === confirmPassword;
+            handleValidation(document.getElementById('match'), passwordsMatch);
+
+            // Enable or disable the submit button
+            document.getElementById('submit-btn').disabled = !passwordsMatch || !password.length >= 16 || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[^\w]/.test(password);
+        }
 
         function togglePassword() {
             var passwordField = document.getElementById("password");
