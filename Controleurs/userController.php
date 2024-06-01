@@ -8,12 +8,20 @@ switch ($action) {
         break;
 
     case "ajouter":
-        $user = new users();
-        $user->setUSERNAME(users::securiser($_POST["username"]));
-        $user->setPASS(users::securiser($_POST["password"]));
-        $user->setROLE(users::securiser($_POST["role"]));
-        users::ajouterUser($user);
-        header('Location: index.php?uc=usersucc&action=display');
+        $username = users::securiser($_POST["username"]);
+        $existingUser = users::getByUsername($username);
+        
+        if ($existingUser) {
+            $error_message = "Le nom d'utilisateur est déjà utilisé.";
+            include "Vues/ajouteruser.php";
+        } else {
+            $user = new users();
+            $user->setUSERNAME($username);
+            $user->setPASS(users::securiser($_POST["password"]));
+            $user->setROLE(users::securiser($_POST["role"]));
+            users::ajouterUser($user);
+            header('Location: index.php?uc=usersucc&action=display');
+        }
         break;
 
     case "supprimer":
@@ -30,16 +38,15 @@ switch ($action) {
         include "Vues/editeruser.php";
         break;
 
-        case "editer":
-            $user = new users();
-            $user->setID(users::securiser($_POST['id']));
-            $user->setUSERNAME(users::securiser($_POST['username']));
-            $user->setROLE(users::securiser($_POST['role']));
-            
-            users::updateUser($user);
-        
-            header('Location: index.php?uc=user&action=display');
-            break;
+    case "editer":
+        $user = new users();
+        $user->setID(users::securiser($_POST['id']));
+        $user->setUSERNAME(users::securiser($_POST['username']));
+        $user->setROLE(users::securiser($_POST['role']));
+        users::updateUser($user);
+        header('Location: index.php?uc=user&action=display');
+        break;
+
     case "display":
         include "Vues/afficherusers.php";
         break;

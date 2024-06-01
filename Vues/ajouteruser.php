@@ -142,6 +142,9 @@
     <div class="content">
         <div class="form-container">
             <h2>Create Account</h2>
+            <?php if (isset($error_message)): ?>
+                <div class="alert alert-danger"><?php echo $error_message; ?></div>
+            <?php endif; ?>
             <form action="index.php?uc=newuser&action=ajouter" method="POST">
                 <div class="mb-3">
                     <label for="username" class="form-label">Username:</label>
