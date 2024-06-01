@@ -64,11 +64,13 @@ MonPdo::checkSessionAndRedirect();
                         <th scope="col">Nom</th>
                         <th scope="col" class="d-none d-md-table-cell">Prénom</th>
                         <th scope="col" class="d-none d-sm-table-cell">Email</th>
+                        <?php if ($_SESSION['user_role'] == 'admin') : ?>
                         <th scope="col" class="d-none d-lg-table-cell">Tel</th>
                         <th scope="col" class="d-none d-xl-table-cell">Adresse</th>
+                        <?php endif ?>
                         <th scope="col" class="d-none d-xl-table-cell">Instrument</th>
-                        <th scope="col" class="d-none d-xl-table-cell">Salaire</th>
                         <?php if ($_SESSION['user_role'] == 'admin') : ?>
+                        <th scope="col" class="d-none d-xl-table-cell">Salaire</th>
                         <th scope="col">Actions</th>
                         <?php endif ?>
                     </tr>
@@ -80,11 +82,13 @@ MonPdo::checkSessionAndRedirect();
                         echo "<td>" . $personne->getNOM() . "</td>";
                         echo "<td class='d-none d-md-table-cell'>" . $personne->getPRENOM() . "</td>";
                         echo "<td class='d-none d-sm-table-cell'>" . $personne->getMAIL() . "</td>";
+                        if ($_SESSION['user_role'] == 'admin') :
                         echo "<td class='d-none d-lg-table-cell'>" . $personne->getTEL() . "</td>";
                         echo "<td class='d-none d-xl-table-cell'>" . $personne->getADRESSE() . "</td>";
+                        endif;
                         echo "<td class='d-none d-xl-table-cell'>" . $personne->getINSTRUMENT() . "</td>";
-                        echo "<td class='d-none d-xl-table-cell'>" . $personne->getSALAIRE() . "</td>";
                         if ($_SESSION['user_role'] == 'admin') :
+                        echo "<td class='d-none d-xl-table-cell'>" . $personne->getSALAIRE() . "</td>";
                         echo "<td class='adminbutt'>";
                         echo "<a href='index.php?uc=personne&action=supprimerprof&id=". $personne->getID() ."' class='btn btn-danger btn-sm'>Supprimer</a>";
                         echo "<a href='index.php?uc=personne&action=editer_formprof&id=". $personne->getID() ."' class='btn btn-warning btn-sm'>Modifier</a>";

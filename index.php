@@ -106,7 +106,20 @@ switch ($uc) {
         include("Vues/ajouteruser.php");
         break;
 
-    case "user":
+    case "usersucc":
         include("Vues/accountcreatesuccess.php");
         break;
+
+    case "utilisateurs":
+        include("Vues/afficherusers.php");
+        break;
+
+    case "user":
+        include("Controleurs/userController.php");
+        break;
+    
+    case "newpassconf":
+        include("Controleurs/passchange.php");
+        break;
+    
     }

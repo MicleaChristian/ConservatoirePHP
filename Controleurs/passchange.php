@@ -1,38 +1,58 @@
 <?php
-class Passup{
-    public function login()
-    {
-        $id = $_POST['id'];
-        $result = users::getById($id);
-        if ($result) {
-            header('Location:index.php?uc=accueil');
-            exit;
-        } else {
-            $error_message = "Compte introuvable";
-            require_once('Vues/upform.php');
-        }
-    }
+
+require 'Modeles/user.class.php';
+
+// Debugging statement to confirm the file inclusion
+if (!class_exists('users')) {
+    echo "Class 'users' not found after including user.class.php";
+    exit;
 }
 
-$action = $_GET["action"]; // Récupère la valeur de la variable GET "action" et l'assigne à la variable $action
-switch ($action) { // Commence la structure de contrôle switch en utilisant la valeur de $action
+$action = $_GET['action'];
 
+switch ($action) {
     case "upform":
-        require_once("Modeles/user.class.php");
         include("Vues/upform.php");
-        $id = $_POST['id'];
-        $userid = users::getById($id);
-        if ($userid) {
-            include "index.php";
-        } else {
-            echo "Compte introuvable.";
-            require_once('Vues/upform.php');
-        }
         break;
 
     case "idfound":
-        require_once('Modeles/user.class.php');
-        include('Vues/passup.php');
+        $username = $_POST['username'];
+        // Debugging statement to confirm the class exists before using it
+        if (class_exists('users')) {
+            $user = users::getByUsername($username);
+            if ($user) {
+                include('Vues/passup.php');
+            } else {
+                $error_message = "Compte introuvable.";
+                require_once('Vues/upform.php');
+            }
+        } else {
+            echo "Class 'users' not found at runtime";
+        }
+        break;
+
+    case "updatepassword":
         $id = $_POST['id'];
-        
-    }
+        $newPassword = $_POST['password'];
+
+        // Password validation
+        $long = (strlen($newPassword) >= 16);
+        $min = preg_match('@[a-z]@', $newPassword);
+        $maj = preg_match('@[A-Z]@', $newPassword);
+        $num = preg_match('@[0-9]@', $newPassword);
+        $Carspec = preg_match('@[^\w]@', $newPassword);
+
+        if (!$long || !$min || !$maj || !$num || !$Carspec) {
+            $error_message = 'Le mot de passe ne convient pas aux paramètres attendus!';
+            include('Vues/passup.php');
+        } else {
+            users::updatePassword($id, $newPassword);
+            echo 'Mot de passe changé avec succès!';
+            include('Vues/mdpchange.php');
+        }
+        break;
+
+    default:
+        echo "Action non reconnue.";
+        break;
+}

@@ -3,6 +3,12 @@ require_once 'Modeles/monPdo.php';
 require_once 'Modeles/personne.class.php';
 
 MonPdo::checkSessionAndRedirect();
+
+$niveauMapping = [
+    1 => 'Débutant',
+    2 => 'Moyen',
+    3 => 'Avancé'
+];
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +62,7 @@ MonPdo::checkSessionAndRedirect();
 <body>
     <?php include("header/header.php"); ?>
 
-        <h2 class="d-flex justify-content-center mt-5">Nos cours</h2>
+    <h2 class="d-flex justify-content-center mt-5">Nos cours</h2>
 
     <div class="container-fluid position-relative mt-3">
         <div class="table-responsive">
@@ -81,7 +87,7 @@ MonPdo::checkSessionAndRedirect();
                         echo "<td>" . $professeur->getNOM() . "</td>";
                         echo "<td class='d-none d-md-table-cell'>" . $seance->getTRANCHE() . "</td>";
                         echo "<td class='d-none d-sm-table-cell'>" . $seance->getJOUR() . "</td>";
-                        echo "<td class='d-none d-lg-table-cell'>" . $seance->getNIVEAU() . "</td>";
+                        echo "<td class='d-none d-lg-table-cell'>" . $niveauMapping[$seance->getNIVEAU()] . "</td>";
                         echo "<td class='d-none d-xl-table-cell'>" . $seance->getCAPACITE() . "</td>";
                         if ($_SESSION['user_role'] == 'admin') :
                         echo "<td class='adminbutt'>";

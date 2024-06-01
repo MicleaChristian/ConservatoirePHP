@@ -97,8 +97,8 @@
     <div class="overlay"></div>
     <div class="content">
         <div class="success-container">
-            <h1>Compte créé</h1>
-            <p>Votre compte a bien été créé!</p>
+            <h1>Mot de passe changé</h1>
+            <p>Mot de passe changé avec succès</p>
             <div class="text-center">
                 <a href="index.php?uc=login" class="btn btn-primary">Go to Login</a>
             </div>

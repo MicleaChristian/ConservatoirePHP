@@ -128,13 +128,19 @@
             transform: scale(1.1);
             transition: 1s;
         }
+
+        .admin{
+            color: red;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px;
+        }
     </style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-            <a class="navbar-brand" id="logo" style="font-family: perpetua; transition: 1s; color:#FFF;" href="index.php?uc=accueil">EDEN CONSERVATORY</a> <!-- Updated text color -->
+            <a class="navbar-brand" id="logo" style="font-family: perpetua; transition: 1s; color:#FFF;" href="index.php?uc=accueil">EDEN CONSERVATORY    <?php if ($_SESSION['user_role'] == 'admin') : ?> <span class="admin">ADMIN</span><?php endif ?></a> <!-- Updated text color -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

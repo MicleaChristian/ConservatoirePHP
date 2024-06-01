@@ -177,7 +177,7 @@
                 <a class="btn btn-outline-secondary" href="index.php?uc=passchange&action=upform" role="button">Changer de mot de passe</a>
             </div>
             <div class="text-center">
-                <a href="index.php?uc=newuserform" class="signup-link">No account? Sign up</a>
+                <a href="index.php?uc=newuserform" class="signup-link">pas de compte?</a>
             </div>
         </div>
         <div class="image-container">

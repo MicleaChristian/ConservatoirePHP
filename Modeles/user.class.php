@@ -1,10 +1,10 @@
 <?php
 class users
 {
-    private $ID;
-    private $PASS;
-    private $USERNAME;
-    private $ROLE;
+    private int $ID;
+    private string $PASS;
+    private string $USERNAME;
+    private string $ROLE;
 
     /**
      * Get the value of ID
@@ -59,7 +59,7 @@ class users
         return $this;
     }
 
-        /**
+    /**
      * Get the value of ROLE
      */
     public function getROLE() {
@@ -74,22 +74,23 @@ class users
         return $this;
     }
 
-    public static function updateuser(users $user)
+    public static function updateUser(users $user)
     {
         $pdo = MonPdo::getInstance();
-        $req = $pdo->prepare("UPDATE users SET password=SHA1(:pass) WHERE id=:id");
-        $req->bindValue(':id', $user->getID(), PDO::PARAM_INT);
-        $req->bindValue(':pass', $user->getPASS(), PDO::PARAM_STR);
-        $req->execute();
+        $stmt = $pdo->prepare("UPDATE users SET username = :username, role = :role WHERE id = :id");
+        $stmt->bindValue(':username', $user->getUSERNAME(), PDO::PARAM_STR);
+        $stmt->bindValue(':role', $user->getROLE(), PDO::PARAM_STR);
+        $stmt->bindValue(':id', $user->getID(), PDO::PARAM_INT);
+        $stmt->execute();
     }
 
-    public static function getById($id)
+    public static function updatePassword($id, $password)
     {
-        $req = MonPdo::getInstance()->prepare("SELECT * FROM users WHERE id = :id");
-        $req->bindValue(':id', $id, PDO::PARAM_INT);
-        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'users');
-        $req->execute();
-        return $req->fetch();
+        $pdo = MonPdo::getInstance();
+        $stmt = $pdo->prepare("UPDATE users SET password = SHA1(:password) WHERE id = :id");
+        $stmt->bindValue(':password', $password, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
     }
 
     public static function ajouterUser(users $user)
@@ -110,4 +111,39 @@ class users
         return $donnees;
     }
 
+    public static function getById($id)
+    {
+        $pdo = MonPdo::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            return mapUserProperties($row);
+        }
+        return null;
+    }
+    public static function getByUsername($username)
+    {
+        $pdo = MonPdo::getInstance();
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
+        $stmt->bindValue(':username', $username, PDO::PARAM_STR);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            return mapUserProperties($row);
+        }
+        return null;
+    }
+
+}
+
+function mapUserProperties($row)
+{
+    $user = new users();
+    $user->setID($row['id']);
+    $user->setUSERNAME($row['username']);
+    $user->setPASS($row['password']); // This might be optional based on your needs
+    $user->setROLE($row['role']);
+    return $user;
 }
