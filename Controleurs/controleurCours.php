@@ -1,8 +1,14 @@
 <?php
+require_once 'Modeles/inscription.class.php';
+require_once 'Modeles/personne.class.php';
+
 $action = $_GET["action"];
 switch ($action) {
     case "liste":
-        $lesSeances = Seance::afficherTous();
+        $lesSeances = Seance::afficherTous(); // Assuming this method exists to fetch all seances
+        foreach ($lesSeances as $seance) {
+            $seance->studentCount = Inscription::getStudentCountByClass($seance->getNUMSEANCE());
+        }
         include("Vues/affichercours.php");
         break;
 
@@ -56,39 +62,38 @@ switch ($action) {
         header('Location: index.php?uc=cours&action=liste');
         break;
 
-        case "editer_form":
-            $id = $_GET["idseance"];
-            $seance = Seance::getByNumseance($id);
-            if ($seance) {
-                require_once 'Modeles/prof.class.php';
-                $profs = prof::getAll();
-                require_once 'Modeles/heure.class.php';
-                $heures = heure::getAll();
-                require_once 'Modeles/jour.class.php';
-                $jours = jour::getAll();
-                require_once 'Modeles/niveau.class.php';
-                $niveaux = niveau::getAll();
-                include "Vues/editercours.php";
-            } else {
-                echo "Cours non trouvé.";
-            }
-            break;
+    case "editer_form":
+        $id = $_GET["idseance"];
+        $seance = Seance::getByNumseance($id);
+        if ($seance) {
+            require_once 'Modeles/prof.class.php';
+            $profs = prof::getAll();
+            require_once 'Modeles/heure.class.php';
+            $heures = heure::getAll();
+            require_once 'Modeles/jour.class.php';
+            $jours = jour::getAll();
+            require_once 'Modeles/niveau.class.php';
+            $niveaux = niveau::getAll();
+            include "Vues/editercours.php";
+        } else {
+            echo "Cours non trouvé.";
+        }
+        break;
 
-        case "editer":
-            $id = $_GET["idseance"];
-            $seance = Seance::getByNumseance($id);
-            if ($seance) {
-                $seance->setIDPROF(Seance::securiser($_POST["idprof"]));
-                $seance->setTRANCHE(Seance::securiser($_POST['tranche']));
-                $seance->setJOUR(Seance::securiser($_POST['jour']));
-                $seance->setNIVEAU(Seance::securiser($_POST['niveau']));
-                $seance->setCAPACITE(Seance::securiser($_POST['capacite']));
-                Seance::updateSeance($seance);
-                header('Location: index.php?uc=cours&action=liste');
-                exit;
-            } else {
-                echo "Cours non trouvé.";
-            }
-            break;
-
+    case "editer":
+        $id = $_GET["idseance"];
+        $seance = Seance::getByNumseance($id);
+        if ($seance) {
+            $seance->setIDPROF(Seance::securiser($_POST["idprof"]));
+            $seance->setTRANCHE(Seance::securiser($_POST['tranche']));
+            $seance->setJOUR(Seance::securiser($_POST['jour']));
+            $seance->setNIVEAU(Seance::securiser($_POST['niveau']));
+            $seance->setCAPACITE(Seance::securiser($_POST['capacite']));
+            Seance::updateSeance($seance);
+            header('Location: index.php?uc=cours&action=liste');
+            exit;
+        } else {
+            echo "Cours non trouvé.";
+        }
+        break;
 }

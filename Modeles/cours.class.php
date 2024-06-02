@@ -8,7 +8,17 @@ class Seance
     private $NIVEAU;
     private $CAPACITE;
     private $IDSEANCE;
+    public $studentCount;
 
+    public function getStudentCount()
+    {
+        return $this->studentCount;
+    }
+
+    public function setStudentCount($studentCount)
+    {
+        $this->studentCount = $studentCount;
+    }
 
     /**
      * Get the value of IDPROF

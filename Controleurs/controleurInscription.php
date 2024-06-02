@@ -27,7 +27,6 @@ switch ($action) {
         $ajoutCours = Seance::ajouterSeance($seance);
         // Redirection vers la liste des personnes
         header('Location: index.php?uc=cours&action=liste');
-        exit;
         break;
 
     case "supprimer":
@@ -69,6 +68,11 @@ switch ($action) {
             } else {
                 echo "Cours non trouvé.";
             }
+            break;
+
+        case "nombre_eleves":
+            $classId = isset($_GET['classId']) ? intval($_GET['classId']) : 0;
+            include("Vues/afficherNombreEleves.php");
             break;
 
 }

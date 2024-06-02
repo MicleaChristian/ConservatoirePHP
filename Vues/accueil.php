@@ -243,6 +243,7 @@ MonPdo::checkSessionAndRedirect();
                 </div>
                 <div class="card-body">
                     <a href="index.php?uc=utilisateurs">Gérer les utilisateurs</a>
+                    <a href="index.php?uc=inscription&action=nombre_eleves&classId=<?php echo htmlspecialchars($inscription->getNUMSEANCE()); ?>">Voir le nombre d'élèves</a>
                 </div>
                 <div class="card-footer"></div>
             </div>

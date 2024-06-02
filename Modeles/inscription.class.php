@@ -136,6 +136,18 @@ class Inscription
         return $req->fetch();
     }
 
+
+    public static function getStudentCountByClass($classId) {
+        $pdo = MonPdo::getInstance();
+        $stmt = $pdo->prepare("SELECT COUNT(*) as student_count FROM inscription WHERE NUMSEANCE = :classId");
+        $stmt->bindValue(':classId', $classId, PDO::PARAM_INT);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row ? $row['student_count'] : 0;
+    }
+
+    
+
 }
 
 ?>

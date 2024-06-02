@@ -74,6 +74,7 @@ $niveauMapping = [
                         <th scope="col" class="d-none d-sm-table-cell">Jour</th>
                         <th scope="col" class="d-none d-lg-table-cell">Niveau</th>
                         <th scope="col" class="d-none d-xl-table-cell">Capacité</th>
+                        <th scope="col" class="d-none d-xl-table-cell">Élèves inscrits</th> <!-- New column -->
                         <?php if ($_SESSION['user_role'] == 'admin') : ?>
                         <th scope="col">Actions</th>
                         <?php endif ?>
@@ -89,6 +90,7 @@ $niveauMapping = [
                         echo "<td class='d-none d-sm-table-cell'>" . $seance->getJOUR() . "</td>";
                         echo "<td class='d-none d-lg-table-cell'>" . $niveauMapping[$seance->getNIVEAU()] . "</td>";
                         echo "<td class='d-none d-xl-table-cell'>" . $seance->getCAPACITE() . "</td>";
+                        echo "<td class='d-none d-xl-table-cell'>" . $seance->getStudentCount() . "</td>"; // Display student count
                         if ($_SESSION['user_role'] == 'admin') :
                         echo "<td class='adminbutt'>";
                         echo "<a href='index.php?uc=cours&action=supprimer&idseance=" . $seance->getNUMSEANCE() . "'><button type='button' class='btn btn-danger btn-sm'>Supprimer</button></a>";
