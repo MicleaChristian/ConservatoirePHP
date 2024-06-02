@@ -57,6 +57,33 @@ switch ($action) {
         }
         break;
 
+        case "ajoutercours":
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $idprof = $_POST['idprof'];
+                $tranche = $_POST['tranche'];
+                $jour = $_POST['jour'];
+                $niveau = $_POST['niveau'];
+                $capacite = $_POST['capacite'];
+    
+                $seance = new Seance();
+                $seance->setIDPROF($idprof);
+                $seance->setTRANCHE($tranche);
+                $seance->setJOUR($jour);
+                $seance->setNIVEAU($niveau);
+                $seance->setCAPACITE($capacite);
+    
+                try {
+                    Seance::ajouterSeance($seance);
+                    echo "Cours ajouté avec succès.";
+                    // Optionally, redirect to the list of courses
+                    header('Location: index.php?uc=cours&action=liste');
+                    exit;
+                } catch (Exception $e) {
+                    echo "Erreur lors de l'ajout du cours: " . $e->getMessage();
+                }
+            }
+                break;
+
     case "supprimer":
         $idSeance = $_GET['idseance'];
         Seance::supprimercours($idSeance);

@@ -29,7 +29,7 @@ MonPdo::checkSessionAndRedirect();
 
     <div class="container mt-5 form-container">
         <h2>Ajouter une Séance</h2>
-        <form action="index.php?uc=cours&action=ajouter" method="post">
+        <form action="index.php?uc=cours&action=ajoutercours" method="post">
             <div class="mb-3">
                 <label for="idprof" class="form-label">Prof</label>
                 <select class="form-select" id="idprof" name="idprof" required>
