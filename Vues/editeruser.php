@@ -4,7 +4,8 @@ require_once 'Modeles/user.class.php';
 
 MonPdo::checkSessionAndRedirect();
 
-$user = getUserById($_GET['id']);
+$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$user = users::getById($id);
 if (!$user) {
     echo "User not found.";
     exit;
