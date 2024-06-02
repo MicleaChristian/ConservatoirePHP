@@ -234,6 +234,7 @@ MonPdo::checkSessionAndRedirect();
                 <div class="card-body">
                     <a href="index.php?uc=cours&action=liste">Gérer les cours</a>
                     <a href="index.php?uc=cours&action=ajout_form">Ajouter un cours</a>
+                    <a href="index.php?uc=inscription&action=ajout_form">Ajouter une inscription</a> <!-- New button to access the form -->
                 </div>
                 <div class="card-footer"></div>
             </div>
@@ -243,7 +244,6 @@ MonPdo::checkSessionAndRedirect();
                 </div>
                 <div class="card-body">
                     <a href="index.php?uc=utilisateurs">Gérer les utilisateurs</a>
-                    <a href="index.php?uc=inscription&action=nombre_eleves&classId=<?php echo htmlspecialchars($inscription->getNUMSEANCE()); ?>">Voir le nombre d'élèves</a>
                 </div>
                 <div class="card-footer"></div>
             </div>

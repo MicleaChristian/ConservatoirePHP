@@ -98,16 +98,30 @@ class Inscription
         return $lesResultats;
     }
 
-    public static function ajouterInscription(inscription $inscription)
+    public static function inscriptionExists($idprof, $ideleve, $numseance)
     {
         $pdo = MonPdo::getInstance();
-        $req = "INSERT INTO inscription (IDPROF, IDELEVE, NUMSEANCE, DATEINSCRIPTION) VALUES (:idprof, :ideleve, :numseance, :dateinsc);
-        ";
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM inscription WHERE IDPROF = :idprof AND IDELEVE = :ideleve AND NUMSEANCE = :numseance");
+        $stmt->bindValue(':idprof', $idprof, PDO::PARAM_INT);
+        $stmt->bindValue(':ideleve', $ideleve, PDO::PARAM_INT);
+        $stmt->bindValue(':numseance', $numseance, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
+
+    public static function ajouterInscription(Inscription $inscription)
+    {
+        if (self::inscriptionExists($inscription->getIDPROF(), $inscription->getIDELEVE(), $inscription->getNUMSEANCE())) {
+            throw new Exception('Duplicate entry for IDPROF, IDELEVE, and NUMSEANCE');
+        }
+
+        $pdo = MonPdo::getInstance();
+        $req = "INSERT INTO inscription (IDPROF, IDELEVE, NUMSEANCE, DATEINSCRIPTION) VALUES (:idprof, :ideleve, :numseance, :dateinsc)";
         $stmt = $pdo->prepare($req);
         $stmt->bindValue(':idprof', $inscription->getIDPROF(), PDO::PARAM_INT);
-        $stmt->bindValue(':ideleve', $inscription->getIDELEVE(), PDO::PARAM_STR);
-        $stmt->bindValue(':numseance', $inscription->getNUMSEANCE(), PDO::PARAM_STR);
-        $stmt->bindValue(':dateinsc', $inscription->getDATEINSCRIPTION(), PDO::PARAM_INT);
+        $stmt->bindValue(':ideleve', $inscription->getIDELEVE(), PDO::PARAM_INT);
+        $stmt->bindValue(':numseance', $inscription->getNUMSEANCE(), PDO::PARAM_INT);
+        $stmt->bindValue(':dateinsc', $inscription->getDATEINSCRIPTION(), PDO::PARAM_STR);
         $stmt->execute();
     }
 

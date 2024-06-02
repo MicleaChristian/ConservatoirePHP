@@ -1,7 +1,12 @@
 <?php
 require_once 'Modeles/monPdo.php';
+require_once 'Modeles/cours.class.php';
+require_once 'Modeles/personne.class.php';
 
 MonPdo::checkSessionAndRedirect();
+
+$lesSeances = Seance::afficherTous();
+$lesEleves = personne::affichereleve();
 ?>
 
 <!DOCTYPE html>
@@ -13,28 +18,6 @@ MonPdo::checkSessionAndRedirect();
     <title>Ajouter Inscription</title>
     <script defer src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js'></script>
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css'>
-    <script>
-        function updateFields(checkboxElement, idprof, numseance) {
-            if (checkboxElement.checked) {
-                var hiddenIdprof = document.createElement("input");
-                hiddenIdprof.setAttribute("type", "hidden");
-                hiddenIdprof.setAttribute("name", "idprof[]");
-                hiddenIdprof.setAttribute("value", idprof);
-                document.getElementById("form").appendChild(hiddenIdprof);
-
-                var hiddenNumseance = document.createElement("input");
-                hiddenNumseance.setAttribute("type", "hidden");
-                hiddenNumseance.setAttribute("name", "numseance[]");
-                hiddenNumseance.setAttribute("value", numseance);
-                document.getElementById("form").appendChild(hiddenNumseance);
-            } else {
-                var hiddenIdprof = document.querySelector('input[name="idprof[]"][value="' + idprof + '"]');
-                var hiddenNumseance = document.querySelector('input[name="numseance[]"][value="' + numseance + '"]');
-                if (hiddenIdprof) hiddenIdprof.remove();
-                if (hiddenNumseance) hiddenNumseance.remove();
-            }
-        }
-    </script>
 </head>
 
 <body>
@@ -42,25 +25,26 @@ MonPdo::checkSessionAndRedirect();
 
     <div class="container-fluid position-relative mt-3">
         <h2 class="position-absolute top-0 start-50 translate-middle">Ajouter une inscription</h2>
-        <form action="index.php?uc=cours&action=ajouter" method="post" id="form">
-            <div class="row mt-3">
-                <div class="col">
-                    <label class="form-label">Prof</label>
-                    <?php foreach ($rows as $row): ?>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="checkbox<?php echo $row["IDPROF"]; ?>"
-                                   onchange="updateFields(this, '<?php echo $row["IDPROF"]; ?>', '<?php echo $row["NUMSEANCE"]; ?>')">
-                            <label class="form-check-label" for="checkbox<?php echo $row["IDPROF"]; ?>">
-                                <?php echo $row["IDPROF"]; ?> - <?php echo $row["NUMSEANCE"]; ?>
-                            </label>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-            <!-- Add fields for IDELEVE -->
+        <form action="index.php?uc=inscription&action=ajouter" method="post" id="form">
             <div class="mb-3">
-                <label for="ideleve" class="form-label">IDELEVE :</label>
-                <input type="text" class="form-control" id="ideleve" name="ideleve" placeholder="IDELEVE" required>
+                <label for="ideleve" class="form-label">Élève :</label>
+                <select class="form-control" id="ideleve" name="ideleve" required>
+                    <?php foreach ($lesEleves as $eleve): ?>
+                        <option value="<?php echo $eleve->getID(); ?>">
+                            <?php echo $eleve->getNOM() . ' ' . $eleve->getPRENOM(); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="numseance" class="form-label">Séance :</label>
+                <select class="form-control" id="numseance" name="numseance" required>
+                    <?php foreach ($lesSeances as $seance): ?>
+                        <option value="<?php echo $seance->getNUMSEANCE(); ?>">
+                            <?php echo "Prof: " . $seance->getIDPROF() . " - Jour: " . $seance->getJOUR() . " - Tranche: " . $seance->getTRANCHE(); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             </div>
             <input type="submit" class="btn btn-primary" value="Ajouter">
         </form>

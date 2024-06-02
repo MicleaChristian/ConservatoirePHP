@@ -93,8 +93,9 @@ $niveauMapping = [
                         echo "<td class='d-none d-xl-table-cell'>" . $seance->getStudentCount() . "</td>"; // Display student count
                         if ($_SESSION['user_role'] == 'admin') :
                         echo "<td class='adminbutt'>";
-                        echo "<a href='index.php?uc=cours&action=supprimer&idseance=" . $seance->getNUMSEANCE() . "'><button type='button' class='btn btn-danger btn-sm'>Supprimer</button></a>";
-                        echo "<a href='index.php?uc=cours&action=editer_form&idseance=" . $seance->getNUMSEANCE() . "'><button type='button' class='btn btn-warning btn-sm'>Modifier</button></a>";
+                        echo "<a href='index.php?uc=cours&action=supprimer&idseance=" . htmlspecialchars($seance->getNUMSEANCE()) . "'><button type='button' class='btn btn-danger btn-sm'>Supprimer</button></a>";
+                        echo "<a href='index.php?uc=cours&action=editer_form&idseance=" . htmlspecialchars($seance->getNUMSEANCE()) . "'><button type='button' class='btn btn-warning btn-sm'>Modifier</button></a>";
+                        echo "<a href='index.php?uc=inscription&action=nombre_eleves&classId=" . htmlspecialchars($seance->getNUMSEANCE()) . "'>Voir le nombre d'élèves</a>";
                         echo "</td>";
                         endif;
                         echo "</tr>";

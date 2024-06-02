@@ -1,79 +1,53 @@
 <?php
+require_once 'Modeles/monPdo.php';
+require_once 'Modeles/inscription.class.php';
+require_once 'Modeles/cours.class.php';
+require_once 'Modeles/personne.class.php';
+
 $action = $_GET["action"];
 switch ($action) {
     case "liste":
-        $lesInscriptions = inscription::afficherTous();
-        include("Vues/afficherinscriptions.php");
+        $lesInscriptions = Inscription::afficherTous();
+        include("Vues/affichercours.php");
+        break;
+
+    case "nombre_eleves":
+        $classId = intval($_GET['classId']);
+        $studentCount = Inscription::getStudentCountByClass($classId);
+        include("Vues/AfficherNombreEleves.php");
         break;
 
     case "ajout_form":
-        require_once 'Modeles/prof.class.php';
-        $profs = prof::getAll();
-        require_once 'Modeles/jour.class.php';
-        $jours = jour::getAll();
-        require_once 'Modeles/niveau.class.php';
-        $niveaux = niveau::getAll();
         include "Vues/ajouterinscription.php";
         break;
 
     case "ajouter":
-        // Traitement du formulaire d'ajout de personne
-        $seance = new Seance();
-        $seance->setIDPROF(Seance::securiser($_POST["idprof"]));
-        $seance->setTRANCHE(Seance::securiser($_POST['tranche']));
-        $seance->setJOUR(Seance::securiser($_POST['jour']));
-        $seance->setNIVEAU(Seance::securiser($_POST['niveau']));
-        $seance->setCAPACITE(Seance::securiser($_POST['capacite']));
-        $ajoutCours = Seance::ajouterSeance($seance);
-        // Redirection vers la liste des personnes
-        header('Location: index.php?uc=cours&action=liste');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $ideleve = Inscription::securiser($_POST['ideleve']);
+            $numseance = Inscription::securiser($_POST['numseance']);
+            $idprof = Seance::getBynumseance($numseance)->getIDPROF();
+            $dateInscription = date('Y-m-d'); // Current date for DATEINSCRIPTION
+
+            $inscription = new Inscription();
+            $inscription->setIDPROF($idprof);
+            $inscription->setIDELEVE($ideleve);
+            $inscription->setNUMSEANCE($numseance);
+            $inscription->setDATEINSCRIPTION($dateInscription);
+
+            try {
+                Inscription::ajouterInscription($inscription);
+                echo "Inscription added successfully.";
+                header('Location: index.php?uc=cours&action=liste');
+            } catch (Exception $e) {
+                echo "Failed to add inscription: " . $e->getMessage();
+            }
+        }
         break;
 
     case "supprimer":
-        $idSeance = $_GET['idseance'];
-        Seance::supprimercours($idSeance);
-        header('Location: index.php?uc=cours&action=liste');
+        $ideleve = $_GET['ideleve'];
+        Inscription::supprimerinscription($ideleve);
+        header('Location: index.php?uc=inscription&action=liste');
         break;
-
-        case "editer_form":
-            $id = $_GET["idseance"];
-            $seance = Seance::getByNumseance($id);
-            if ($seance) {
-                require_once 'Modeles/prof.class.php';
-                $profs = prof::getAll();
-                require_once 'Modeles/heure.class.php';
-                $heures = heure::getAll();
-                require_once 'Modeles/jour.class.php';
-                $jours = jour::getAll();
-                require_once 'Modeles/niveau.class.php';
-                $niveaux = niveau::getAll();
-                include "Vues/editercours.php";
-            } else {
-                echo "Cours non trouvé.";
-            }
-            break;
-
-        case "editer":
-            $id = $_GET["idseance"];
-            $seance = Seance::getByNumseance($id);
-            if ($seance) {
-                $seance->setIDPROF(Seance::securiser($_POST["idprof"]));
-                $seance->setTRANCHE(Seance::securiser($_POST['tranche']));
-                $seance->setJOUR(Seance::securiser($_POST['jour']));
-                $seance->setNIVEAU(Seance::securiser($_POST['niveau']));
-                $seance->setCAPACITE(Seance::securiser($_POST['capacite']));
-                Seance::updateSeance($seance);
-                header('Location: index.php?uc=cours&action=liste');
-                exit;
-            } else {
-                echo "Cours non trouvé.";
-            }
-            break;
-
-        case "nombre_eleves":
-            $classId = isset($_GET['classId']) ? intval($_GET['classId']) : 0;
-            include("Vues/afficherNombreEleves.php");
-            break;
-
 }
 ?>

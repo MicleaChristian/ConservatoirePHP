@@ -1,5 +1,3 @@
-// Vues/afficherNombreEleves.php
-
 <?php
 require_once 'Modeles/monPdo.php';
 require_once 'Modeles/inscription.class.php';
@@ -28,7 +26,7 @@ $studentCount = Inscription::getStudentCountByClass($classId);
 <div class="container mt-5">
     <h2>Nombre d'élèves inscrits dans le cours</h2>
     <p>Le nombre d'élèves inscrits dans le cours avec l'ID <?php echo htmlspecialchars($classId); ?> est : <?php echo htmlspecialchars($studentCount); ?></p>
-    <a href="index.php?uc=inscription&action=liste" class="btn btn-secondary">Retour à la liste des inscriptions</a>
+    <a href="index.php?uc=cours&action=liste" class="btn btn-secondary">Retour à la liste des cours</a>
 </div>
 </body>
 </html>
