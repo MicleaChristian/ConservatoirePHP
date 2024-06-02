@@ -1,4 +1,3 @@
-
 <?php
 class Inscription
 {
@@ -7,90 +6,52 @@ class Inscription
     private $NUMSEANCE;
     private $DATEINSCRIPTION;
 
-    /**
-     * Get the value of IDPROF
-     */
     public function getIDPROF()
     {
         return $this->IDPROF;
     }
 
-    /**
-     * Set the value of IDPROF
-     *
-     * @return  self
-     */
     public function setIDPROF($IDPROF)
     {
         $this->IDPROF = $IDPROF;
-
         return $this;
     }
 
-    /**
-     * Get the value of NUMSEANCE
-     */
     public function getNUMSEANCE()
     {
         return $this->NUMSEANCE;
     }
 
-    /**
-     * Set the value of NUMSEANCE
-     *
-     * @return  self
-     */
     public function setNUMSEANCE($NUMSEANCE)
     {
         $this->NUMSEANCE = $NUMSEANCE;
-
         return $this;
     }
 
-    /**
-     * Get the value of IDELEVE
-     */
     public function getIDELEVE()
     {
         return $this->IDELEVE;
     }
 
-    /**
-     * Set the value of IDELEVE
-     *
-     * @return  self
-     */
     public function setIDELEVE($IDELEVE)
     {
         $this->IDELEVE = $IDELEVE;
-
         return $this;
     }
 
-    /**
-     * Get the value of DATEINSCRIPTION
-     */
     public function getDATEINSCRIPTION()
     {
         return $this->DATEINSCRIPTION;
     }
 
-    /**
-     * Set the value of DATEINSCRIPTION
-     *
-     * @return  self
-     */
     public function setDATEINSCRIPTION($DATEINSCRIPTION)
     {
         $this->DATEINSCRIPTION = $DATEINSCRIPTION;
-
         return $this;
     }
 
-
     public static function afficherTous()
     {
-
         $req = MonPdo::getInstance()->prepare("select * from inscription");
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'inscription');
         $req->execute();
@@ -150,7 +111,6 @@ class Inscription
         return $req->fetch();
     }
 
-
     public static function getStudentCountByClass($classId) {
         $pdo = MonPdo::getInstance();
         $stmt = $pdo->prepare("SELECT COUNT(*) as student_count FROM inscription WHERE NUMSEANCE = :classId");
@@ -160,8 +120,21 @@ class Inscription
         return $row ? $row['student_count'] : 0;
     }
 
-    
+    public static function getStudentsByClass($classId) {
+        $pdo = MonPdo::getInstance();
+        $stmt = $pdo->prepare("SELECT personne.NOM, personne.PRENOM FROM inscription JOIN personne ON inscription.IDELEVE = personne.ID WHERE NUMSEANCE = :classId");
+        $stmt->bindValue(':classId', $classId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
+        public static function getAssignedStudentsByClass($classId)
+    {
+        $pdo = MonPdo::getInstance();
+        $stmt = $pdo->prepare("SELECT IDELEVE FROM inscription WHERE NUMSEANCE = :classId");
+        $stmt->bindValue(':classId', $classId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+    }
 }
-
 ?>

@@ -163,13 +163,13 @@ class Seance
 
     public static function afficherTous()
     {
-
-        $req = MonPdo::getInstance()->prepare("select * from seance");
+        $req = MonPdo::getInstance()->prepare("SELECT * FROM seance");
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Seance');
         $req->execute();
-        $lesResultats = $req->fetchAll();
-        return $lesResultats;
+        return $req->fetchAll();
     }
+    
+    
 
     public static function ajouterSeance(Seance $seance)
     {

@@ -7,7 +7,8 @@ switch ($action) {
     case "liste":
         $lesSeances = Seance::afficherTous(); // Assuming this method exists to fetch all seances
         foreach ($lesSeances as $seance) {
-            $seance->studentCount = Inscription::getStudentCountByClass($seance->getNUMSEANCE());
+            $seanceObject = (object)$seance;
+            $seanceObject->studentCount = Inscription::getStudentCountByClass($seanceObject->getNUMSEANCE());
         }
         include("Vues/affichercours.php");
         break;
@@ -64,7 +65,7 @@ switch ($action) {
 
     case "editer_form":
         $id = $_GET["idseance"];
-        $seance = Seance::getByNumseance($id);
+        $seance = Seance::getBynumseance($id);
         if ($seance) {
             require_once 'Modeles/prof.class.php';
             $profs = prof::getAll();
@@ -82,7 +83,7 @@ switch ($action) {
 
     case "editer":
         $id = $_GET["idseance"];
-        $seance = Seance::getByNumseance($id);
+        $seance = Seance::getBynumseance($id);
         if ($seance) {
             $seance->setIDPROF(Seance::securiser($_POST["idprof"]));
             $seance->setTRANCHE(Seance::securiser($_POST['tranche']));

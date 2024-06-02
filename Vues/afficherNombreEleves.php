@@ -5,7 +5,7 @@ require_once 'Modeles/inscription.class.php';
 MonPdo::checkSessionAndRedirect();
 
 $classId = isset($_GET['classId']) ? intval($_GET['classId']) : 0;
-$studentCount = Inscription::getStudentCountByClass($classId);
+$students = Inscription::getStudentsByClass($classId);
 ?>
 
 <!DOCTYPE html>
@@ -24,8 +24,15 @@ $studentCount = Inscription::getStudentCountByClass($classId);
 <?php include("header/header.php") ?>
 
 <div class="container mt-5">
-    <h2>Nombre d'élèves inscrits dans le cours</h2>
-    <p>Le nombre d'élèves inscrits dans le cours avec l'ID <?php echo htmlspecialchars($classId); ?> est : <?php echo htmlspecialchars($studentCount); ?></p>
+    <h2>Élèves inscrits dans le cours</h2>
+    <p>Liste des élèves inscrits dans le cours avec l'ID <?php echo htmlspecialchars($classId); ?> :</p>
+    <ul>
+        <?php
+        foreach ($students as $student) {
+            echo '<li>' . htmlspecialchars($student['PRENOM']) . ' ' . htmlspecialchars($student['NOM']) . '</li>';
+        }
+        ?>
+    </ul>
     <a href="index.php?uc=cours&action=liste" class="btn btn-secondary">Retour à la liste des cours</a>
 </div>
 </body>

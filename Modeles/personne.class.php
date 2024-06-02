@@ -211,12 +211,15 @@ class personne
 
     public static function affichereleve()
     {
-        $req = MonPdo::getInstance()->prepare("SELECT * FROM personne INNER JOIN eleve ON ID = IDELEVE;");
-        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'personne');
+        $req = MonPdo::getInstance()->prepare("
+            SELECT personne.ID, personne.NOM, personne.PRENOM, eleve.NIVEAU, eleve.IDELEVE 
+            FROM personne 
+            INNER JOIN eleve ON personne.ID = eleve.IDELEVE
+        ");
         $req->execute();
-        $lesResultats = $req->fetchAll();
-        return $lesResultats;
+        return $req->fetchAll(PDO::FETCH_ASSOC);
     }
+    
 
     public static function afficherprof()
     {

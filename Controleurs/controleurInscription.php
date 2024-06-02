@@ -11,38 +11,56 @@ switch ($action) {
         include("Vues/affichercours.php");
         break;
 
-    case "nombre_eleves":
-        $classId = intval($_GET['classId']);
-        $studentCount = Inscription::getStudentCountByClass($classId);
-        include("Vues/AfficherNombreEleves.php");
-        break;
+        case "nombre_eleves":
+            $classId = intval($_GET['classId']);
+            $students = Inscription::getStudentsByClass($classId);
+            include("Vues/afficherNombreEleves.php");
+            break;
 
-    case "ajout_form":
-        include "Vues/ajouterinscription.php";
-        break;
+            case "ajout_form":
+                $lesSeances = Seance::afficherTous();
+                $lesEleves = personne::affichereleve();
+                $assignedStudents = [];
+                foreach ($lesSeances as $seance) {
+                    $assignedStudents[$seance->getNUMSEANCE()] = Inscription::getAssignedStudentsByClass($seance->getNUMSEANCE());
+                }
+                include "Vues/ajouterinscription.php";
+                break;        
 
-    case "ajouter":
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $ideleve = Inscription::securiser($_POST['ideleve']);
-            $numseance = Inscription::securiser($_POST['numseance']);
-            $idprof = Seance::getBynumseance($numseance)->getIDPROF();
-            $dateInscription = date('Y-m-d'); // Current date for DATEINSCRIPTION
-
-            $inscription = new Inscription();
-            $inscription->setIDPROF($idprof);
-            $inscription->setIDELEVE($ideleve);
-            $inscription->setNUMSEANCE($numseance);
-            $inscription->setDATEINSCRIPTION($dateInscription);
-
-            try {
-                Inscription::ajouterInscription($inscription);
-                echo "Inscription added successfully.";
-                header('Location: index.php?uc=cours&action=liste');
-            } catch (Exception $e) {
-                echo "Failed to add inscription: " . $e->getMessage();
-            }
-        }
-        break;
+                case "ajouter":
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $numseance = Inscription::securiser($_POST['numseance']);
+                        $ideleves = $_POST['ideleve']; // No need to securiser here as we will do it for each element
+                        $dateInscription = date('Y-m-d'); // Current date for DATEINSCRIPTION
+                
+                        try {
+                            $pdo = MonPdo::getInstance();
+                            $pdo->beginTransaction();
+                
+                            foreach ($ideleves as $ideleve) {
+                                $ideleve = Inscription::securiser($ideleve);
+                                $idprof = Seance::getBynumseance($numseance)->getIDPROF();
+                
+                                $inscription = new Inscription();
+                                $inscription->setIDPROF($idprof);
+                                $inscription->setIDELEVE($ideleve);
+                                $inscription->setNUMSEANCE($numseance);
+                                $inscription->setDATEINSCRIPTION($dateInscription);
+                
+                                Inscription::ajouterInscription($inscription);
+                            }
+                
+                            $pdo->commit();
+                            echo "Inscriptions added successfully.";
+                            header('Location: index.php?uc=cours&action=liste');
+                        } catch (Exception $e) {
+                            $pdo->rollBack();
+                            echo "Failed to add inscriptions: " . $e->getMessage();
+                        }
+                    }
+                    break;
+                
+        
 
     case "supprimer":
         $ideleve = $_GET['ideleve'];
