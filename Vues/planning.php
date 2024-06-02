@@ -35,6 +35,20 @@ MonPdo::checkSessionAndRedirect();
             text-align: center;
             vertical-align: middle;
         }
+        .table td .class-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .table td .class-item {
+            flex: 1;
+            margin: 2px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+        }
         @media (max-width: 768px) {
             .table-responsive {
                 display: none !important;
@@ -88,13 +102,20 @@ MonPdo::checkSessionAndRedirect();
                     echo "<tr>";
                     echo "<th scope='row' class='table-light'>" . $heure['tranche'] . "</th>";
                     foreach ($jours as $jour) {
-                        $seance = Seance::getByJourAndTranche($jour['id'], $heure['tranche']);
+                        $seances = Seance::getAllByJourAndTranche($jour['id'], $heure['tranche']);
                         echo "<td";
-                        if ($seance) {
-                            echo " class='table-primary'>";
-                            $prof = personne::getById($seance->getIDPROF());
-                            echo "<strong>Prof: " . substr($prof->getPRENOM(), 0, 1) . ". " . $prof->getNOM() . "</strong>";
-                            echo "<br>Capacité: " . $seance->getCAPACITE() . " élèves";
+                        if ($seances) {
+                            echo " class='table-primary'><div class='class-container'>";
+                            foreach ($seances as $seance) {
+                                $prof = personne::getById($seance->getIDPROF());
+                                $instrument = $prof->getINSTRUMENT();
+                                echo "<div class='class-item'>";
+                                echo "<strong>Prof: " . substr($prof->getPRENOM(), 0, 1) . ". " . $prof->getNOM() . "</strong><br>";
+                                echo "Instrument: " . $instrument . "<br>";
+                                echo "Capacité: " . $seance->getCAPACITE() . " élèves";
+                                echo "</div>";
+                            }
+                            echo "</div>";
                         } else {
                             echo " class='empty'></td>";
                         }
@@ -114,17 +135,21 @@ MonPdo::checkSessionAndRedirect();
             $heures = Heure::getAll();
             $hasSeance = false;
             foreach ($heures as $heure) {
-                $seance = Seance::getByJourAndTranche($jour['id'], $heure['tranche']);
-                if ($seance) {
+                $seances = Seance::getAllByJourAndTranche($jour['id'], $heure['tranche']);
+                if ($seances) {
                     $hasSeance = true;
-                    $prof = personne::getById($seance->getIDPROF());
-                    echo "<div class='card mb-3'>";
-                    echo "<div class='card-header'><strong>" . $heure['tranche'] . "</strong></div>";
-                    echo "<div class='card-body'>";
-                    echo "<p class='card-text'><strong>Prof: " . substr($prof->getPRENOM(), 0, 1) . ". " . $prof->getNOM() . "</strong></p>";
-                    echo "<p class='card-text'>Capacité: " . $seance->getCAPACITE() . " élèves</p>";
-                    echo "</div>";
-                    echo "</div>";
+                    foreach ($seances as $seance) {
+                        $prof = personne::getById($seance->getIDPROF());
+                        $instrument = $prof->getINSTRUMENT();
+                        echo "<div class='card mb-3'>";
+                        echo "<div class='card-header'><strong>" . $heure['tranche'] . "</strong></div>";
+                        echo "<div class='card-body'>";
+                        echo "<p class='card-text'><strong>Prof: " . substr($prof->getPRENOM(), 0, 1) . ". " . $prof->getNOM() . "</strong></p>";
+                        echo "<p class='card-text'>Instrument: " . $instrument . "</p>";
+                        echo "<p class='card-text'>Capacité: " . $seance->getCAPACITE() . " élèves</p>";
+                        echo "</div>";
+                        echo "</div>";
+                    }
                 }
             }
             if (!$hasSeance) {

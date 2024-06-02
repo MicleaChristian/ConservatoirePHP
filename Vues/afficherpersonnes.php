@@ -131,11 +131,13 @@ if ($userRole == 'parent') {
                         echo "</tr>";
                     }
                     ?>
+                        <?php if ($_SESSION['user_role'] == 'parent') : ?>
                     <tr>
                         <td colspan="7" class="adminbutt">
                             <a href='index.php?uc=personne&action=ajout_form' class='btn btn-primary btn-sm'>Ajouter un élève</a>
                         </td>
                     </tr>
+                    <?php endif ?>
                 </tbody>
             </table>
         </div>

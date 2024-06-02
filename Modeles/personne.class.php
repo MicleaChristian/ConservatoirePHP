@@ -273,11 +273,16 @@ class personne
     public static function supprimereleve($id)
     {
         $pdo = MonPdo::getInstance();
-        $req = $pdo->prepare("delete from eleve where IDELEVE = :id");
+
+        $req = $pdo->prepare("DELETE FROM inscription WHERE IDELEVE = :id");
         $req->bindParam(':id', $id);
         $req->execute();
 
-        $req = $pdo->prepare("delete from personne where ID = :id");
+        $req = $pdo->prepare("DELETE FROM eleve WHERE IDELEVE = :id");
+        $req->bindParam(':id', $id);
+        $req->execute();
+
+        $req = $pdo->prepare("DELETE FROM personne WHERE ID = :id");
         $req->bindParam(':id', $id);
         $req->execute();
     }
@@ -285,13 +290,35 @@ class personne
     public static function supprimerprof($id)
     {
         $pdo = MonPdo::getInstance();
-        $req = $pdo->prepare("delete from prof where IDPROF = :id");
-        $req->bindParam(':id', $id);
-        $req->execute();
 
-        $req = $pdo->prepare("delete from personne where ID = :id");
-        $req->bindParam(':id', $id);
-        $req->execute();
+        try {
+            $pdo->beginTransaction();
+
+            $req = $pdo->prepare("DELETE FROM inscription WHERE NUMSEANCE IN (SELECT NUMSEANCE FROM seance WHERE IDPROF = :id)");
+            $req->bindParam(':id', $id);
+            $req->execute();
+
+            $req = $pdo->prepare("DELETE FROM seance WHERE IDPROF = :id");
+            $req->bindParam(':id', $id);
+            $req->execute();
+
+            $req = $pdo->prepare("DELETE FROM inscription WHERE IDPROF = :id");
+            $req->bindParam(':id', $id);
+            $req->execute();
+
+            $req = $pdo->prepare("DELETE FROM prof WHERE IDPROF = :id");
+            $req->bindParam(':id', $id);
+            $req->execute();
+
+            $req = $pdo->prepare("DELETE FROM personne WHERE ID = :id");
+            $req->bindParam(':id', $id);
+            $req->execute();
+
+            $pdo->commit();
+        } catch (PDOException $e) {
+            $pdo->rollBack();
+            throw $e;
+        }
     }
 
     public static function securiser($donnees)

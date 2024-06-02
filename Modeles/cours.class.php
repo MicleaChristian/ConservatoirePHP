@@ -8,7 +8,18 @@ class Seance
     private $NIVEAU;
     private $CAPACITE;
     private $IDSEANCE;
+    private $INSTRUMENT;
     public $studentCount;
+
+    public function getINSTRUMENT()
+    {
+        return $this->INSTRUMENT;
+    }
+
+    public function setINSTRUMENT($INSTRUMENT)
+    {
+        $this->studentCount = $INSTRUMENT;
+    }
 
     public function getStudentCount()
     {
@@ -260,6 +271,20 @@ class Seance
         $stmt = $pdo->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function getAllByJourAndTranche($jour, $tranche) {
+        $pdo = MonPdo::getInstance();
+        $stmt = $pdo->prepare(
+            "SELECT seance.*, prof.INSTRUMENT 
+             FROM seance 
+             JOIN prof ON seance.IDPROF = prof.IDPROF 
+             WHERE jour = :jour AND tranche = :tranche"
+        );
+        $stmt->bindParam(':jour', $jour);
+        $stmt->bindParam(':tranche', $tranche);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Seance');
     }
 }
 ?>

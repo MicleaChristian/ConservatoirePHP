@@ -213,7 +213,6 @@ MonPdo::checkSessionAndRedirect();
                 </div>
                 <div class="card-body">
                     <a href="index.php?uc=personne&action=liste">Gérer les élèves</a>
-                    <a href="index.php?uc=personne&action=ajout_form">Ajouter un élève</a>
                 </div>
                 <div class="card-footer"></div>
             </div>

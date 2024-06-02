@@ -22,7 +22,6 @@ switch ($action) {
         break;
 
     case "ajouter":
-
         // Traitement du formulaire d'ajout de personne
         $personne = new personne();
         $personne->setNOM(personne::securiser($_POST["nom"]));
@@ -38,11 +37,9 @@ switch ($action) {
         $ajoutPersonne = personne::ajoutereleve($personne, $eleve);
         // Redirection vers la liste des personnes
         header('Location: index.php?uc=personne&action=liste');
-
         break;
 
     case "ajouterprof":
-
         // Traitement du formulaire d'ajout de personne
         $personne = new personne();
         $personne->setNOM(personne::securiser($_POST["nom"]));
@@ -57,7 +54,6 @@ switch ($action) {
         $ajoutPersonne = personne::ajouterprof($personne, $prof);
         // Redirection vers la liste des personnes
         header('Location: index.php?uc=personne&action=listeprof');
-
         break;
 
     case "supprimer":
@@ -68,8 +64,12 @@ switch ($action) {
 
     case "supprimerprof":
         $id = $_GET['id'];
-        personne::supprimerprof($id);
-        header('Location: index.php?uc=personne&action=listeprof');
+        try {
+            personne::supprimerprof($id);
+            header('Location: index.php?uc=personne&action=listeprof');
+        } catch (PDOException $e) {
+            echo "Error deleting professor: " . $e->getMessage();
+        }
         break;
 
     case "editer_form":
@@ -114,3 +114,4 @@ switch ($action) {
         header('Location: index.php?uc=personne&action=listeprof');
         break;
 }
+?>
