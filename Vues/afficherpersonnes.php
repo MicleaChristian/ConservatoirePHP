@@ -127,6 +127,7 @@ if ($userRole == 'parent') {
                         echo "<td class='adminbutt'>";
                         echo "<a href='#' onclick=\"confirmDelete('index.php?uc=personne&action=supprimer&id=" . $personne->ID . "', '" . $personne->NOM . "', '" . $personne->PRENOM . "')\" class='btn btn-danger btn-sm'>Supprimer</a>";
                         echo "<a href='index.php?uc=personne&action=editer_form&id=" . $personne->ID . "' class='btn btn-warning btn-sm'>Modifier</a>";
+                        echo "<a href='index.php?uc=inscription&action=assign_form&eleve=" . $personne->ID . "' class='btn btn-primary btn-sm'>Inscrire</a>";
                         echo "</td>";
                         echo "</tr>";
                     }
