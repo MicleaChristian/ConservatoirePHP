@@ -121,5 +121,9 @@ switch ($uc) {
     case "inscription":
         include("Controleurs/controleurInscription.php");
         break;
+
+    case "license":
+        include("Vues/license_agreement.php");
+        break;
     
     }

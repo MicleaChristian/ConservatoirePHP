@@ -133,6 +133,14 @@
             color: #000;
             cursor: pointer;
         }
+        .terms-link {
+            color: #FFD700;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .terms-link:hover {
+            color: #80bdff;
+        }
     </style>
 </head>
 
@@ -144,7 +152,7 @@
             <?php if (isset($error_message)): ?>
                 <div class="alert alert-danger"><?php echo $error_message; ?></div>
             <?php endif; ?>
-            <form action="index.php?uc=newuser&action=ajouter" method="POST">
+            <form action="index.php?uc=newuser&action=ajouter" method="POST" onsubmit="return validateForm()">
                 <div class="mb-3">
                     <label for="username" class="form-label">Nom d'utilisateur:</label>
                     <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
@@ -166,7 +174,13 @@
                 </div>
                 <div class="mb-3">
                     <label for="confirm-password" class="form-label">Confirmer le mot de passe:</label>
-                        <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
+                    <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="agree-terms" required>
+                    <label class="form-check-label form-label" for="agree-terms">
+                        J'accepte les <a href="index.php?uc=license" class="terms-link">CGU</a>.
+                    </label>
                 </div>
                 <input type="hidden" id="role" name="role" value="parent">
                 <div class="d-grid">
@@ -218,7 +232,7 @@
             handleValidation(document.getElementById('match'), passwordsMatch);
 
             // Enable or disable the submit button
-            document.getElementById('submit-btn').disabled = !passwordsMatch || !password.length >= 16 || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[^\w]/.test(password);
+            document.getElementById('submit-btn').disabled = !passwordsMatch || !(password.length >= 16) || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[^\w]/.test(password);
         }
 
         function togglePassword() {
@@ -231,6 +245,15 @@
                 passwordField.type = "password";
                 toggleBtn.textContent = "👁️";
             }
+        }
+
+        function validateForm() {
+            var termsCheckbox = document.getElementById('agree-terms');
+            if (!termsCheckbox.checked) {
+                alert("Vous devez accepter les conditions d'utilisation.");
+                return false;
+            }
+            return true;
         }
     </script>
 </body>

@@ -7,144 +7,171 @@
     <title>Page de Connexion</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-    @font-face {
-        font-family: perpetua;
-        src: url(http://localhost/ConservatoirePHP/fonts/PERTIBD.TTF);
-    }
+        @font-face {
+            font-family: perpetua;
+            src: url(http://localhost/ConservatoirePHP/fonts/PERTIBD.TTF);
+        }
 
-    body, input, button {
-        font-family: perpetua; /* Apply the font to body, input, and button elements */
-    }
+        body, input, button {
+            font-family: perpetua; /* Apply the font to body, input, and button elements */
+        }
 
-    body {
-        background: url(http://localhost/ConservatoirePHP/img/backlogin.jpg) no-repeat center center fixed;
-        background-size: cover;
-        max-height: 100vh;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-    }
-    .overlay {
-        position: absolute;
-        backdrop-filter: blur(5px);
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.8);
-        z-index: 1;
-    }
-    .content {
-        position: relative;
-        z-index: 2;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        height: 100%;
-        width: 100%;
-    }
-    .login-container {
-        width: 400px;
-        height: 100vh;
-        padding: 40px;
-        background-color: #013210;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        border-radius: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin-left: 50px;
-    }
-    .login-container h1 {
-        text-align: center;
-        margin-bottom: 30px;
-        color: #FFD700;
-    }
-    .login-container .error-message {
-        color: red;
-        text-align: center;
-        margin-bottom: 10px;
-    }
-    .login-container .form-control {
-        border-radius: 5px;
-        border: 1px solid #ced4da;
-        padding: 10px;
-        transition: all 0.3s ease;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    }
-    .login-container .form-control:focus {
-        border-color: #80bdff;
-        box-shadow: 0 0 8px rgba(128, 189, 255, 0.5);
-    }
-    .login-container .btn-primary {
-        background-color: #007bff;
-        border: none;
-        width: 100%;
-        max-height: 100vh;
-        padding: 10px;
-        border-radius: 5px;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-    .login-container .btn-primary:hover {
-        background-color: #0056b3;
-        transform: translateY(-2px);
-    }
-    .login-container .btn-outline-secondary {
-        width: 100%;
-        padding: 10px;
-        margin-top: 10px;
-        border-radius: 5px;
-        transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
-        color: #FFF;
-    }
-    .login-container .btn-outline-secondary:hover {
-        background-color: #f8f9fa;
-        color: #000; /* Change text color to black on hover */
-        transform: translateY(-2px);
-    }
-    .form-label {
-        color: #FFD700;
-    }
-    .image-container {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-left: auto;
-        margin-right: 50px;
-    }
-    .image-container img {
-        max-width: 80%;
-        height: auto;
-    }
-    .signup-link {
-        color: #FFD700;
-        text-align: center;
-        display: block;
-        margin-top: 20px;
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
-    .signup-link:hover {
-        color: #80bdff;
-    }
-    .password-toggle-container {
-        position: relative;
-        display: flex;
-        align-items: center;
-    }
-    .password-toggle-btn {
-        position: absolute;
-        right: 10px;
-        background: none;
-        border: none;
-        color: #000;
-        cursor: pointer;
-    }
-</style>
+        body {
+            background: url(http://localhost/ConservatoirePHP/img/backlogin.jpg) no-repeat center center fixed;
+            background-size: cover;
+            max-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .overlay {
+            position: absolute;
+            backdrop-filter: blur(5px);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1;
+        }
+        .content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+        }
+        .login-container {
+            width: 400px;
+            height: 100vh;
+            padding: 40px;
+            background-color: #013210;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 50px;
+        }
+        .login-container h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #FFD700;
+        }
+        .login-container .error-message {
+            color: red;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .login-container .form-control {
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            padding: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .login-container .form-control:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 8px rgba(128, 189, 255, 0.5);
+        }
+        .login-container .btn-primary {
+            background-color: #007bff;
+            border: none;
+            width: 100%;
+            max-height: 100vh;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .login-container .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        .login-container .btn-outline-secondary {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+            color: #FFF;
+        }
+        .login-container .btn-outline-secondary:hover {
+            background-color: #f8f9fa;
+            color: #000; /* Change text color to black on hover */
+            transform: translateY(-2px);
+        }
+        .form-label {
+            color: #FFD700;
+        }
+        .image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: auto;
+            margin-right: 50px;
+        }
+        .image-container img {
+            max-width: 50%; /* Adjusted max-width to make the image smaller */
+            height: auto;
+        }
+        .signup-link {
+            color: #FFD700;
+            text-align: center;
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .signup-link:hover {
+            color: #80bdff;
+        }
+        .password-toggle-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .password-toggle-btn {
+            position: absolute;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #000;
+            cursor: pointer;
+        }
+        .license-link {
+            color: #FFD700;
+            text-align: center;
+            display: block;
+            margin-top: 10px;
+            font-size: 12px; /* Small text */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .license-link:hover {
+            color: #80bdff;
+        }
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #FFD700;
+            text-align: center;
+            padding: 10px;
+            z-index: 1000;
+            display: none; /* Hidden by default */
+        }
+        .cookie-banner .btn {
+            margin-left: 10px;
+        }
+    </style>
 
 </head>
 <body>
@@ -179,11 +206,21 @@
             <div class="text-center">
                 <a href="index.php?uc=newuserform" class="signup-link">pas de compte?</a>
             </div>
+            <div class="text-center">
+                <a href="index.php?uc=license" class="license-link">CGU</a>
+            </div>
         </div>
         <div class="image-container">
-            <img src="http://localhost/ConservatoirePHP/img/logo.png" alt="Centered Image">
+            <img src="http://localhost/ConservatoirePHP/img/logo.png" alt="Image Centrée">
         </div>
     </div>
+
+    <!-- Bannière de Consentement de Cookies -->
+    <div class="cookie-banner" id="cookieConsentBanner">
+        Ce site utilise des cookies pour vous garantir la meilleure expérience sur notre site. En utilisant ce site, vous acceptez notre utilisation des cookies.
+        <button class="btn btn-primary btn-sm" id="acceptCookies">Accepter</button>
+    </div>
+
     <script>
         function togglePassword() {
             var passwordField = document.getElementById("password");
@@ -196,6 +233,21 @@
                 toggleBtn.textContent = "👁️";
             }
         }
+
+        // Afficher la bannière de consentement de cookies si les cookies ne sont pas acceptés
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!localStorage.getItem('cookiesAccepted')) {
+                document.getElementById('cookieConsentBanner').style.display = 'block';
+            }
+        });
+
+        // Gérer l'acceptation des cookies
+        document.getElementById('acceptCookies').addEventListener('click', function () {
+            localStorage.setItem('cookiesAccepted', 'true');
+            document.getElementById('cookieConsentBanner').style.display = 'none';
+        });
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
