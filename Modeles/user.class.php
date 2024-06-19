@@ -6,70 +6,46 @@ class users
     private string $USERNAME;
     private string $ROLE;
 
-    /**
-     * Get the value of ID
-     */ 
     public function getID()
     {
         return $this->ID;
     }
 
-    /**
-     * Set the value of ID
-     *
-     * @return  self
-     */ 
     public function setID($ID)
     {
         $this->ID = $ID;
         return $this;
     }
 
-    /**
-     * Get the value of PASS
-     */ 
     public function getPASS()
     {
         return $this->PASS;
     }
 
-    /**
-     * Set the value of PASS
-     *
-     * @return  self
-     */ 
     public function setPASS($PASS)
     {
         $this->PASS = $PASS;
         return $this;
     }
 
-    /**
-     * Get the value of USERNAME
-     */
-    public function getUSERNAME() {
+    public function getUSERNAME()
+    {
         return $this->USERNAME;
     }
 
-    /**
-     * Set the value of USERNAME
-     */
-    public function setUSERNAME($USERNAME): self {
+    public function setUSERNAME($USERNAME): self
+    {
         $this->USERNAME = $USERNAME;
         return $this;
     }
 
-    /**
-     * Get the value of ROLE
-     */
-    public function getROLE() {
+    public function getROLE()
+    {
         return $this->ROLE;
     }
 
-    /**
-     * Set the value of ROLE
-     */
-    public function setROLE($ROLE): self {
+    public function setROLE($ROLE): self
+    {
         $this->ROLE = $ROLE;
         return $this;
     }
@@ -107,7 +83,7 @@ class users
     {
         $donnees = trim($donnees);
         $donnees = stripslashes($donnees);
-        $donnees = htmlspecialchars($donnees);
+        $donnees = htmlspecialchars($donnees, ENT_QUOTES, 'UTF-8');
         return $donnees;
     }
 
@@ -119,10 +95,11 @@ class users
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return mapUserProperties($row);
+            return self::mapUserProperties($row);
         }
         return null;
     }
+
     public static function getByUsername($username)
     {
         $pdo = MonPdo::getInstance();
@@ -131,19 +108,19 @@ class users
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return mapUserProperties($row);
+            return self::mapUserProperties($row);
         }
         return null;
     }
 
+    private static function mapUserProperties($row)
+    {
+        $user = new users();
+        $user->setID($row['id']);
+        $user->setUSERNAME($row['username']);
+        $user->setPASS($row['password']);
+        $user->setROLE($row['role']);
+        return $user;
+    }
 }
-
-function mapUserProperties($row)
-{
-    $user = new users();
-    $user->setID($row['id']);
-    $user->setUSERNAME($row['username']);
-    $user->setPASS($row['password']); // This might be optional based on your needs
-    $user->setROLE($row['role']);
-    return $user;
-}
+?>

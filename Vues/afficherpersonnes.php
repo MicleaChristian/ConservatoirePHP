@@ -13,7 +13,6 @@ if ($userRole == 'parent') {
     $stmt->execute(['parentId' => $parentId]);
     $lesPersonnes = $stmt->fetchAll(PDO::FETCH_OBJ);
 } elseif ($userRole == 'admin') {
-    // Fetch all eleves for admin role
     $pdo = MonPdo::getInstance();
     $stmt = $pdo->prepare('SELECT * FROM personne INNER JOIN eleve ON ID = IDELEVE');
     $stmt->execute();
@@ -137,16 +136,16 @@ if ($userRole == 'parent') {
                         break;
                 }
 
-                echo "<div class='card' onclick=\"window.location.href='index.php?uc=personne&action=editer_form&id=" . $personne->ID . "'\">";
+                echo "<div class='card' onclick=\"window.location.href='index.php?uc=personne&action=editer_form&id=" . htmlspecialchars($personne->ID, ENT_QUOTES, 'UTF-8') . "'\">";
                 echo "<div class='card-body'>";
-                echo "<h5 class='card-title'>" . $personne->NOM . " " . $personne->PRENOM . "</h5>";
-                echo "<p class='card-text'><strong>Email:</strong> " . $personne->MAIL . "</p>";
-                echo "<p class='card-text'><strong>Tel:</strong> " . $personne->TEL . "</p>";
-                echo "<p class='card-text'><strong>Niveau:</strong> " . $niveauStatus . "</p>";
-                echo "<p class='card-text'><strong>Bourse:</strong> " . $bourseStatus . "</p>";
+                echo "<h5 class='card-title'>" . htmlspecialchars($personne->NOM, ENT_QUOTES, 'UTF-8') . " " . htmlspecialchars($personne->PRENOM, ENT_QUOTES, 'UTF-8') . "</h5>";
+                echo "<p class='card-text'><strong>Email:</strong> " . htmlspecialchars($personne->MAIL, ENT_QUOTES, 'UTF-8') . "</p>";
+                echo "<p class='card-text'><strong>Tel:</strong> " . htmlspecialchars($personne->TEL, ENT_QUOTES, 'UTF-8') . "</p>";
+                echo "<p class='card-text'><strong>Niveau:</strong> " . htmlspecialchars($niveauStatus, ENT_QUOTES, 'UTF-8') . "</p>";
+                echo "<p class='card-text'><strong>Bourse:</strong> " . htmlspecialchars($bourseStatus, ENT_QUOTES, 'UTF-8') . "</p>";
                 echo "<div class='card-actions'>";
-                echo "<a href='#' onclick=\"confirmDelete('index.php?uc=personne&action=supprimer&id=" . $personne->ID . "', '" . $personne->NOM . "', '" . $personne->PRENOM . "')\" class='btn btn-danger btn-sm'>Supprimer</a>";
-                echo "<a href='index.php?uc=inscription&action=assign_form&eleve=" . $personne->ID . "' class='btn btn-primary btn-sm'>Inscrire</a>";
+                echo "<a href='#' onclick=\"confirmDelete('index.php?uc=personne&action=supprimer&id=" . htmlspecialchars($personne->ID, ENT_QUOTES, 'UTF-8') . "', '" . htmlspecialchars($personne->NOM, ENT_QUOTES, 'UTF-8') . "', '" . htmlspecialchars($personne->PRENOM, ENT_QUOTES, 'UTF-8') . "')\" class='btn btn-danger btn-sm'>Supprimer</a>";
+                echo "<a href='index.php?uc=inscription&action=assign_form&eleve=" . htmlspecialchars($personne->ID, ENT_QUOTES, 'UTF-8') . "' class='btn btn-primary btn-sm'>Inscrire</a>";
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";

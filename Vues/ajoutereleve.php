@@ -31,6 +31,7 @@ $userId = $_SESSION['user_id'];
     <div class="container mt-5 form-container">
         <h2>Ajouter une Personne</h2>
         <form action="index.php?uc=personne&action=ajouter" method="POST">
+            <input type="hidden" name="csrf_token" value="<?php echo personne::generateCSRFToken(); ?>">
             <div class="mb-3">
                 <label for="nom" class="form-label">Nom :</label>
                 <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" required>
@@ -68,9 +69,7 @@ $userId = $_SESSION['user_id'];
                     <option value="0">Impayée</option>
                 </select>
             </div>
-            <!-- Hidden field for parentId -->
-            <input type="hidden" name="parentId" id="parentId" value="<?php echo $_SESSION['user_id']; ?>">
-
+            <input type="hidden" name="parentId" id="parentId" value="<?php echo htmlspecialchars($_SESSION['user_id'], ENT_QUOTES, 'UTF-8'); ?>">
             <div class="d-grid">
                 <button type="submit" class="btn btn-primary">Ajouter</button>
             </div>

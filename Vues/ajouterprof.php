@@ -30,6 +30,7 @@ MonPdo::checkSessionAndRedirect();
 <div class="container mt-5 form-container">
     <h2>Ajouter un Professeur</h2>
     <form action="index.php?uc=personne&action=ajouterprof" method="POST">
+        <input type="hidden" name="csrf_token" value="<?php echo personne::generateCSRFToken(); ?>">
         <div class="mb-3">
             <label for="nom" class="form-label">Nom :</label>
             <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" required>
@@ -54,8 +55,8 @@ MonPdo::checkSessionAndRedirect();
             <label for="libelle" class="form-label">Instrument :</label>
             <select class="form-select" id="libelle" name="libelle" required>
                 <?php foreach ($instruments as $instrument): ?>
-                    <option value="<?php echo $instrument["libelle"]; ?>">
-                        <?php echo $instrument["libelle"]; ?>
+                    <option value="<?php echo htmlspecialchars($instrument["libelle"], ENT_QUOTES, 'UTF-8'); ?>">
+                        <?php echo htmlspecialchars($instrument["libelle"], ENT_QUOTES, 'UTF-8'); ?>
                     </option>
                 <?php endforeach; ?>
             </select>

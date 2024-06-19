@@ -33,26 +33,27 @@ require_once 'Modeles/personne.class.php';
 <?php include("header/header.php") ?>
 
 <div class="container mt-5 form-container">
-    <h2>Modifier les informations de <?php echo $personne->getNOM() . " " . $personne->getPRENOM(); ?></h2>
-    <form action="index.php?uc=personne&action=editerprof&id=<?php echo $personne->getID(); ?>" method="POST">
+    <h2>Modifier les informations de <?php echo htmlspecialchars($personne->getNOM(), ENT_QUOTES, 'UTF-8') . " " . htmlspecialchars($personne->getPRENOM(), ENT_QUOTES, 'UTF-8'); ?></h2>
+    <form action="index.php?uc=personne&action=editerprof&id=<?php echo htmlspecialchars($personne->getID(), ENT_QUOTES, 'UTF-8'); ?>" method="POST">
+        <input type="hidden" name="csrf_token" value="<?php echo personne::generateCSRFToken(); ?>">
         <div class="row mt-3">
             <div class="col">
                 <label for="nom" class="form-label">Nom</label>
-                <input type="text" class="form-control" id="nom" name="nom" value="<?php echo $personne->getNOM(); ?>" required>
+                <input type="text" class="form-control" id="nom" name="nom" value="<?php echo htmlspecialchars($personne->getNOM(), ENT_QUOTES, 'UTF-8'); ?>" required>
             </div>
             <div class="col">
                 <label for="prenom" class="form-label">Prénom</label>
-                <input type="text" class="form-control" id="prenom" name="prenom" value="<?php echo $personne->getPRENOM(); ?>" required>
+                <input type="text" class="form-control" id="prenom" name="prenom" value="<?php echo htmlspecialchars($personne->getPRENOM(), ENT_QUOTES, 'UTF-8'); ?>" required>
             </div>
         </div>
         <div class="row mt-3">
             <div class="col">
                 <label for="mail" class="form-label">Mail</label>
-                <input type="email" class="form-control" id="mail" name="mail" value="<?php echo $personne->getMAIL(); ?>" required>
+                <input type="email" class="form-control" id="mail" name="mail" value="<?php echo htmlspecialchars($personne->getMAIL(), ENT_QUOTES, 'UTF-8'); ?>" required>
             </div>
             <div class="col">
                 <label for="tel" class="form-label">Téléphone</label>
-                <input type="text" class="form-control" id="tel" name="tel" value="<?php echo $personne->getTEL(); ?>" required>
+                <input type="text" class="form-control" id="tel" name="tel" value="<?php echo htmlspecialchars($personne->getTEL(), ENT_QUOTES, 'UTF-8'); ?>" required>
             </div>
         </div>
         <div class="d-flex justify-content-center mt-5">

@@ -1,8 +1,3 @@
-<?php
-require_once 'Modeles/monPdo.php';
-
-MonPdo::checkSessionAndRedirect();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,12 +25,13 @@ MonPdo::checkSessionAndRedirect();
     <div class="container mt-5 form-container">
         <h2>Ajouter une Séance</h2>
         <form action="index.php?uc=cours&action=ajoutercours" method="post">
+            <input type="hidden" name="csrf_token" value="<?php echo Seance::generateCSRFToken(); ?>">
             <div class="mb-3">
                 <label for="idprof" class="form-label">Prof</label>
                 <select class="form-select" id="idprof" name="idprof" required>
                     <?php foreach ($profs as $prof): ?>
-                        <option value="<?php echo $prof["idprof"]; ?>">
-                            <?php echo $prof["nom"]; ?>
+                        <option value="<?php echo htmlspecialchars($prof["idprof"], ENT_QUOTES, 'UTF-8'); ?>">
+                            <?php echo htmlspecialchars($prof["nom"], ENT_QUOTES, 'UTF-8'); ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -44,8 +40,8 @@ MonPdo::checkSessionAndRedirect();
                 <label for="tranche" class="form-label">Horaire</label>
                 <select class="form-select" id="tranche" name="tranche" required>
                     <?php foreach ($heures as $heure): ?>
-                        <option value="<?php echo $heure["tranche"]; ?>">
-                            <?php echo $heure["tranche"]; ?>
+                        <option value="<?php echo htmlspecialchars($heure["tranche"], ENT_QUOTES, 'UTF-8'); ?>">
+                            <?php echo htmlspecialchars($heure["tranche"], ENT_QUOTES, 'UTF-8'); ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -54,8 +50,8 @@ MonPdo::checkSessionAndRedirect();
                 <label for="jour" class="form-label">Jour</label>
                 <select class="form-select" id="jour" name="jour" required>
                     <?php foreach ($jours as $jour): ?>
-                        <option value="<?php echo $jour["jour"]; ?>">
-                            <?php echo $jour["jour"]; ?>
+                        <option value="<?php echo htmlspecialchars($jour["jour"], ENT_QUOTES, 'UTF-8'); ?>">
+                            <?php echo htmlspecialchars($jour["jour"], ENT_QUOTES, 'UTF-8'); ?>
                         </option>
                     <?php endforeach; ?>
                 </select>

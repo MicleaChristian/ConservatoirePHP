@@ -13,13 +13,13 @@
         }
 
         body, input, button {
-            font-family: perpetua; /* Apply the font to body, input, and button elements */
+            font-family: perpetua;
         }
 
         body {
             background: url(http://localhost/ConservatoirePHP/img/backlogin.jpg) no-repeat center center fixed;
             background-size: cover;
-            height: 100vh; /* Ensure body takes the full height of the viewport */
+            height: 100vh;
             margin: 0;
             display: flex;
             justify-content: center;
@@ -47,9 +47,9 @@
         }
         .login-container {
             width: 400px;
-            height: 100%; /* Set to 100% to take the full height */
+            height: 100%;
             padding: 40px;
-            background-color: #013210;
+            background-color: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(10px);
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             border-radius: 0;
@@ -102,7 +102,7 @@
         }
         .login-container .btn-outline-secondary:hover {
             background-color: #f8f9fa;
-            color: #000; /* Change text color to black on hover */
+            color: #000;
             transform: translateY(-2px);
         }
         .form-label {
@@ -116,14 +116,14 @@
         .password-indicator span {
             display: block;
             margin-bottom: 5px;
-            transition: opacity 1s ease-in-out; /* Transition for fading */
+            transition: opacity 1s ease-in-out;
         }
         .invalid {
             color: red;
         }
         .valid {
             color: green;
-            opacity: 0; /* Initially hidden when valid */
+            opacity: 0;
         }
         .image-container {
             flex: 1;
@@ -134,7 +134,7 @@
             margin-right: 50px;
         }
         .image-container img {
-            max-width: 80%;
+            max-width: 50%;
             height: auto;
         }
         .password-toggle-container {
@@ -198,7 +198,7 @@
             if (isValid) {
                 setTimeout(function() {
                     element.style.opacity = '0';
-                }, 1000); // Wait for 1 second before starting fade out
+                }, 1000);
             } else {
                 element.style.opacity = '1';
             }
@@ -211,27 +211,14 @@
             var password = document.getElementById('password').value;
             var confirmPassword = document.getElementById('confirm-password').value;
 
-            // Check password length
             handleValidation(document.getElementById('length'), password.length >= 16);
-
-            // Check for lowercase letter
             handleValidation(document.getElementById('lowercase'), /[a-z]/.test(password));
-
-            // Check for uppercase letter
             handleValidation(document.getElementById('uppercase'), /[A-Z]/.test(password));
-
-            // Check for number
             handleValidation(document.getElementById('number'), /[0-9]/.test(password));
-
-            // Check for special character
             handleValidation(document.getElementById('special'), /[^\w]/.test(password));
-
-            // Check if passwords match
             var passwordsMatch = password === confirmPassword;
             handleValidation(document.getElementById('match'), passwordsMatch);
-
-            // Enable or disable the submit button
-            document.getElementById('submit-btn').disabled = !passwordsMatch || !password.length >= 16 || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[^\w]/.test(password);
+            document.getElementById('submit-btn').disabled = !passwordsMatch || password.length < 16 || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[^\w]/.test(password);
         }
 
         function togglePassword() {

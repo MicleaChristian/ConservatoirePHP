@@ -1,11 +1,13 @@
 <?php
 require_once 'Modeles/inscription.class.php';
 require_once 'Modeles/personne.class.php';
+require_once 'Modeles/cours.class.php';
 
-$action = $_GET["action"];
+$action = $_GET["action"] ?? '';
+
 switch ($action) {
     case "liste":
-        $lesSeances = Seance::afficherTous(); // Assuming this method exists to fetch all seances
+        $lesSeances = Seance::afficherTous();
         foreach ($lesSeances as $seance) {
             $seanceObject = (object)$seance;
             $seanceObject->studentCount = Inscription::getStudentCountByClass($seanceObject->getNUMSEANCE());
@@ -27,19 +29,22 @@ switch ($action) {
 
     case "ajouter":
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $idprofs = $_POST['idprof'];
-            $numseances = $_POST['numseance'];
-            $ideleve = $_POST['ideleve'];
-            $dateInscription = date('Y-m-d'); // Current date for DATEINSCRIPTION
-        
+            if (!isset($_POST['csrf_token']) || !Seance::verifyCSRFToken($_POST['csrf_token'])) {
+                die('Invalid CSRF token');
+            }
+            $idprofs = Seance::securiser($_POST['idprof']);
+            $numseances = Seance::securiser($_POST['numseance']);
+            $ideleve = Seance::securiser($_POST['ideleve']);
+            $dateInscription = date('Y-m-d');
+
             try {
                 $pdo = MonPdo::getInstance();
                 $pdo->beginTransaction();
-        
+
                 for ($i = 0; $i < count($idprofs); $i++) {
                     $idprof = $idprofs[$i];
                     $numseance = $numseances[$i];
-        
+
                     $stmt = $pdo->prepare("INSERT INTO inscription (IDPROF, IDELEVE, NUMSEANCE, DATEINSCRIPTION) VALUES (:idprof, :ideleve, :numseance, :dateinscription)");
                     $stmt->bindParam(':idprof', $idprof);
                     $stmt->bindParam(':ideleve', $ideleve);
@@ -47,51 +52,53 @@ switch ($action) {
                     $stmt->bindParam(':dateinscription', $dateInscription);
                     $stmt->execute();
                 }
-        
+
                 $pdo->commit();
-                echo "Inscription added successfully.";
+                echo "Inscription ajoutée avec succès.";
             } catch (Exception $e) {
                 $pdo->rollBack();
-                echo "Failed to add inscription: " . $e->getMessage();
+                echo "Échec de l'ajout de l'inscription : " . $e->getMessage();
             }
         }
         break;
 
-        case "ajoutercours":
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $idprof = $_POST['idprof'];
-                $tranche = $_POST['tranche'];
-                $jour = $_POST['jour'];
-                $niveau = $_POST['niveau'];
-                $capacite = $_POST['capacite'];
-    
-                $seance = new Seance();
-                $seance->setIDPROF($idprof);
-                $seance->setTRANCHE($tranche);
-                $seance->setJOUR($jour);
-                $seance->setNIVEAU($niveau);
-                $seance->setCAPACITE($capacite);
-    
-                try {
-                    Seance::ajouterSeance($seance);
-                    echo "Cours ajouté avec succès.";
-                    // Optionally, redirect to the list of courses
-                    header('Location: index.php?uc=cours&action=liste');
-                    exit;
-                } catch (Exception $e) {
-                    echo "Erreur lors de l'ajout du cours: " . $e->getMessage();
-                }
+    case "ajoutercours":
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!isset($_POST['csrf_token']) || !Seance::verifyCSRFToken($_POST['csrf_token'])) {
+                die('Invalid CSRF token');
             }
-                break;
+            $idprof = Seance::securiser($_POST['idprof']);
+            $tranche = Seance::securiser($_POST['tranche']);
+            $jour = Seance::securiser($_POST['jour']);
+            $niveau = Seance::securiser($_POST['niveau']);
+            $capacite = Seance::securiser($_POST['capacite']);
+
+            $seance = new Seance();
+            $seance->setIDPROF($idprof);
+            $seance->setTRANCHE($tranche);
+            $seance->setJOUR($jour);
+            $seance->setNIVEAU($niveau);
+            $seance->setCAPACITE($capacite);
+
+            try {
+                Seance::ajouterSeance($seance);
+                echo "Cours ajouté avec succès.";
+                header('Location: index.php?uc=cours&action=liste');
+                exit;
+            } catch (Exception $e) {
+                echo "Erreur lors de l'ajout du cours : " . $e->getMessage();
+            }
+        }
+        break;
 
     case "supprimer":
-        $idSeance = $_GET['idseance'];
+        $idSeance = Seance::securiser($_GET['idseance']);
         Seance::supprimercours($idSeance);
         header('Location: index.php?uc=cours&action=liste');
         break;
 
     case "editer_form":
-        $id = $_GET["idseance"];
+        $id = Seance::securiser($_GET["idseance"]);
         $seance = Seance::getBynumseance($id);
         if ($seance) {
             require_once 'Modeles/prof.class.php';
@@ -109,19 +116,25 @@ switch ($action) {
         break;
 
     case "editer":
-        $id = $_GET["idseance"];
-        $seance = Seance::getBynumseance($id);
-        if ($seance) {
-            $seance->setIDPROF(Seance::securiser($_POST["idprof"]));
-            $seance->setTRANCHE(Seance::securiser($_POST['tranche']));
-            $seance->setJOUR(Seance::securiser($_POST['jour']));
-            $seance->setNIVEAU(Seance::securiser($_POST['niveau']));
-            $seance->setCAPACITE(Seance::securiser($_POST['capacite']));
-            Seance::updateSeance($seance);
-            header('Location: index.php?uc=cours&action=liste');
-            exit;
-        } else {
-            echo "Cours non trouvé.";
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!isset($_POST['csrf_token']) || !Seance::verifyCSRFToken($_POST['csrf_token'])) {
+                die('Invalid CSRF token');
+            }
+            $id = Seance::securiser($_GET["idseance"]);
+            $seance = Seance::getBynumseance($id);
+            if ($seance) {
+                $seance->setIDPROF(Seance::securiser($_POST["idprof"]));
+                $seance->setTRANCHE(Seance::securiser($_POST['tranche']));
+                $seance->setJOUR(Seance::securiser($_POST['jour']));
+                $seance->setNIVEAU(Seance::securiser($_POST['niveau']));
+                $seance->setCAPACITE(Seance::securiser($_POST['capacite']));
+                Seance::updateSeance($seance);
+                header('Location: index.php?uc=cours&action=liste');
+                exit;
+            } else {
+                echo "Cours non trouvé.";
+            }
         }
         break;
 }
+?>

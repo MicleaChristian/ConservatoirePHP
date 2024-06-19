@@ -1,13 +1,13 @@
 <?php
 class MonPdo
 {
-    private static $serveur='mysql:host=localhost';
-    private static $bdd='dbname=kurghsvm_conservatoire'; 
-    private static $user='root'; 
-    private static $mdp='';
+    private static $serveur = 'mysql:host=localhost';
+    private static $bdd = 'dbname=kurghsvm_conservatoire'; 
+    private static $user = 'root'; 
+    private static $mdp = '';
     private static $monPdo;
     private static $unPdo = null;
-    
+
     private function __construct()
     {
         MonPdo::$unPdo = new PDO(MonPdo::$serveur.';'.MonPdo::$bdd, MonPdo::$user, MonPdo::$mdp);
@@ -45,15 +45,16 @@ class MonPdo
         return $stmt->fetchColumn();
     }
 
-    public static function login($username, $password) 
+    public static function login($username, $password)
     {
         $instance = self::getInstance();
-        $stmt = $instance->prepare("SELECT * FROM users WHERE username=:username AND password=:password");
-        $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':password', $password);
+        $stmt = $instance->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
+        $stmt->bindValue(':username', $username, PDO::PARAM_STR);
+        $stmt->bindValue(':password', $password, PDO::PARAM_STR);
         $stmt->execute();
         
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 }
+?>

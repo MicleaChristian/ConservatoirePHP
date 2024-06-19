@@ -45,7 +45,7 @@
         width: 400px;
         height: 100vh;
         padding: 40px;
-        background-color: #013210;
+        background-color: rgba(0, 0, 0, 0.5);
         backdrop-filter: blur(10px);
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         border-radius: 0;
@@ -87,7 +87,7 @@
         margin-right: 50px;
     }
     .image-container img {
-        max-width: 80%;
+        max-width: 50%;
         height: auto;
     }
 </style>

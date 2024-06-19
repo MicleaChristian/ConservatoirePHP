@@ -79,19 +79,19 @@ MonPdo::checkSessionAndRedirect();
                     <?php
                     foreach ($lesPersonnes as $personne) {
                         echo "<tr>";
-                        echo "<td>" . $personne->getNOM() . "</td>";
-                        echo "<td class='d-none d-md-table-cell'>" . $personne->getPRENOM() . "</td>";
-                        echo "<td class='d-none d-sm-table-cell'>" . $personne->getMAIL() . "</td>";
+                        echo "<td>" . htmlspecialchars($personne->getNOM(), ENT_QUOTES, 'UTF-8') . "</td>";
+                        echo "<td class='d-none d-md-table-cell'>" . htmlspecialchars($personne->getPRENOM(), ENT_QUOTES, 'UTF-8') . "</td>";
+                        echo "<td class='d-none d-sm-table-cell'>" . htmlspecialchars($personne->getMAIL(), ENT_QUOTES, 'UTF-8') . "</td>";
                         if ($_SESSION['user_role'] == 'admin') :
-                        echo "<td class='d-none d-lg-table-cell'>" . $personne->getTEL() . "</td>";
-                        echo "<td class='d-none d-xl-table-cell'>" . $personne->getADRESSE() . "</td>";
+                        echo "<td class='d-none d-lg-table-cell'>" . htmlspecialchars($personne->getTEL(), ENT_QUOTES, 'UTF-8') . "</td>";
+                        echo "<td class='d-none d-xl-table-cell'>" . htmlspecialchars($personne->getADRESSE(), ENT_QUOTES, 'UTF-8') . "</td>";
                         endif;
-                        echo "<td class='d-none d-xl-table-cell'>" . $personne->getINSTRUMENT() . "</td>";
+                        echo "<td class='d-none d-xl-table-cell'>" . htmlspecialchars($personne->getINSTRUMENT(), ENT_QUOTES, 'UTF-8') . "</td>";
                         if ($_SESSION['user_role'] == 'admin') :
-                        echo "<td class='d-none d-xl-table-cell'>" . $personne->getSALAIRE() . "</td>";
+                        echo "<td class='d-none d-xl-table-cell'>" . htmlspecialchars($personne->getSALAIRE(), ENT_QUOTES, 'UTF-8') . "</td>";
                         echo "<td class='adminbutt'>";
-                        echo "<a href='index.php?uc=personne&action=supprimerprof&id=". $personne->getID() ."' class='btn btn-danger btn-sm'>Supprimer</a>";
-                        echo "<a href='index.php?uc=personne&action=editer_formprof&id=". $personne->getID() ."' class='btn btn-warning btn-sm'>Modifier</a>";
+                        echo "<a href='index.php?uc=personne&action=supprimerprof&id=". htmlspecialchars($personne->getID(), ENT_QUOTES, 'UTF-8') ."' class='btn btn-danger btn-sm'>Supprimer</a>";
+                        echo "<a href='index.php?uc=personne&action=editer_formprof&id=". htmlspecialchars($personne->getID(), ENT_QUOTES, 'UTF-8') ."' class='btn btn-warning btn-sm'>Modifier</a>";
                         echo "</td>";
                         endif;
                         echo "</tr>";

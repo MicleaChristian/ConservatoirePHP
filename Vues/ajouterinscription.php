@@ -95,6 +95,7 @@ $seancesForJS = array_map(function ($seance) {
     <div class="container-fluid position-relative mt-3">
         <h2 class="position-absolute top-0 start-50 translate-middle">Ajouter une inscription</h2>
         <form action="index.php?uc=inscription&action=ajouter" method="post" id="form">
+            <input type="hidden" name="csrf_token" value="<?php echo Inscription::generateCSRFToken(); ?>">
             <div class="mb-3">
                 <label for="numseance" class="form-label">Séance :</label>
                 <select class="form-control" id="numseance" name="numseance" required>

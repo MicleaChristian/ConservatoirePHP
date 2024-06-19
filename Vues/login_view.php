@@ -13,7 +13,7 @@
         }
 
         body, input, button {
-            font-family: perpetua; /* Apply the font to body, input, and button elements */
+            font-family: perpetua;
         }
 
         body {
@@ -33,7 +33,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.5);
             z-index: 1;
         }
         .content {
@@ -49,7 +49,7 @@
             width: 400px;
             height: 100vh;
             padding: 40px;
-            background-color: #013210;
+            background-color: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(10px);
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             border-radius: 0;
@@ -61,7 +61,7 @@
         .login-container h1 {
             text-align: center;
             margin-bottom: 30px;
-            color: #FFD700;
+            color: #FFF;
         }
         .login-container .error-message {
             color: red;
@@ -102,11 +102,11 @@
         }
         .login-container .btn-outline-secondary:hover {
             background-color: #f8f9fa;
-            color: #000; /* Change text color to black on hover */
+            color: #000;
             transform: translateY(-2px);
         }
         .form-label {
-            color: #FFD700;
+            color: #FFF;
         }
         .image-container {
             flex: 1;
@@ -117,11 +117,11 @@
             margin-right: 50px;
         }
         .image-container img {
-            max-width: 50%; /* Adjusted max-width to make the image smaller */
+            max-width: 50%;
             height: auto;
         }
         .signup-link {
-            color: #FFD700;
+            color: #FFF;
             text-align: center;
             display: block;
             margin-top: 20px;
@@ -145,11 +145,11 @@
             cursor: pointer;
         }
         .license-link {
-            color: #FFD700;
+            color: #FFF;
             text-align: center;
             display: block;
             margin-top: 10px;
-            font-size: 12px; /* Small text */
+            font-size: 12px;
             text-decoration: none;
             transition: color 0.3s ease;
         }
@@ -161,12 +161,12 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: #FFD700;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #FFF;
             text-align: center;
             padding: 10px;
             z-index: 1000;
-            display: none; /* Hidden by default */
+            display: none;
         }
         .cookie-banner .btn {
             margin-left: 10px;

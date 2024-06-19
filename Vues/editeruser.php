@@ -37,27 +37,27 @@ if (!$user) {
 <?php include("header/header.php") ?>
 
 <div class="container mt-5 form-container">
-    <h2>Modifier les informations de <?php echo htmlspecialchars($user->getUSERNAME()); ?></h2>
+    <h2>Modifier les informations de <?php echo htmlspecialchars($user->getUSERNAME(), ENT_QUOTES, 'UTF-8'); ?></h2>
     <form action="index.php?uc=user&action=editer" method="POST">
-    <input type="hidden" name="id" value="<?php echo htmlspecialchars($user->getID()); ?>">
-    <div class="row mt-3">
-        <div class="col">
-            <label for="username" class="form-label">Nom d'utilisateur</label>
-            <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($user->getUSERNAME()); ?>" required>
+        <input type="hidden" name="id" value="<?php echo htmlspecialchars($user->getID(), ENT_QUOTES, 'UTF-8'); ?>">
+        <div class="row mt-3">
+            <div class="col">
+                <label for="username" class="form-label">Nom d'utilisateur</label>
+                <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($user->getUSERNAME(), ENT_QUOTES, 'UTF-8'); ?>" required>
+            </div>
+            <div class="col">
+                <label for="role" class="form-label">Rôle</label>
+                <select class="form-control" id="role" name="role" required>
+                    <option value="parent" <?php if ($user->getROLE() == 'parent') echo 'selected'; ?>>Parent</option>
+                    <option value="admin" <?php if ($user->getROLE() == 'admin') echo 'selected'; ?>>Admin</option>
+                </select>
+            </div>
         </div>
-        <div class="col">
-            <label for="role" class="form-label">Rôle</label>
-            <select class="form-control" id="role" name="role" required>
-                <option value="parent" <?php if ($user->getROLE() == 'parent') echo 'selected'; ?>>Parent</option>
-                <option value="admin" <?php if ($user->getROLE() == 'admin') echo 'selected'; ?>>Admin</option>
-            </select>
+        <div class="d-flex justify-content-center mt-5">
+            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+            <a href="index.php?uc=user&action=display" class="btn btn-secondary ms-3">Retour à la liste des utilisateurs</a>
         </div>
-    </div>
-    <div class="d-flex justify-content-center mt-5">
-        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
-        <a href="index.php?uc=user&action=display" class="btn btn-secondary ms-3">Retour à la liste des utilisateurs</a>
-    </div>
-</form>
+    </form>
 </div>
 </body>
 </html>

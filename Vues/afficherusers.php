@@ -91,12 +91,12 @@ if ($userRole == 'admin') {
                     <?php
                     foreach ($lesUsers as $user) {
                         echo "<tr>";
-                        echo "<td class='table_h'>" . htmlspecialchars($user->ID) . "</td>";
-                        echo "<td class='table_h'>" . htmlspecialchars($user->USERNAME) . "</td>";
-                        echo "<td class='table_h'>" . htmlspecialchars($user->ROLE) . "</td>";
+                        echo "<td class='table_h'>" . htmlspecialchars($user->ID, ENT_QUOTES, 'UTF-8') . "</td>";
+                        echo "<td class='table_h'>" . htmlspecialchars($user->USERNAME, ENT_QUOTES, 'UTF-8') . "</td>";
+                        echo "<td class='table_h'>" . htmlspecialchars($user->ROLE, ENT_QUOTES, 'UTF-8') . "</td>";
                         echo "<td class='adminbutt'>";
-                        echo "<a href='#' onclick=\"confirmDelete('index.php?uc=user&action=supprimer&id=" . htmlspecialchars($user->ID) . "', '" . htmlspecialchars($user->USERNAME) . "')\" class='btn btn-danger btn-sm'>Supprimer</a>";
-                        echo "<a href='index.php?uc=user&action=editer_form&id=" . htmlspecialchars($user->ID) . "' class='btn btn-warning btn-sm'>Modifier</a>";
+                        echo "<a href='#' onclick=\"confirmDelete('index.php?uc=user&action=supprimer&id=" . htmlspecialchars($user->ID, ENT_QUOTES, 'UTF-8') . "', '" . htmlspecialchars($user->USERNAME, ENT_QUOTES, 'UTF-8') . "')\" class='btn btn-danger btn-sm'>Supprimer</a>";
+                        echo "<a href='index.php?uc=user&action=editer_form&id=" . htmlspecialchars($user->ID, ENT_QUOTES, 'UTF-8') . "' class='btn btn-warning btn-sm'>Modifier</a>";
                         echo "</td>";
                         echo "</tr>";
                     }

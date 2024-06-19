@@ -9,7 +9,7 @@ class LoginController
 
     public function login()
     {
-        $username = $_POST['username'];
+        $username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
         $password = sha1($_POST['password']);
         
         $result = MonPdo::login($username, $password);
@@ -31,5 +31,7 @@ class LoginController
     {
         session_unset();
         session_destroy();
+        header('Location: index.php?uc=login');
     }
 }
+?>

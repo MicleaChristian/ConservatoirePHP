@@ -2,13 +2,7 @@
 
 require 'Modeles/user.class.php';
 
-// Debugging statement to confirm the file inclusion
-if (!class_exists('users')) {
-    echo "Class 'users' not found after including user.class.php";
-    exit;
-}
-
-$action = $_GET['action'];
+$action = htmlspecialchars($_GET['action'], ENT_QUOTES, 'UTF-8');
 
 switch ($action) {
     case "upform":
@@ -16,26 +10,20 @@ switch ($action) {
         break;
 
     case "idfound":
-        $username = $_POST['username'];
-        // Debugging statement to confirm the class exists before using it
-        if (class_exists('users')) {
-            $user = users::getByUsername($username);
-            if ($user) {
-                include('Vues/passup.php');
-            } else {
-                $error_message = "Compte introuvable.";
-                require_once('Vues/upform.php');
-            }
+        $username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
+        $user = users::getByUsername($username);
+        if ($user) {
+            include('Vues/passup.php');
         } else {
-            echo "Class 'users' not found at runtime";
+            $error_message = "Compte introuvable.";
+            require_once('Vues/upform.php');
         }
         break;
 
     case "updatepassword":
-        $id = $_POST['id'];
+        $id = intval($_POST['id']);
         $newPassword = $_POST['password'];
 
-        // Password validation
         $long = (strlen($newPassword) >= 16);
         $min = preg_match('@[a-z]@', $newPassword);
         $maj = preg_match('@[A-Z]@', $newPassword);
@@ -56,3 +44,4 @@ switch ($action) {
         echo "Action non reconnue.";
         break;
 }
+?>

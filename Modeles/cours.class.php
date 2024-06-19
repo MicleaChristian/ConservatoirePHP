@@ -1,4 +1,5 @@
 <?php
+
 class Seance
 {
     private $IDPROF;
@@ -31,146 +32,82 @@ class Seance
         $this->studentCount = $studentCount;
     }
 
-    /**
-     * Get the value of IDPROF
-     */
     public function getIDPROF()
     {
         return $this->IDPROF;
     }
 
-    /**
-     * Set the value of IDPROF
-     *
-     * @return  self
-     */
     public function setIDPROF($IDPROF)
     {
         $this->IDPROF = $IDPROF;
-
         return $this;
     }
 
-    /**
-     * Get the value of NUMSEANCE
-     */
     public function getNUMSEANCE()
     {
         return $this->NUMSEANCE;
     }
 
-    /**
-     * Set the value of NUMSEANCE
-     *
-     * @return  self
-     */
     public function setNUMSEANCE($NUMSEANCE)
     {
         $this->NUMSEANCE = $NUMSEANCE;
-
         return $this;
     }
 
-    /**
-     * Get the value of TRANCHE
-     */
     public function getTRANCHE()
     {
         return $this->TRANCHE;
     }
 
-    /**
-     * Set the value of TRANCHE
-     *
-     * @return  self
-     */
     public function setTRANCHE($TRANCHE)
     {
         $this->TRANCHE = $TRANCHE;
-
         return $this;
     }
 
-    /**
-     * Get the value of JOUR
-     */
     public function getJOUR()
     {
         return $this->JOUR;
     }
 
-    /**
-     * Set the value of JOUR
-     *
-     * @return  self
-     */
     public function setJOUR($JOUR)
     {
         $this->JOUR = $JOUR;
-
         return $this;
     }
 
-    /**
-     * Get the value of NIVEAU
-     */
     public function getNIVEAU()
     {
         return $this->NIVEAU;
     }
 
-    /**
-     * Set the value of NIVEAU
-     *
-     * @return  self
-     */
     public function setNIVEAU($NIVEAU)
     {
         $this->NIVEAU = $NIVEAU;
-
         return $this;
     }
 
-    /**
-     * Get the value of CAPACITE
-     */
     public function getCAPACITE()
     {
         return $this->CAPACITE;
     }
 
-    /**
-     * Set the value of CAPACITE
-     *
-     * @return  self
-     */
     public function setCAPACITE($CAPACITE)
     {
         $this->CAPACITE = $CAPACITE;
-
         return $this;
     }
 
-    /**
-     * Set the value of IDSEANCE
-     * @return  self
-     */
     public function setIDSEANCE($IDSEANCE)
     {
         $this->IDSEANCE = $IDSEANCE;
-
         return $this;
     }
-
-    /**
-     * Get the value of IDSEANCE
-     */
 
     public function getIDSEANCE()
     {
         return $this->IDSEANCE;
     }
-
 
     public static function afficherTous()
     {
@@ -179,8 +116,6 @@ class Seance
         $req->execute();
         return $req->fetchAll();
     }
-    
-    
 
     public static function ajouterSeance(Seance $seance)
     {
@@ -189,9 +124,9 @@ class Seance
         $stmt = $pdo->prepare($req);
         $stmt->bindValue(':numseance', $seance->getNUMSEANCE(), PDO::PARAM_INT);
         $stmt->bindValue(':idprof', $seance->getIDPROF(), PDO::PARAM_INT);
-        $stmt->bindValue(':tranche', $seance->getTRANCHE(), PDO::PARAM_STR);
-        $stmt->bindValue(':jour', $seance->getJOUR(), PDO::PARAM_STR);
-        $stmt->bindValue(':niveau', $seance->getNIVEAU(), PDO::PARAM_STR);
+        $stmt->bindValue(':tranche', self::securiser($seance->getTRANCHE()), PDO::PARAM_STR);
+        $stmt->bindValue(':jour', self::securiser($seance->getJOUR()), PDO::PARAM_STR);
+        $stmt->bindValue(':niveau', self::securiser($seance->getNIVEAU()), PDO::PARAM_STR);
         $stmt->bindValue(':capacite', $seance->getCAPACITE(), PDO::PARAM_INT);
         $stmt->execute();
     }
@@ -208,7 +143,7 @@ class Seance
     {
         $donnees = trim($donnees);
         $donnees = stripslashes($donnees);
-        $donnees = htmlspecialchars($donnees);
+        $donnees = htmlspecialchars($donnees, ENT_QUOTES, 'UTF-8');
         return $donnees;
     }
 
@@ -216,7 +151,7 @@ class Seance
     {
         $req = MonPdo::getInstance()->prepare("SELECT * FROM seance WHERE NUMSEANCE = :numseance");
         $req->bindValue(':numseance', $numseance, PDO::PARAM_INT);
-        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'seance');
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Seance');
         $req->execute();
         return $req->fetch();
     }
@@ -224,30 +159,11 @@ class Seance
     public static function getByJourAndTranche($jour, $tranche)
     {
         $req = MonPdo::getInstance()->prepare("SELECT * FROM seance WHERE JOUR = :jour AND TRANCHE = :tranche");
-        $req->bindValue(':jour', $jour, PDO::PARAM_STR);
-        $req->bindValue(':tranche', $tranche, PDO::PARAM_STR);
-        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'seance');
+        $req->bindValue(':jour', self::securiser($jour), PDO::PARAM_STR);
+        $req->bindValue(':tranche', self::securiser($tranche), PDO::PARAM_STR);
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Seance');
         $req->execute();
         return $req->fetch();
-    }
-
-
-
-    public static function updatePersonne($personne)
-    {
-        $pdo = MonPdo::getInstance();
-        $req = "UPDATE personne SET NOM = :nom, PRENOM = :prenom, EMAIL = :email, TELEPHONE = :telephone, ADRESSE = :adresse, CODEPOSTAL = :codepostal, VILLE = :ville, MOTDEPASSE = :motdepasse WHERE IDPERSONNE = :idpersonne";
-        $stmt = $pdo->prepare($req);
-        $stmt->bindValue(':idpersonne', $personne->getIDPERSONNE(), PDO::PARAM_INT);
-        $stmt->bindValue(':nom', $personne->getNOM(), PDO::PARAM_STR);
-        $stmt->bindValue(':prenom', $personne->getPRENOM(), PDO::PARAM_STR);
-        $stmt->bindValue(':email', $personne->getEMAIL(), PDO::PARAM_STR);
-        $stmt->bindValue(':telephone', $personne->getTELEPHONE(), PDO::PARAM_STR);
-        $stmt->bindValue(':adresse', $personne->getADRESSE(), PDO::PARAM_STR);
-        $stmt->bindValue(':codepostal', $personne->getCODEPOSTAL(), PDO::PARAM_STR);
-        $stmt->bindValue(':ville', $personne->getVILLE(), PDO::PARAM_STR);
-        $stmt->bindValue(':motdepasse', $personne->getMOTDEPASSE(), PDO::PARAM_STR);
-        $stmt->execute();
     }
 
     public static function updateSeance(Seance $seance)
@@ -255,9 +171,9 @@ class Seance
         $req = MonPdo::getInstance()->prepare("UPDATE seance SET IDPROF = :idprof, TRANCHE = :tranche, JOUR = :jour, NIVEAU = :niveau, CAPACITE = :capacite WHERE NUMSEANCE = :numseance");
         $req->bindValue(':numseance', $seance->getNUMSEANCE(), PDO::PARAM_INT);
         $req->bindValue(':idprof', $seance->getIDPROF(), PDO::PARAM_INT);
-        $req->bindValue(':tranche', $seance->getTRANCHE(), PDO::PARAM_STR);
-        $req->bindValue(':jour', $seance->getJOUR(), PDO::PARAM_STR);
-        $req->bindValue(':niveau', $seance->getNIVEAU(), PDO::PARAM_STR);
+        $req->bindValue(':tranche', self::securiser($seance->getTRANCHE()), PDO::PARAM_STR);
+        $req->bindValue(':jour', self::securiser($seance->getJOUR()), PDO::PARAM_STR);
+        $req->bindValue(':niveau', self::securiser($seance->getNIVEAU()), PDO::PARAM_STR);
         $req->bindValue(':capacite', $seance->getCAPACITE(), PDO::PARAM_INT);
         $req->execute();
     }
@@ -273,7 +189,8 @@ class Seance
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getAllByJourAndTranche($jour, $tranche) {
+    public static function getAllByJourAndTranche($jour, $tranche)
+    {
         $pdo = MonPdo::getInstance();
         $stmt = $pdo->prepare(
             "SELECT seance.*, prof.INSTRUMENT 
@@ -281,10 +198,31 @@ class Seance
              JOIN prof ON seance.IDPROF = prof.IDPROF 
              WHERE jour = :jour AND tranche = :tranche"
         );
-        $stmt->bindParam(':jour', $jour);
-        $stmt->bindParam(':tranche', $tranche);
+        $stmt->bindParam(':jour', self::securiser($jour));
+        $stmt->bindParam(':tranche', self::securiser($tranche));
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Seance');
     }
+
+    public static function generateCSRFToken()
+    {
+        if (empty($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+        return $_SESSION['csrf_token'];
+    }
+
+    public static function verifyCSRFToken($token)
+    {
+        if (isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token)) {
+            unset($_SESSION['csrf_token']);
+            return true;
+        }
+        return false;
+    }
 }
 ?>
+
+<form method="POST" action="ajouter_seance.php">
+    <input type="hidden" name="csrf_token" value="<?php echo Seance::generateCSRFToken(); ?>">
+</form>

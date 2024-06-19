@@ -133,7 +133,7 @@
             <h1>Changement de mot de passe</h1>
             <p>Entrez votre nom d'utilisateur pour modifier votre mot de passe:</p>
             <?php if (isset($error_message)) : ?>
-                <p class="error-message"><?php echo $error_message; ?></p>
+                <p class="error-message"><?php echo htmlspecialchars($error_message, ENT_QUOTES, 'UTF-8'); ?></p>
             <?php endif; ?>
             <form action="index.php?uc=passchange&action=idfound" method="POST">
                 <div class="mb-3">
