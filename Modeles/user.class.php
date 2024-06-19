@@ -63,8 +63,8 @@ class users
     public static function updatePassword($id, $password)
     {
         $pdo = MonPdo::getInstance();
-        $stmt = $pdo->prepare("UPDATE users SET password = SHA1(:password) WHERE id = :id");
-        $stmt->bindValue(':password', $password, PDO::PARAM_STR);
+        $stmt = $pdo->prepare("UPDATE users SET password = :password WHERE id = :id");
+        $stmt->bindValue(':password', hash('sha512', $password), PDO::PARAM_STR);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
     }
@@ -72,7 +72,7 @@ class users
     public static function ajouterUser(users $user)
     {
         $pdo = MonPdo::getInstance();
-        $req = $pdo->prepare("INSERT INTO users (username, password, role) VALUES (:username, SHA1(:password), :role)");
+        $req = $pdo->prepare("INSERT INTO users (username, password, role) VALUES (:username, :password, :role)");
         $req->bindValue(':username', $user->getUSERNAME(), PDO::PARAM_STR);
         $req->bindValue(':password', $user->getPASS(), PDO::PARAM_STR);
         $req->bindValue(':role', $user->getROLE(), PDO::PARAM_STR);

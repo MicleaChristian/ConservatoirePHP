@@ -10,6 +10,10 @@ if (!$user) {
     echo "User not found.";
     exit;
 }
+
+
+$csrf_token = bin2hex(random_bytes(32));
+$_SESSION['csrf_token'] = $csrf_token;
 ?>
 
 <!DOCTYPE html>
@@ -40,6 +44,7 @@ if (!$user) {
     <h2>Modifier les informations de <?php echo htmlspecialchars($user->getUSERNAME(), ENT_QUOTES, 'UTF-8'); ?></h2>
     <form action="index.php?uc=user&action=editer" method="POST">
         <input type="hidden" name="id" value="<?php echo htmlspecialchars($user->getID(), ENT_QUOTES, 'UTF-8'); ?>">
+        <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
         <div class="row mt-3">
             <div class="col">
                 <label for="username" class="form-label">Nom d'utilisateur</label>

@@ -134,9 +134,23 @@ class Seance
     public static function supprimercours($numseance)
     {
         $pdo = MonPdo::getInstance();
-        $stmt = $pdo->prepare("DELETE FROM seance WHERE NUMSEANCE = :numseance");
-        $stmt->bindParam(':numseance', $numseance, PDO::PARAM_INT);
-        $stmt->execute();
+        
+        $pdo->beginTransaction();
+        
+        try {
+            $stmt = $pdo->prepare("DELETE FROM inscription WHERE NUMSEANCE = :numseance");
+            $stmt->bindParam(':numseance', $numseance, PDO::PARAM_INT);
+            $stmt->execute();
+    
+            $stmt = $pdo->prepare("DELETE FROM seance WHERE NUMSEANCE = :numseance");
+            $stmt->bindParam(':numseance', $numseance, PDO::PARAM_INT);
+            $stmt->execute();
+    
+            $pdo->commit();
+        } catch (Exception $e) {
+            $pdo->rollBack();
+            throw $e;
+        }
     }
 
     public static function securiser($donnees)
@@ -198,8 +212,12 @@ class Seance
              JOIN prof ON seance.IDPROF = prof.IDPROF 
              WHERE jour = :jour AND tranche = :tranche"
         );
-        $stmt->bindParam(':jour', self::securiser($jour));
-        $stmt->bindParam(':tranche', self::securiser($tranche));
+    
+        $secureJour = self::securiser($jour);
+        $secureTranche = self::securiser($tranche);
+    
+        $stmt->bindParam(':jour', $secureJour);
+        $stmt->bindParam(':tranche', $secureTranche);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Seance');
     }

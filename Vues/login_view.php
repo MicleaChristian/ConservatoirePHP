@@ -1,3 +1,9 @@
+<?php
+session_start();
+$csrf_token = bin2hex(random_bytes(32));
+$_SESSION['csrf_token'] = $csrf_token;
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -180,11 +186,10 @@
         <div class="login-container">
             <h1>Page de Connexion</h1>
             <?php if (isset($error_message)): ?>
-                <p class="error-message"><?php echo $error_message; ?></p>
+                <p class="error-message"><?php echo htmlspecialchars($error_message, ENT_QUOTES, 'UTF-8'); ?></p>
             <?php endif; ?>
             <form action="index.php?uc=login" method="POST">
-                <input type="hidden" name="uc" value="login">
-                <input type="hidden" name="action" value="submit">
+                <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
                 <div class="mb-3">
                     <label for="username" class="form-label">Utilisateur:</label>
                     <input type="text" name="username" id="username" class="form-control" required>

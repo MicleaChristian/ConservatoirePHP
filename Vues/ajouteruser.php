@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+$csrf_token = $_SESSION['csrf_token'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -153,6 +161,7 @@
                 <div class="alert alert-danger"><?php echo $error_message; ?></div>
             <?php endif; ?>
             <form action="index.php?uc=newuser&action=ajouter" method="POST" onsubmit="return validateForm()">
+                <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
                 <div class="mb-3">
                     <label for="username" class="form-label">Nom d'utilisateur:</label>
                     <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>

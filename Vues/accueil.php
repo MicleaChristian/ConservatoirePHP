@@ -162,7 +162,7 @@ MonPdo::checkSessionAndRedirect();
             </div>
         </div>
         <div class="fixed-caption">
-            <h5>Conservatoire pour tous</h5>
+            <h5>Bienvenue sur notre site</h5>
             <p><?php echo $_SESSION['user_role'] == 'admin' ? 'Bienvenue sur l\'interface Administrateur' : 'Bienvenue sur l\'interface Parent'; ?></p>
         </div>
     </div>
