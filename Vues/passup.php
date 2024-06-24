@@ -218,7 +218,7 @@
             handleValidation(document.getElementById('special'), /[^\w]/.test(password));
             var passwordsMatch = password === confirmPassword;
             handleValidation(document.getElementById('match'), passwordsMatch);
-            document.getElementById('submit-btn').disabled = !passwordsMatch || password.length < 16 || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[^\w]/.test(password);
+            document.getElementById('submit-btn').disabled = !passwordsMatch || password.length < 12 || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[^\w]/.test(password);
         }
 
         function togglePassword() {
