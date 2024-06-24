@@ -168,7 +168,7 @@
                         <button type="button" class="password-toggle-btn" onclick="togglePassword()">👁️</button>
                     </div>
                     <div class="password-indicator">
-                        <span id="length" class="invalid">Longueur de 16 caractères</span>
+                        <span id="length" class="invalid">Longueur de 12 caractères</span>
                         <span id="lowercase" class="invalid">Au moins une lettre minuscule</span>
                         <span id="uppercase" class="invalid">Au moins une lettre majuscule</span>
                         <span id="number" class="invalid">Au moins un chiffre</span>
@@ -211,7 +211,7 @@
             var password = document.getElementById('password').value;
             var confirmPassword = document.getElementById('confirm-password').value;
 
-            handleValidation(document.getElementById('length'), password.length >= 16);
+            handleValidation(document.getElementById('length'), password.length >= 12);
             handleValidation(document.getElementById('lowercase'), /[a-z]/.test(password));
             handleValidation(document.getElementById('uppercase'), /[A-Z]/.test(password));
             handleValidation(document.getElementById('number'), /[0-9]/.test(password));
