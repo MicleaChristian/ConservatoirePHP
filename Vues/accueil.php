@@ -1,10 +1,8 @@
-<?php
-require_once 'Modeles/monPdo.php';
-
-MonPdo::checkSessionAndRedirect();
-?>
 <!DOCTYPE html>
 <html lang="fr">
+<?php
+
+MonPdo::checkSessionAndRedirect(); ?>
 
 <head>
     <meta charset="UTF-8">
@@ -29,25 +27,25 @@ MonPdo::checkSessionAndRedirect();
         .fixed-caption {
             position: absolute;
             top: 50%;
-            left: 50px; /* Adjust as needed */
+            left: 50px;
             transform: translateY(-50%);
             text-align: left;
-            padding: 1rem; /* Increase padding for better appearance */
+            padding: 1rem;
             border-radius: 0.5rem;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0, 0, 0, 0.5);
             max-width: 700px;
             color: white;
-            font-size: 1.5rem; /* Increase font size */
+            font-size: 1.5rem;
             font-family: Tit;
         }
 
         .fixed-caption h5 {
-            font-size: 3.5rem; /* Increase heading font size */
+            font-size: 3.5rem;
             margin-bottom: 0.5rem;
         }
 
         .fixed-caption p {
-            font-size: 1.8rem; /* Increase paragraph font size */
+            font-size: 1.8rem;
         }
 
         .welcome-message {
@@ -106,17 +104,22 @@ MonPdo::checkSessionAndRedirect();
             text-align: center;
         }
 
+        .btn-planning-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
         .btn-planning {
-            display: block;
-            margin: 2rem auto;
+            display: inline-block;
             padding: 1rem 2rem;
-            width: 20vw;
             background-color: #007bff;
             color: white;
             text-align: center;
             border-radius: 0.5rem;
             text-decoration: none;
             transition: background-color 0.3s ease;
+            white-space: nowrap;
         }
 
         .btn-planning:hover {
@@ -134,6 +137,10 @@ MonPdo::checkSessionAndRedirect();
         @media (max-width: 768px) {
             .grid-container {
                 grid-template-columns: 1fr;
+            }
+
+            .fixed-caption {
+                display: none; /* Hide the caption on smaller screens */
             }
         }
     </style>
@@ -171,7 +178,9 @@ MonPdo::checkSessionAndRedirect();
         Bienvenue sur notre site ! Nous sommes ravis de vous accueillir au Conservatoire.
     </p>
 
-    <a class="btn-planning" href="index.php?uc=planning&action=liste">Afficher le planning</a>
+    <div class="btn-planning-container">
+        <a class="btn-planning" href="index.php?uc=planning&action=liste">Afficher le planning</a>
+    </div>
 
     <?php if ($_SESSION['user_role'] == 'parent') : ?>
         <div class="container admin-buttons grid-container">
@@ -233,7 +242,7 @@ MonPdo::checkSessionAndRedirect();
                 <div class="card-body">
                     <a href="index.php?uc=cours&action=liste">Gérer les cours</a>
                     <a href="index.php?uc=cours&action=ajout_form">Ajouter un cours</a>
-                    <a href="index.php?uc=inscription&action=ajout_form">Ajouter une inscription</a> <!-- New button to access the form -->
+                    <a href="index.php?uc=inscription&action=ajout_form">Ajouter une inscription</a>
                 </div>
                 <div class="card-footer"></div>
             </div>

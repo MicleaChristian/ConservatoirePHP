@@ -99,7 +99,8 @@ if ($userRole == 'parent') {
         }
     </style>
     <script>
-        function confirmDelete(url, name, firstname) {
+        function confirmDelete(url, name, firstname, event) {
+            event.stopPropagation(); // Stop the event from bubbling up to the card click event
             if (confirm(`Etes vous sur de vouloir supprimer ${name} ${firstname}?`)) {
                 window.location.href = url;
             }
@@ -144,7 +145,7 @@ if ($userRole == 'parent') {
                 echo "<p class='card-text'><strong>Niveau:</strong> " . htmlspecialchars($niveauStatus, ENT_QUOTES, 'UTF-8') . "</p>";
                 echo "<p class='card-text'><strong>Bourse:</strong> " . htmlspecialchars($bourseStatus, ENT_QUOTES, 'UTF-8') . "</p>";
                 echo "<div class='card-actions'>";
-                echo "<a href='#' onclick=\"confirmDelete('index.php?uc=personne&action=supprimer&id=" . htmlspecialchars($personne->ID, ENT_QUOTES, 'UTF-8') . "', '" . htmlspecialchars($personne->NOM, ENT_QUOTES, 'UTF-8') . "', '" . htmlspecialchars($personne->PRENOM, ENT_QUOTES, 'UTF-8') . "')\" class='btn btn-danger btn-sm'>Supprimer</a>";
+                echo "<a href='#' onclick=\"confirmDelete('index.php?uc=personne&action=supprimer&id=" . htmlspecialchars($personne->ID, ENT_QUOTES, 'UTF-8') . "', '" . htmlspecialchars($personne->NOM, ENT_QUOTES, 'UTF-8') . "', '" . htmlspecialchars($personne->PRENOM, ENT_QUOTES, 'UTF-8') . "', event)\" class='btn btn-danger btn-sm'>Supprimer</a>";
                 echo "<a href='index.php?uc=inscription&action=assign_form&eleve=" . htmlspecialchars($personne->ID, ENT_QUOTES, 'UTF-8') . "' class='btn btn-primary btn-sm'>Inscrire</a>";
                 echo "</div>";
                 echo "</div>";

@@ -9,7 +9,7 @@
     <style>
         @font-face {
             font-family: perpetua;
-            src: url(http://localhost/ConservatoirePHP/fonts/PERTIBD.TTF);
+            src: url(http://localhost/ConservatoirePHP/fonts/TitilliumWeb-Regular.ttf);
         }
 
         body, input, button {
@@ -33,7 +33,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.5);
             z-index: 1;
         }
         .content {
@@ -61,7 +61,7 @@
         .login-container h1 {
             text-align: center;
             margin-bottom: 30px;
-            color: #FFD700;
+            color: #FFF;
         }
         .login-container .error-message {
             color: red;
@@ -83,7 +83,6 @@
             background-color: #007bff;
             border: none;
             width: 100%;
-            max-height: 100vh;
             padding: 10px;
             border-radius: 5px;
             transition: background-color 0.3s ease, transform 0.3s ease;
@@ -106,12 +105,12 @@
             transform: translateY(-2px);
         }
         .form-label {
-            color: #FFD700;
+            color: #FFF;
         }
         .password-indicator {
             font-size: 0.9em;
             margin-top: 5px;
-            color: #FFD700;
+            color: #FFF;
         }
         .password-indicator span {
             display: block;
@@ -178,8 +177,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="confirm-password" class="form-label">Confirmer le mot de passe:</label>
-                        <input type="password" name="confirm-password" id="confirm-password" class="form-control" required>
-
+                    <input type="password" name="confirm-password" id="confirm-password" class="form-control" required>
                 </div>
                 <input type="hidden" name="id" value="<?php echo htmlspecialchars($user->getID()); ?>">
                 <div class="text-center">

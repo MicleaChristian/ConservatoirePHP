@@ -9,13 +9,17 @@
     <style>
         @font-face {
             font-family: perpetua;
-            src: url(http://localhost/ConservatoirePHP/fonts/PERTIBD.TTF);
+            src: url(http://localhost/ConservatoirePHP/fonts/TitilliumWeb-Regular.ttf);
+        }
+
+        body, input, button {
+            font-family: perpetua;
         }
 
         body {
             background: url(http://localhost/ConservatoirePHP/img/backlogin.jpg) no-repeat center center fixed;
             background-size: cover;
-            max-height: 100vh;
+            height: 100vh;
             margin: 0;
             display: flex;
             justify-content: center;
@@ -29,7 +33,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.5);
             z-index: 1;
         }
         .content {
@@ -43,9 +47,9 @@
         }
         .success-container {
             width: 400px;
-            height: 100vh;
+            height: 100%;
             padding: 40px;
-            background-color: #013210;
+            background-color: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(10px);
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             border-radius: 0;
@@ -53,18 +57,15 @@
             flex-direction: column;
             justify-content: center;
             margin-left: 50px;
-            font-family: perpetua;
         }
         .success-container h1 {
             text-align: center;
             margin-bottom: 30px;
-            font-family: perpetua;
-            color: #FFD700;
+            color: #FFF;
         }
         .success-container p {
             text-align: center;
             color: #FFF;
-            font-family: perpetua;
         }
         .success-container .btn-primary {
             background-color: #007bff;
@@ -99,7 +100,7 @@
             <h1>Compte créé</h1>
             <p>Votre compte a bien été créé!</p>
             <div class="text-center">
-                <a href="index.php?uc=login" class="btn btn-primary">Go to Login</a>
+                <a href="index.php?uc=login" class="btn btn-primary">Aller à la page de connexion</a>
             </div>
         </div>
         <div class="image-container">

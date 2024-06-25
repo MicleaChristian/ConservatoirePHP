@@ -1,5 +1,4 @@
 <?php
-session_start();
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
@@ -18,7 +17,7 @@ $csrf_token = $_SESSION['csrf_token'];
     <style>
         @font-face {
             font-family: perpetua;
-            src: url(http://localhost/ConservatoirePHP/fonts/PERTIBD.TTF);
+            src: url(http://localhost/ConservatoirePHP/fonts/TitilliumWeb-Regular.ttf);
         }
 
         body, input, button {
@@ -87,13 +86,25 @@ $csrf_token = $_SESSION['csrf_token'];
             background-color: #007bff;
             border: none;
             width: 100%;
-            max-height: 100vh;
             padding: 10px;
             border-radius: 5px;
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
         .form-container .btn-primary:hover {
             background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        .form-container .btn-outline-secondary {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+            color: #FFF;
+        }
+        .form-container .btn-outline-secondary:hover {
+            background-color: #f8f9fa;
+            color: #000;
             transform: translateY(-2px);
         }
         .form-label {
@@ -216,6 +227,7 @@ $csrf_token = $_SESSION['csrf_token'];
 
         document.getElementById('password').addEventListener('input', validatePasswords);
         document.getElementById('confirm-password').addEventListener('input', validatePasswords);
+        document.getElementById('agree-terms').addEventListener('input', toggleSubmitButton);
 
         function validatePasswords() {
             var password = document.getElementById('password').value;
@@ -228,9 +240,8 @@ $csrf_token = $_SESSION['csrf_token'];
             handleValidation(document.getElementById('special'), /[^\w]/.test(password));
             var passwordsMatch = password === confirmPassword;
             handleValidation(document.getElementById('match'), passwordsMatch);
-            document.getElementById('submit-btn').disabled = !passwordsMatch ||
-             password.length < 12 || !/[a-z]/.test(password) || !/[A-Z]/.test(password) ||
-              !/[0-9]/.test(password) || !/[^\w]/.test(password);
+
+            return passwordsMatch && password.length >= 12 && /[a-z]/.test(password) && /[A-Z]/.test(password) && /[0-9]/.test(password) && /[^\w]/.test(password);
         }
 
         function togglePassword() {
@@ -243,6 +254,12 @@ $csrf_token = $_SESSION['csrf_token'];
                 passwordField.type = "password";
                 toggleBtn.textContent = "👁️";
             }
+        }
+
+        function toggleSubmitButton() {
+            var termsCheckbox = document.getElementById('agree-terms');
+            var submitButton = document.getElementById('submit-btn');
+            submitButton.disabled = !termsCheckbox.checked || !validatePasswords();
         }
 
         function validateForm() {

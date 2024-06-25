@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 $csrf_token = bin2hex(random_bytes(32));
 $_SESSION['csrf_token'] = $csrf_token;
 ?>
@@ -15,7 +15,7 @@ $_SESSION['csrf_token'] = $csrf_token;
     <style>
         @font-face {
             font-family: perpetua;
-            src: url(http://localhost/ConservatoirePHP/fonts/PERTIBD.TTF);
+            src: url(http://localhost/ConservatoirePHP/fonts/TitilliumWeb-Regular.ttf);
         }
 
         body, input, button {
@@ -25,7 +25,7 @@ $_SESSION['csrf_token'] = $csrf_token;
         body {
             background: url(http://localhost/ConservatoirePHP/img/backlogin.jpg) no-repeat center center fixed;
             background-size: cover;
-            max-height: 100vh;
+            height: 100vh;
             margin: 0;
             display: flex;
             justify-content: center;
@@ -53,7 +53,7 @@ $_SESSION['csrf_token'] = $csrf_token;
         }
         .login-container {
             width: 400px;
-            height: 100vh;
+            height: 100%;
             padding: 40px;
             background-color: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(10px);
@@ -62,7 +62,7 @@ $_SESSION['csrf_token'] = $csrf_token;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            margin-left: 50px;
+            margin-left: 40px;
         }
         .login-container h1 {
             text-align: center;
@@ -89,7 +89,6 @@ $_SESSION['csrf_token'] = $csrf_token;
             background-color: #007bff;
             border: none;
             width: 100%;
-            max-height: 100vh;
             padding: 10px;
             border-radius: 5px;
             transition: background-color 0.3s ease, transform 0.3s ease;

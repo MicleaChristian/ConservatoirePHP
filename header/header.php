@@ -113,6 +113,8 @@
             padding: 5px;
             border-radius: 10px;
             transition: 0.3s;
+            display: flex;
+            align-items: center;
         }
 
         .navbar-nav {
@@ -128,6 +130,29 @@
         #logo:hover {
             transform: scale(1.1);
             transition: 1s;
+        }
+
+        .navbar-collapse {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .form-inline {
+            display: flex;
+            align-items: center;
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+        }
+
+        .form-inline .nav-item {
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        .boutondeco {
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+            line-height: 1.5; /* Ensure consistent line height */
         }
     </style>
 </head>
@@ -186,11 +211,9 @@
                         </ul>
                     </div>
                     <form class="form-inline" action="index.php?uc=logout" method="POST">
-                        <ul class="navbar-nav">
-                            <li class="nav-item deco">
-                                <button type="submit" class="boutondeco">Déconnexion</button>
-                            </li>
-                        </ul>
+                        <li class="nav-item deco">
+                            <button type="submit" class="boutondeco">Déconnexion</button>
+                        </li>
                     </form>
                 </div>
             </div>
