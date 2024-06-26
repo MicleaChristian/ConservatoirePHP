@@ -22,6 +22,16 @@
 <body>
     <?php include("header/header.php") ?>
 
+    <?php if (isset($_SESSION['error_message'])): ?>
+    <div class="alert alert-danger" role="alert">
+        <?php
+        echo $_SESSION['error_message'];
+        unset($_SESSION['error_message']);
+        ?>
+    </div>
+<?php endif; ?>
+
+
     <div class="container mt-5 form-container">
         <h2>Ajouter une Séance</h2>
         <form action="index.php?uc=cours&action=ajoutercours" method="post">

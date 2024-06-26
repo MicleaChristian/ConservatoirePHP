@@ -62,34 +62,40 @@ switch ($action) {
         }
         break;
 
-    case "ajoutercours":
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (!isset($_POST['csrf_token']) || !Seance::verifyCSRFToken($_POST['csrf_token'])) {
-                die('Invalid CSRF token');
+        case "ajoutercours":
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                if (!isset($_POST['csrf_token']) || !Seance::verifyCSRFToken($_POST['csrf_token'])) {
+                    die('Invalid CSRF token');
+                }
+                $idprof = Seance::securiser($_POST['idprof']);
+                $tranche = Seance::securiser($_POST['tranche']);
+                $jour = Seance::securiser($_POST['jour']);
+                $niveau = Seance::securiser($_POST['niveau']);
+                $capacite = Seance::securiser($_POST['capacite']);
+        
+                // Check for duplicates
+                if (Seance::checkDuplicate($idprof, $tranche, $jour)) {
+                    echo "Erreur : Un cours avec le même professeur, jour et tranche horaire existe déjà.";
+                } else {
+                    $seance = new Seance();
+                    $seance->setIDPROF($idprof);
+                    $seance->setTRANCHE($tranche);
+                    $seance->setJOUR($jour);
+                    $seance->setNIVEAU($niveau);
+                    $seance->setCAPACITE($capacite);
+        
+                    try {
+                        Seance::ajouterSeance($seance);
+                        echo "Cours ajouté avec succès.";
+                        header('Location: index.php?uc=cours&action=liste');
+                        exit;
+                    } catch (Exception $e) {
+                        echo "Erreur lors de l'ajout du cours : " . $e->getMessage();
+                    }
+                }
             }
-            $idprof = Seance::securiser($_POST['idprof']);
-            $tranche = Seance::securiser($_POST['tranche']);
-            $jour = Seance::securiser($_POST['jour']);
-            $niveau = Seance::securiser($_POST['niveau']);
-            $capacite = Seance::securiser($_POST['capacite']);
-
-            $seance = new Seance();
-            $seance->setIDPROF($idprof);
-            $seance->setTRANCHE($tranche);
-            $seance->setJOUR($jour);
-            $seance->setNIVEAU($niveau);
-            $seance->setCAPACITE($capacite);
-
-            try {
-                Seance::ajouterSeance($seance);
-                echo "Cours ajouté avec succès.";
-                header('Location: index.php?uc=cours&action=liste');
-                exit;
-            } catch (Exception $e) {
-                echo "Erreur lors de l'ajout du cours : " . $e->getMessage();
-            }
-        }
-        break;
+            break;
+        
 
     case "supprimer":
         $idSeance = Seance::securiser($_GET['idseance']);

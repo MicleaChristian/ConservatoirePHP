@@ -238,6 +238,22 @@ class Seance
         }
         return false;
     }
+    public static function checkDuplicate($idprof, $tranche, $jour)
+    {
+        $pdo = MonPdo::getInstance();
+        $req = $pdo->prepare("SELECT COUNT(*) FROM seance WHERE IDPROF = :idprof AND TRANCHE = :tranche AND JOUR = :jour");
+        $req->bindParam(':idprof', $idprof, PDO::PARAM_INT);
+    
+        $secureTranche = self::securiser($tranche);
+        $secureJour = self::securiser($jour);
+    
+        $req->bindParam(':tranche', $secureTranche, PDO::PARAM_STR);
+        $req->bindParam(':jour', $secureJour, PDO::PARAM_STR);
+        $req->execute();
+        return $req->fetchColumn() > 0;
+    }
+    
+
 
     public static function getAllByJourAndTrancheplanning($jour, $tranche)
     {
