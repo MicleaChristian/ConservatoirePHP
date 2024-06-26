@@ -119,11 +119,13 @@ MonPdo::checkSessionAndRedirect();
                 echo "</div>";
             }
             ?>
+                <?php if ($_SESSION['user_role'] == 'admin') : ?>
             <div class="card add-card" onclick="window.location.href='index.php?uc=personne&action=ajout_formprof'">
                 <div class="card-body">
                     <h5 class="card-title">Ajouter un professeur</h5>
                 </div>
             </div>
+            <?php endif ?>
         </div>
     </div>
 </body>
