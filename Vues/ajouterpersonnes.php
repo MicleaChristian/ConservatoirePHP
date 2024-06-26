@@ -80,10 +80,7 @@
             <label for="niveau" class="form-label">Niveau :</label>
             <input type="number" class="form-control" id="niveau" name="niveau" placeholder="Niveau" required>
         </div>
-        <div class="mb-3">
-            <label for="bourse" class="form-label">Bourse :</label>
-            <input type="text" class="form-control" id="bourse" name="bourse" placeholder="Bourse" required>
-        </div>
+        <input type="hidden" id="bourse" name="bourse" value="0">
         <div class="d-grid">
             <button type="submit" class="btn btn-primary">Ajouter</button>
         </div>

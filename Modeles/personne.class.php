@@ -340,8 +340,8 @@ class personne
 
     public static function updatePersonne(personne $personne)
     {
-       $pdo = MonPdo::getInstance();
-         $req = $pdo->prepare("update personne set NOM=:nom, PRENOM=:prenom, MAIL=:mail, TEL=:tel, ADRESSE=:adress WHERE ID=:id");
+        $pdo = MonPdo::getInstance();
+        $req = $pdo->prepare("update personne set NOM=:nom, PRENOM=:prenom, MAIL=:mail, TEL=:tel, ADRESSE=:adress WHERE ID=:id");
         $req->bindValue(':id', $personne->getID(), PDO::PARAM_INT);
         $req->bindValue(':nom', $personne->getNOM(), PDO::PARAM_STR);
         $req->bindValue(':prenom', $personne->getPRENOM(), PDO::PARAM_STR);
@@ -349,8 +349,13 @@ class personne
         $req->bindValue(':tel', $personne->getTEL(), PDO::PARAM_STR);
         $req->bindValue(':adress', $personne->getADRESSE(), PDO::PARAM_STR);
         $req->execute();
+    
+        $req = $pdo->prepare("update eleve set BOURSE=:bourse WHERE IDELEVE=:id");
+        $req->bindValue(':bourse', $personne->getBOURSE(), PDO::PARAM_INT);
+        $req->bindValue(':id', $personne->getID(), PDO::PARAM_INT);
+        $req->execute();
     }
-
+    
     public static function updateprof(personne $personne)
     {
         $req = MonPdo::getInstance()->prepare("update personne set NOM=:nom, PRENOM=:prenom, MAIL=:mail, TEL=:tel WHERE ID=:id");

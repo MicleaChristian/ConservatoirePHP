@@ -33,6 +33,19 @@ switch ($action) {
         $lesSeances = Seance::afficherTous();
         $eleve = personne::getById($eleveId);
         $assignedSeances = Inscription::getAssignedStudentsByClass($eleveId);
+
+        // Filter eligible classes
+        $eligibleSeances = array_filter($lesSeances, function($seance) use ($eleve, $assignedSeances) {
+            error_log("Checking seance ID: " . $seance->getNUMSEANCE());
+            error_log("Student Level: " . $eleve->getNIVEAU() . " | Seance Level: " . $seance->getNIVEAU());
+            error_log("Assigned Seances: " . implode(", ", $assignedSeances));
+            return !in_array($seance->getNUMSEANCE(), $assignedSeances) && $eleve->getNIVEAU() == $seance->getNIVEAU();
+        });
+
+        // Debugging output
+        error_log("Total Seances: " . count($lesSeances));
+        error_log("Eligible Seances: " . count($eligibleSeances));
+
         include "Vues/assignerclasses.php";
         break;
 
@@ -89,7 +102,20 @@ switch ($action) {
                     
                 foreach ($numseances as $numseance) {
                     $numseance = Inscription::securiser($numseance);
-                    $idprof = Seance::getBynumseance($numseance)->getIDPROF();
+                    $seance = Seance::getBynumseance($numseance);
+                    $idprof = $seance->getIDPROF();
+                    $niveau = $seance->getNIVEAU();
+                    
+                    // Check if student is already assigned to this class
+                    if (Inscription::inscriptionExists($idprof, $eleveId, $numseance)) {
+                        continue;
+                    }
+
+                    // Check if student has the correct level for this class
+                    $eleve = personne::getById($eleveId);
+                    if ($eleve->getNIVEAU() != $niveau) {
+                        continue;
+                    }
                     
                     $inscription = new Inscription();
                     $inscription->setIDPROF($idprof);

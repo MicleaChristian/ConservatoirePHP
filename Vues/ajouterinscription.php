@@ -92,13 +92,13 @@ $seancesForJS = array_map(function ($seance) {
 <body>
     <?php include("header/header.php") ?>
 
-    <div class="container-fluid position-relative mt-3">
-        <h2 class="position-absolute top-0 start-50 translate-middle">Ajouter une inscription</h2>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Ajouter une inscription</h2>
         <form action="index.php?uc=inscription&action=ajouter" method="post" id="form">
             <input type="hidden" name="csrf_token" value="<?php echo Inscription::generateCSRFToken(); ?>">
-            <div class="mb-3">
+            <div class="mb-4">
                 <label for="numseance" class="form-label">Séance :</label>
-                <select class="form-control" id="numseance" name="numseance" required>
+                <select class="form-select" id="numseance" name="numseance" required>
                     <option value="">Sélectionner une séance</option>
                     <?php foreach ($lesSeances as $seance): ?>
                         <option value="<?php echo $seance->getNUMSEANCE(); ?>">
@@ -107,10 +107,12 @@ $seancesForJS = array_map(function ($seance) {
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="mb-3" id="eleves-container">
+            <div class="mb-4" id="eleves-container">
                 <!-- Pupils checkboxes will be dynamically added here -->
             </div>
-            <input type="submit" class="btn btn-primary" value="Ajouter">
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Ajouter</button>
+            </div>
         </form>
     </div>
 </body>

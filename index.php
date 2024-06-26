@@ -32,26 +32,6 @@ echo '<br>UC: ' . $uc;
 $loginController = new LoginController();
 
 switch ($uc) {
-    case "accueil_login" :
-        $uc = $_POST['uc'] ?? 'default';
-        $action = $_POST['action'] ?? 'default';
-
-        if ($uc === 'login' && $action === 'submit') {
-            $loginController = new LoginController();
-            $loginController->login();
-            exit;
-        } elseif ($uc === 'default') {
-            header('Location: index.php?uc=login');
-            exit;
-        }
-
-    case "login":
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $loginController->login();
-        } else {
-            $loginController->show();
-        }
-        break;
 
     case "accueil";
         include("Vues/accueil.php");
@@ -124,6 +104,27 @@ switch ($uc) {
 
     case "license":
         include("Vues/license_agreement.php");
+        break;
+
+            case "accueil_login" :
+        $uc = $_POST['uc'] ?? 'default';
+        $action = $_POST['action'] ?? 'default';
+
+        if ($uc === 'login' && $action === 'submit') {
+            $loginController = new LoginController();
+            $loginController->login();
+            exit;
+        } elseif ($uc === 'default') {
+            header('Location: index.php?uc=login');
+            exit;
+        }
+
+    case "login":
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $loginController->login();
+        } else {
+            $loginController->show();
+        }
         break;
     
     }

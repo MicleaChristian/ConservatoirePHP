@@ -1,7 +1,9 @@
 <?php
 require_once 'Modeles/monPdo.php';
+require_once 'Modeles/personne.class.php';
 
 MonPdo::checkSessionAndRedirect();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,41 +16,82 @@ MonPdo::checkSessionAndRedirect();
     <script defer src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js'></script>
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css'>
     <style>
-        .table-responsive {
-            margin: 0;
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
         }
 
-        .adminbutt {
-            white-space: nowrap;
-            width: 1%;
+        .card {
+            flex: 0 1 calc(33.333% - 1rem);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: none;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            background-color: white;
         }
 
-        .adminbutt .btn {
-            margin-right: 0.25rem;
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-body {
+            padding: 1rem;
+        }
+
+        .card-title {
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .card-text {
+            margin-bottom: 0.5rem;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .add-card {
+            background-color: #007bff !important;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .add-card:hover {
+            background-color: #0056b3 !important;
+        }
+
+        .add-card .card-body {
+            padding: 2rem;
+        }
+
+        .add-card .card-title {
+            font-size: 1.5rem;
         }
 
         @media (max-width: 767.98px) {
-            .adminbutt {
-                display: flex;
-                flex-direction: column;
-                width: auto;
-            }
-
-            .adminbutt .btn {
-                width: 100%;
-                margin-right: 0;
-                margin-bottom: 0.25rem;
-            }
-
-            .adminbutt .btn:last-child {
-                margin-bottom: 0;
-            }
-            .position-relative{
-                flex: center;
+            .card {
+                flex: 0 1 calc(100% - 1rem);
             }
         }
-
     </style>
+    <script>
+        function confirmDelete(url, name, firstname, event) {
+            event.stopPropagation(); // Stop the event from bubbling up to the card click event
+            if (confirm(`Etes vous sur de vouloir supprimer ${name} ${firstname}?`)) {
+                window.location.href = url;
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -56,49 +99,31 @@ MonPdo::checkSessionAndRedirect();
     <div class="position-relative mt-5 mb-3">
         <h2 class="d-flex justify-content-center mt-5">Les Professeurs</h2>
     </div>
-    <div class="container-fluid position-relative mt-5">
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Nom</th>
-                        <th scope="col" class="d-none d-md-table-cell">Prénom</th>
-                        <th scope="col" class="d-none d-sm-table-cell">Email</th>
-                        <?php if ($_SESSION['user_role'] == 'admin') : ?>
-                        <th scope="col" class="d-none d-lg-table-cell">Tel</th>
-                        <th scope="col" class="d-none d-xl-table-cell">Adresse</th>
-                        <?php endif ?>
-                        <th scope="col" class="d-none d-xl-table-cell">Instrument</th>
-                        <?php if ($_SESSION['user_role'] == 'admin') : ?>
-                        <th scope="col" class="d-none d-xl-table-cell">Salaire</th>
-                        <th scope="col">Actions</th>
-                        <?php endif ?>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    foreach ($lesPersonnes as $personne) {
-                        echo "<tr>";
-                        echo "<td>" . htmlspecialchars($personne->getNOM(), ENT_QUOTES, 'UTF-8') . "</td>";
-                        echo "<td class='d-none d-md-table-cell'>" . htmlspecialchars($personne->getPRENOM(), ENT_QUOTES, 'UTF-8') . "</td>";
-                        echo "<td class='d-none d-sm-table-cell'>" . htmlspecialchars($personne->getMAIL(), ENT_QUOTES, 'UTF-8') . "</td>";
-                        if ($_SESSION['user_role'] == 'admin') :
-                        echo "<td class='d-none d-lg-table-cell'>" . htmlspecialchars($personne->getTEL(), ENT_QUOTES, 'UTF-8') . "</td>";
-                        echo "<td class='d-none d-xl-table-cell'>" . htmlspecialchars($personne->getADRESSE(), ENT_QUOTES, 'UTF-8') . "</td>";
-                        endif;
-                        echo "<td class='d-none d-xl-table-cell'>" . htmlspecialchars($personne->getINSTRUMENT(), ENT_QUOTES, 'UTF-8') . "</td>";
-                        if ($_SESSION['user_role'] == 'admin') :
-                        echo "<td class='d-none d-xl-table-cell'>" . htmlspecialchars($personne->getSALAIRE(), ENT_QUOTES, 'UTF-8') . "</td>";
-                        echo "<td class='adminbutt'>";
-                        echo "<a href='index.php?uc=personne&action=supprimerprof&id=". htmlspecialchars($personne->getID(), ENT_QUOTES, 'UTF-8') ."' class='btn btn-danger btn-sm'>Supprimer</a>";
-                        echo "<a href='index.php?uc=personne&action=editer_formprof&id=". htmlspecialchars($personne->getID(), ENT_QUOTES, 'UTF-8') ."' class='btn btn-warning btn-sm'>Modifier</a>";
-                        echo "</td>";
-                        endif;
-                        echo "</tr>";
-                    }
-                    ?>
-                </tbody>
-            </table>
+    <div class="container-fluid position-relative mt-3">
+        <div class="card-container">
+            <?php
+            foreach ($lesPersonnes as $personne) {
+                echo "<div class='card' onclick=\"window.location.href='index.php?uc=personne&action=editer_formprof&id=" . htmlspecialchars($personne->getID(), ENT_QUOTES, 'UTF-8') . "'\">";
+                echo "<div class='card-body'>";
+                echo "<h5 class='card-title'>" . htmlspecialchars($personne->getNOM(), ENT_QUOTES, 'UTF-8') . " " . htmlspecialchars($personne->getPRENOM(), ENT_QUOTES, 'UTF-8') . "</h5>";
+                echo "<p class='card-text'><strong>Email:</strong> " . htmlspecialchars($personne->getMAIL(), ENT_QUOTES, 'UTF-8') . "</p>";
+                echo "<p class='card-text'><strong>Tel:</strong> " . htmlspecialchars($personne->getTEL(), ENT_QUOTES, 'UTF-8') . "</p>";
+                echo "<p class='card-text'><strong>Adresse:</strong> " . htmlspecialchars($personne->getADRESSE(), ENT_QUOTES, 'UTF-8') . "</p>";
+                echo "<p class='card-text'><strong>Instrument:</strong> " . htmlspecialchars($personne->getINSTRUMENT(), ENT_QUOTES, 'UTF-8') . "</p>";
+                echo "<p class='card-text'><strong>Salaire:</strong> " . htmlspecialchars($personne->getSALAIRE(), ENT_QUOTES, 'UTF-8') . "</p>";
+                echo "<div class='card-actions'>";
+                echo "<a href='#' onclick=\"confirmDelete('index.php?uc=personne&action=supprimerprof&id=" . htmlspecialchars($personne->getID(), ENT_QUOTES, 'UTF-8') . "', '" . htmlspecialchars($personne->getNOM(), ENT_QUOTES, 'UTF-8') . "', '" . htmlspecialchars($personne->getPRENOM(), ENT_QUOTES, 'UTF-8') . "', event)\" class='btn btn-danger btn-sm'>Supprimer</a>";
+                echo "<a href='index.php?uc=personne&action=editer_formprof&id=" . htmlspecialchars($personne->getID(), ENT_QUOTES, 'UTF-8') . "' class='btn btn-warning btn-sm'>Modifier</a>";
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
+            }
+            ?>
+            <div class="card add-card" onclick="window.location.href='index.php?uc=personne&action=ajout_formprof'">
+                <div class="card-body">
+                    <h5 class="card-title">Ajouter un professeur</h5>
+                </div>
+            </div>
         </div>
     </div>
 </body>

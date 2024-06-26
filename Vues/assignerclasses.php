@@ -5,10 +5,14 @@ require_once 'Modeles/personne.class.php';
 require_once 'Modeles/inscription.class.php';
 
 MonPdo::checkSessionAndRedirect();
+
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+$csrf_token = $_SESSION['csrf_token'];
+
 $eleveId = $_GET['eleve'];
 $eleve = personne::getById($eleveId);
-$lesSeances = Seance::afficherTous();
-$assignedSeances = Inscription::getAssignedStudentsByClass($eleveId);
 ?>
 
 <!DOCTYPE html>
@@ -30,9 +34,10 @@ $assignedSeances = Inscription::getAssignedStudentsByClass($eleveId);
     <?php include("header/header.php") ?>
 
     <div class="container-fluid position-relative mt-3">
-        <h2 class="d-flex justify-content-center mt-5">Assigner des classes à <?php echo $eleve->getNOM() . ' ' . $eleve->getPRENOM(); ?></h2>
-        <form action="index.php?uc=inscription&action=assign" method="post" id="form">
-            <input type="hidden" name="eleveId" value="<?php echo $eleveId; ?>">
+        <h2 class="d-flex justify-content-center mt-5">Inscrire <?php echo htmlspecialchars($eleve->getNOM() . ' ' . $eleve->getPRENOM(), ENT_QUOTES, 'UTF-8'); ?> à un cours</h2>
+        <form action="index.php?uc=inscription&action=ajouterclass" method="post" id="form">
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
+            <input type="hidden" name="eleveId" value="<?php echo htmlspecialchars($eleveId, ENT_QUOTES, 'UTF-8'); ?>">
             <div class="table-responsive mt-3">
                 <table class="table table-striped">
                     <thead>
@@ -45,19 +50,25 @@ $assignedSeances = Inscription::getAssignedStudentsByClass($eleveId);
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($lesSeances as $seance): ?>
+                        <?php if (empty($eligibleSeances)): ?>
                             <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="numseance[]" value="<?php echo $seance->getNUMSEANCE(); ?>" <?php echo in_array($seance->getNUMSEANCE(), $assignedSeances) ? 'checked' : ''; ?>>
-                                    </div>
-                                </td>
-                                <td><?php echo $seance->getIDPROF(); ?></td>
-                                <td><?php echo $seance->getJOUR(); ?></td>
-                                <td><?php echo $seance->getTRANCHE(); ?></td>
-                                <td><?php echo $seance->getNIVEAU(); ?></td>
+                                <td colspan="5" class="text-center">Aucun cours disponible pour cet élève</td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php else: ?>
+                            <?php foreach ($eligibleSeances as $seance): ?>
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="numseance[]" value="<?php echo htmlspecialchars($seance->getNUMSEANCE(), ENT_QUOTES, 'UTF-8'); ?>">
+                                        </div>
+                                    </td>
+                                    <td><?php echo htmlspecialchars($seance->getIDPROF(), ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><?php echo htmlspecialchars($seance->getJOUR(), ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><?php echo htmlspecialchars($seance->getTRANCHE(), ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><?php echo htmlspecialchars($seance->getNIVEAU(), ENT_QUOTES, 'UTF-8'); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>

@@ -1,16 +1,3 @@
-<?php
-require_once 'Modeles/monPdo.php';
-require_once 'Modeles/cours.class.php';
-require_once 'Modeles/prof.class.php';
-require_once 'Modeles/heure.class.php';
-require_once 'Modeles/jour.class.php';
-require_once 'Modeles/niveau.class.php';
-require_once 'Modeles/instrument.class.php';
-require_once 'Modeles/personne.class.php';
-
-MonPdo::checkSessionAndRedirect();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -69,7 +56,18 @@ MonPdo::checkSessionAndRedirect();
 </head>
 
 <body>
-<?php include("header/header.php") ?>
+<?php include("header/header.php");
+require_once 'Modeles/monPdo.php';
+require_once 'Modeles/cours.class.php';
+require_once 'Modeles/prof.class.php';
+require_once 'Modeles/heure.class.php';
+require_once 'Modeles/jour.class.php';
+require_once 'Modeles/niveau.class.php';
+require_once 'Modeles/instrument.class.php';
+require_once 'Modeles/personne.class.php';
+
+MonPdo::checkSessionAndRedirect();
+?>
 
 <div class="container planning-container">
     <h2 class="planning-header">Planning</h2>
@@ -102,17 +100,17 @@ MonPdo::checkSessionAndRedirect();
                     echo "<tr>";
                     echo "<th scope='row' class='table-light'>" . $heure['tranche'] . "</th>";
                     foreach ($jours as $jour) {
-                        $seances = Seance::getAllByJourAndTranche($jour['id'], $heure['tranche']);
+                        $seances = Seance::getAllByJourAndTrancheplanning($jour['id'], $heure['tranche']);
                         echo "<td";
                         if ($seances) {
                             echo " class='table-primary'><div class='class-container'>";
                             foreach ($seances as $seance) {
                                 $prof = personne::getById($seance->getIDPROF());
-                                $instrument = $prof->getINSTRUMENT();
+                                $instrument = $seance->getINSTRUMENT();
                                 echo "<div class='class-item'>";
                                 echo "<strong>Prof: " . substr($prof->getPRENOM(), 0, 1) . ". " . $prof->getNOM() . "</strong><br>";
-                                echo "Instrument: " . $instrument . "<br>";
-                                echo "Capacité: " . $seance->getCAPACITE() . " élèves";
+                                echo "Instrument: " . htmlspecialchars($instrument, ENT_QUOTES, 'UTF-8') . "<br>";
+                                echo "Capacité: " . htmlspecialchars($seance->getCAPACITE(), ENT_QUOTES, 'UTF-8') . " élèves";
                                 echo "</div>";
                             }
                             echo "</div>";
@@ -135,18 +133,18 @@ MonPdo::checkSessionAndRedirect();
             $heures = Heure::getAll();
             $hasSeance = false;
             foreach ($heures as $heure) {
-                $seances = Seance::getAllByJourAndTranche($jour['id'], $heure['tranche']);
+                $seances = Seance::getAllByJourAndTrancheplanning($jour['id'], $heure['tranche']);
                 if ($seances) {
                     $hasSeance = true;
                     foreach ($seances as $seance) {
                         $prof = personne::getById($seance->getIDPROF());
-                        $instrument = $prof->getINSTRUMENT();
+                        $instrument = $seance->getINSTRUMENT();
                         echo "<div class='card mb-3'>";
-                        echo "<div class='card-header'><strong>" . $heure['tranche'] . "</strong></div>";
+                        echo "<div class='card-header'><strong>" . htmlspecialchars($heure['tranche'], ENT_QUOTES, 'UTF-8') . "</strong></div>";
                         echo "<div class='card-body'>";
-                        echo "<p class='card-text'><strong>Prof: " . substr($prof->getPRENOM(), 0, 1) . ". " . $prof->getNOM() . "</strong></p>";
-                        echo "<p class='card-text'>Instrument: " . $instrument . "</p>";
-                        echo "<p class='card-text'>Capacité: " . $seance->getCAPACITE() . " élèves</p>";
+                        echo "<p class='card-text'><strong>Prof: " . htmlspecialchars(substr($prof->getPRENOM(), 0, 1), ENT_QUOTES, 'UTF-8') . ". " . htmlspecialchars($prof->getNOM(), ENT_QUOTES, 'UTF-8') . "</strong></p>";
+                        echo "<p class='card-text'>Instrument: " . htmlspecialchars($instrument, ENT_QUOTES, 'UTF-8') . "</p>";
+                        echo "<p class='card-text'>Capacité: " . htmlspecialchars($seance->getCAPACITE(), ENT_QUOTES, 'UTF-8') . " élèves</p>";
                         echo "</div>";
                         echo "</div>";
                     }

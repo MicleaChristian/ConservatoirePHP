@@ -9,7 +9,7 @@
     <style>
         @font-face {
             font-family: perpetua;
-            src: url(http://localhost/ConservatoirePHP/fonts/TitilliumWeb-Regular.ttf);
+            src: url(../fonts/TitilliumWeb-Regular.ttf);
         }
 
         body, input, button {
@@ -17,7 +17,7 @@
         }
 
         body {
-            background: url(http://localhost/ConservatoirePHP/img/backlogin.jpg) no-repeat center center fixed;
+            background: url(../img/backlogin.jpg) no-repeat center center fixed;
             background-size: cover;
             height: 100vh;
             margin: 0;

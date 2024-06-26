@@ -95,17 +95,14 @@ if ($userRole == 'admin') {
                         echo "<td class='table_h'>" . htmlspecialchars($user->USERNAME, ENT_QUOTES, 'UTF-8') . "</td>";
                         echo "<td class='table_h'>" . htmlspecialchars($user->ROLE, ENT_QUOTES, 'UTF-8') . "</td>";
                         echo "<td class='adminbutt'>";
-                        echo "<a href='#' onclick=\"confirmDelete('index.php?uc=user&action=supprimer&id=" . htmlspecialchars($user->ID, ENT_QUOTES, 'UTF-8') . "', '" . htmlspecialchars($user->USERNAME, ENT_QUOTES, 'UTF-8') . "')\" class='btn btn-danger btn-sm'>Supprimer</a>";
+                        if ($user->ROLE != 'admin') {
+                            echo "<a href='#' onclick=\"confirmDelete('index.php?uc=user&action=supprimer&id=" . htmlspecialchars($user->ID, ENT_QUOTES, 'UTF-8') . "', '" . htmlspecialchars($user->USERNAME, ENT_QUOTES, 'UTF-8') . "')\" class='btn btn-danger btn-sm'>Supprimer</a>";
+                        }
                         echo "<a href='index.php?uc=user&action=editer_form&id=" . htmlspecialchars($user->ID, ENT_QUOTES, 'UTF-8') . "' class='btn btn-warning btn-sm'>Modifier</a>";
                         echo "</td>";
                         echo "</tr>";
                     }
                     ?>
-                    <tr>
-                        <td colspan="4" class="adminbutt">
-                            <a href='index.php?uc=user&action=ajout_form' class='btn btn-primary btn-sm'>Ajouter un utilisateur</a>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>

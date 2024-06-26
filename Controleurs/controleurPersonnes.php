@@ -116,6 +116,7 @@ switch ($action) {
             $personne->setPRENOM(personne::securiser($_POST['prenom']));
             $personne->setMAIL(personne::securiser($_POST['mail']));
             $personne->setTEL(personne::securiser($_POST['tel']));
+            $personne->setBOURSE(personne::securiser($_POST['bourse']));
             $updatePersonne = personne::updatePersonne($personne);
             header('Location: index.php?uc=personne&action=liste');
         }

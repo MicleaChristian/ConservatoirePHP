@@ -56,6 +56,15 @@ require_once 'Modeles/personne.class.php';
                 <input type="text" class="form-control" id="tel" name="tel" value="<?php echo htmlspecialchars($personne->getTEL(), ENT_QUOTES, 'UTF-8'); ?>" required>
             </div>
         </div>
+        <div class="row mt-3">
+            <div class="col">
+                <label for="bourse" class="form-label">Bourse</label>
+                <select class="form-select" id="bourse" name="bourse" required>
+                    <option value="1" <?php echo $personne->getBOURSE() == 1 ? 'selected' : ''; ?>>Payée</option>
+                    <option value="0" <?php echo $personne->getBOURSE() == 0 ? 'selected' : ''; ?>>Impayée</option>
+                </select>
+            </div>
+        </div>
         <div class="d-flex justify-content-center mt-5">
             <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
             <a href="index.php?uc=personne&action=liste" class="btn btn-secondary ms-3">Retour à la liste des élèves</a>

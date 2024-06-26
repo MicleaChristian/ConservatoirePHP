@@ -238,6 +238,27 @@ class Seance
         }
         return false;
     }
+
+    public static function getAllByJourAndTrancheplanning($jour, $tranche)
+    {
+        $pdo = MonPdo::getInstance();
+        $stmt = $pdo->prepare(
+            "SELECT seance.*, prof.INSTRUMENT 
+             FROM seance 
+             JOIN prof ON seance.IDPROF = prof.IDPROF 
+             WHERE jour = :jour AND tranche = :tranche"
+        );
+    
+        $secureJour = self::securiser($jour);
+        $secureTranche = self::securiser($tranche);
+    
+        $stmt->bindParam(':jour', $secureJour);
+        $stmt->bindParam(':tranche', $secureTranche);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'Seance');
+    }
+    
+
 }
 ?>
 

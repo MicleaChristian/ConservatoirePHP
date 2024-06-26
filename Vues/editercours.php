@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once 'Modeles/monPdo.php';
 require_once 'Modeles/cours.class.php';
 require_once 'Modeles/prof.class.php';

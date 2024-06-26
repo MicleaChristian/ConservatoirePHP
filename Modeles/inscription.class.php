@@ -60,15 +60,15 @@ class Inscription
     }
 
     public static function inscriptionExists($idprof, $ideleve, $numseance)
-    {
-        $pdo = MonPdo::getInstance();
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM inscription WHERE IDPROF = :idprof AND IDELEVE = :ideleve AND NUMSEANCE = :numseance");
-        $stmt->bindValue(':idprof', $idprof, PDO::PARAM_INT);
-        $stmt->bindValue(':ideleve', $ideleve, PDO::PARAM_INT);
-        $stmt->bindValue(':numseance', $numseance, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchColumn() > 0;
-    }
+{
+    $pdo = MonPdo::getInstance();
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM inscription WHERE IDPROF = :idprof AND IDELEVE = :ideleve AND NUMSEANCE = :numseance");
+    $stmt->bindValue(':idprof', $idprof, PDO::PARAM_INT);
+    $stmt->bindValue(':ideleve', $ideleve, PDO::PARAM_INT);
+    $stmt->bindValue(':numseance', $numseance, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchColumn() > 0;
+}
 
     public static function ajouterInscription(Inscription $inscription)
     {
@@ -96,11 +96,17 @@ class Inscription
 
     public static function securiser($donnees)
     {
+        if (is_array($donnees)) {
+            return array_map([self::class, 'securiser'], $donnees);
+        }
         $donnees = trim($donnees);
         $donnees = stripslashes($donnees);
         $donnees = htmlspecialchars($donnees, ENT_QUOTES, 'UTF-8');
         return $donnees;
     }
+    
+
+
 
     public static function getByideleve($ideleve)
     {
